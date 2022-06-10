@@ -1,6 +1,3 @@
-
-
-
 sub main()
 	' Print information from Roku manifest
 	app_info = createObject("roAppInfo")
@@ -20,7 +17,7 @@ sub main()
 	? "Display Size: ", display_size.w;"x";display_size.h
 	? "UI Resolution: ", device_info.getUIResolution()
 	? "Video Mode: ", device_info.getVideoMode()
-	? "IP Address: ",device_info.getExternalIp()
+	? "IP Address: ", device_info.getExternalIp()
 
 	m.port = createObject("roMessagePort")
 	screen = createObject("roSGScreen")

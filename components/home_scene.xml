@@ -3,6 +3,7 @@
   <script type="text/brightscript" uri="home_scene.brs" />
   <children>
     <header_screen id="header_screen" />
+  
     <Label
       id="text"
       width="560"
