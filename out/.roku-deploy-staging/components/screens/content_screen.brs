@@ -1,6 +1,5 @@
 function init()
   m.content_grid = m.top.findNode("content_grid")
-  m.header = m.top.findNode("header")
 end function
 
 function onFeedChanged(obj)
