@@ -1,23 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<component name="home_scene" extends="Scene">
-  <script type="text/brightscript" uri="home_scene.brs" />  
-   <children>
-    <Overhang color="0x808080" showClock="false" /> 
-    <Button
-      id="button"
-      minWidth="240"
-      textColor="0xD0D0D0"
-      focusedTextColor="0x800080"
-      text="Change content below"
-    />    
-    <Label
-      id="text"
-      width="560"
-      height="24"
-      horizAlign="center"
-      text="test1"
-      color="0x000000"
-      font="font:LargeBoldSystemFont"
-    />
+<component name="home_scene" extends="Scene" initialFocus="header_screen">
+  <script type="text/brightscript" uri="home_scene.brs" />
+  <children>
+    <header_screen id="header_screen" visible="true" translation="[0, 0]" />
+    <content_screen id="content_screen" visible="false" translation="[0, 0]" />
   </children>
 </component>

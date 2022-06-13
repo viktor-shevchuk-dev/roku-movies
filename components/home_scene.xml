@@ -2,16 +2,7 @@
 <component name="home_scene" extends="Scene" initialFocus="header_screen">
   <script type="text/brightscript" uri="home_scene.brs" />
   <children>
-    <header_screen id="header_screen" />
-  
-    <Label
-      id="text"
-      width="560"
-      height="24"
-      horizAlign="center"
-      text="test1"
-      color="0x000"
-      font="font:LargeBoldSystemFont"
-    />
+    <header_screen id="header_screen" visible="true" translation="[0, 0]" />
+    <content_screen id="content_screen" visible="false" translation="[0, 0]" />
   </children>
 </component>
