@@ -5,13 +5,6 @@
         <field id="feed_data" type="assocarray" onChange="onFeedChanged" />
     </interface>
     <children>
-        <Label
-      translation="[75, 75]"
-      id="header"
-      color="0xFFFFFF"
-      font="font:LargeBoldSystemFont"
-      text=""
-    />
     <PosterGrid
       id="content_grid"
       translation="[100,175]"
