@@ -7,10 +7,7 @@
       alias="button_group.buttonSelected"
     />
 </interface>
-  <script
-    type="text/brightscript"
-    uri="pkg:/components/screens/header_screen.brs"
-  />
+  <script type="text/brightscript" uri="header_screen.brs" />
   <children>  
      <Group>
       <LayoutGroup
@@ -24,7 +21,7 @@
           textColor="0xD0D0D0"
           focusedTextColor="0x800080"
           layoutDirection="horiz"
-          buttons='["red cat", "black cat", "white cat"]'
+          buttons='["Red cats", "Black cats", "White cats"]'
           baseUrl="https://run.mocky.io/v3/0d5ecd8f-3da4-4ce1-97ab-7837a2e941d8"
         />
       </LayoutGroup>

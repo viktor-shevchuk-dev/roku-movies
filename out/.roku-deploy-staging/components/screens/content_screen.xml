@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <component name="content_screen" extends="Group" initialFocus="content_grid">
-    <script type="text/brightscript" uri="content_screen.brs" />
-    <interface>
-        <field id="feed_data" type="assocarray" onChange="onFeedChanged" />
-    </interface>
-    <children>
+  <script type="text/brightscript" uri="content_screen.brs" />
+  <interface>
+    <field id="feed_data" type="assocarray" onChange="onFeedChanged" />
+  </interface>
+  <children>
     <PosterGrid
       id="content_grid"
       translation="[100,175]"
@@ -15,5 +15,5 @@
       numColumns="3"
       numRows="4"
     />
-    </children>
+  </children>
 </component>

@@ -4,7 +4,7 @@ sub onFeedResponse(obj)
   if data <> invalid
     ' m.header_screen.visible = false
     m.content_screen.visible = true
-    color = m.selectedButtonText.replace("cat", "").trim()
+    color = LCase(m.selectedButtonText.replace("cats", "").trim())
 
     for each item in data
       if item.color = color
