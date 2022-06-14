@@ -1,3 +1,16 @@
+function onKeyEvent(key, press) as boolean
+  ? "[home_scene] onKeyEvent", key, press
+  if key = "back" and press
+    if m.content_screen.visible
+      m.content_screen.visible = false
+      m.header_screen.setFocus(true)
+      return true
+    end if
+  end if
+
+  return false
+end function
+
 sub onFeedResponse(obj)
   response = obj.getData()
   data = ParseJson(response)
@@ -39,7 +52,5 @@ function init()
   m.button_group = m.top.findNode("button_group")
 
   m.header_screen.observeField("button_selected", "onButtonSelected")
-  m.header_screen.setFocus(true)
+  ' m.header_screen.setFocus(true)
 end function
-
-
