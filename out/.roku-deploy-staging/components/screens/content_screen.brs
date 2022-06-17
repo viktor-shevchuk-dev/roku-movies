@@ -1,27 +1,33 @@
 sub onVisibleChange()
-  if m.top.visible = true then
+  if m.top.visible then
     m.content_grid.setFocus(true)
   end if
 end sub
 
-function init()
-  m.content_grid = m.top.findNode("content_grid")
+sub init()
+  m.content_grid = m.top.FindNode("content_grid")
+  m.heading = m.top.FindNode ("heading")
   m.top.observeField("visible", "onVisibleChange")
-end function
+end sub
 
-function onFeedChanged(obj)
+sub onFeedChanged(obj)
   feed = obj.getData()
-  imageUrls = feed.imageUrls
-  color = feed.color
+  m.heading.text = feed.title
   postercontent = createObject("roSGNode", "ContentNode")
-  for each imageUrl in imageUrls
+  for each item in feed.items
     node = createObject("roSGNode", "ContentNode")
-    node.HDGRIDPOSTERURL = imageUrl
-    node.SHORTDESCRIPTIONLINE1 = "This is a " + color + " cat."
+    node.streamformat = item.streamformat
+    node.title = item.title
+    node.url = item.url
+    node.description = item.description
+    thumbnail = "https://via.placeholder.com/240x60.png?text=" + item.title
+    node.HDGRIDPOSTERURL = thumbnail
+    node.SHORTDESCRIPTIONLINE1 = item.title
+    node.SHORTDESCRIPTIONLINE2 = item.description
     postercontent.appendChild(node)
   end for
   showpostergrid(postercontent)
-end function
+end sub
 
 sub showpostergrid(content)
   m.content_grid.content = content

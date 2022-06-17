@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<component name="home_scene" extends="Scene" initialFocus="header_screen">
+<component name="home_scene" extends="Scene">
   <script type="text/brightscript" uri="home_scene.brs" />
   <children>
-    <header_screen id="header_screen" visible="true" translation="[0, 0]" />
+     <category_screen
+      id="category_screen"
+      visible="true"
+      translation="[0, 0]"
+    />
     <content_screen id="content_screen" visible="false" translation="[0, 0]" />
   </children>
 </component>

@@ -17,6 +17,7 @@ function request()
   if http.AsyncGetToString() then
     msg = wait(10000, port)
     if (type(msg) = "roUrlEvent")
+      'HTTP response code can be <0 for Roku-defined errors
       if (msg.getresponsecode() > 0 and msg.getresponsecode() < 400)
         m.top.response = msg.getstring()
       else

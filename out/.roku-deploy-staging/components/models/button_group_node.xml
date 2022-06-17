@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<component name="button_group_node" extends="ButtonGroup">
-  <script type="text/brightscript" uri="button_group_node.brs" />
-  <interface>
-    <field id="baseUrl" type="string" />
-  </interface>
-</component>
