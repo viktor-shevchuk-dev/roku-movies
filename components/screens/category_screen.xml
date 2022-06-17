@@ -10,32 +10,12 @@
   </interface>
   <children>
   <LayoutGroup
-      id="header"
-      translation="[60, 40]"
+      translation="[60, 80]"
       itemSpacings="[20]"
       layoutDirection="horiz"
+      vertAlignment="center"
     >
     <Label id="env" font="font:LargeBoldSystemFont" text="PICK A CATEGORY:" />
-    <!-- <RadioButtonList
-        id="category_list"
-        translation="[100, 200]"
-        itemSize="[400,48]"
-      >
-     <ContentNode id="categories" role="content">
-      <category_node
-            title="DRAMA"
-            feed_url="https://run.mocky.io/v3/c9b5c49b-01b8-4bc9-a1cf-991aaa2d127c"
-          />
-      <category_node
-            title="COMEDY"
-            feed_url="https://run.mocky.io/v3/ffcb7aca-57ca-4202-b991-e3f425e45557"
-          />
-      <category_node
-            title="HORROR"
-            feed_url="https://run.mocky.io/v3/63b0e144-1c41-42f8-85ef-0e508097d481"
-          />
-     </ContentNode>
-    </RadioButtonList> -->
 
     <ButtonGroup layoutDirection="horiz" id="category_list">
      <category_node
