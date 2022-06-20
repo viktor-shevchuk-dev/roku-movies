@@ -3,6 +3,11 @@
   <script type="text/brightscript" uri="content_screen.brs" />
   <interface>
     <field id="feed_data" type="assocArray" onChange="onFeedChanged" />
+    <field
+      id="content_selected"
+      type="assocArray"
+      alias="content_grid.itemSelected"
+    />
   </interface>
   <children>
     <Label
