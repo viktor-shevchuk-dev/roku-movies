@@ -1,0 +1,8 @@
+{
+  "host": "https://run.mocky.io/v3/",
+  "categories": [
+    { "title": "Drama", "feed_url": "c9b5c49b-01b8-4bc9-a1cf-991aaa2d127c" },
+    { "title": "Comedy", "feed_url": "ffcb7aca-57ca-4202-b991-e3f425e45557" },
+    { "title": "Horror", "feed_url": "63b0e144-1c41-42f8-85ef-0e508097d481" }
+  ]
+}

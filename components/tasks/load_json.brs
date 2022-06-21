@@ -17,16 +17,18 @@ function request()
   if http.AsyncGetToString() then
     msg = wait(10000, port)
     if (type(msg) = "roUrlEvent")
-      'HTTP response code can be <0 for Roku-defined errors
       if (msg.getresponsecode() > 0 and msg.getresponsecode() < 400)
         m.top.response = msg.getstring()
       else
-        ? "feed load failed: "; msg.getfailurereason();" "; msg.getresponsecode();" "; m.top.url
+        reason = msg.getfailurereason()
+        responseCode = msg.getresponsecode()
         m.top.response = ""
+        m.top.error = "The data failed to load. " + chr(10) + reason + chr(10) + "Code: " + responseCode.toStr() + chr(10) + "URL: " + url
       end if
       http.asynccancel()
     else if (msg = invalid)
-      ? "feed load failed."
+      ? "The load failed."
+      m.top.error = "The load failed."
       m.top.response = ""
       http.asynccancel()
     end if

@@ -71,6 +71,7 @@ sub onCategorySelected(obj)
 	' item = obj.getRoSGNode().content.getChild(obj.getData())
 	selected_index = obj.getData()
 	item = list.getChild(selected_index)
+STOP
 	loadFeedJson(item.feed_url)
 end sub
 
