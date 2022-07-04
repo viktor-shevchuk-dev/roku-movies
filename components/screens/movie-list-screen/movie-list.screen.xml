@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="MovieListScreen" extends="Group" initialFocus="keyboard">
+    <script type="text/brightscript" uri="../../utils/helpers.brs" />
+    <script type="text/brightscript" uri="./movie-list.screen.brs" />
+    <children>
+    <Label
+      id="heading"
+      text="Search for Movies"
+      translation="[0, 60]"
+      font="font:MediumBoldSystemFont"
+    />
+    <Group id="input">
+    <DynamicMiniKeyboard id="keyboard" />
+    <Button id="searchButton" text="Search" />
+    </Group>
+    </children>
+</component>

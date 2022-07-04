@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="HomeScreen" extends="Group" initialFocus="homeGrid">
+    <script type="text/brightscript" uri="pkg:/components/utils/helpers.brs" />
+    <script type="text/brightscript" uri="./home.screen.brs" />
+    <interface>
+      <field
+      id="trendingData"
+      type="assocarray"
+      onChange="onTrendingDataChanged"
+    />
+    </interface>
+    <children>
+    <Label
+      id="heading"
+      text="Trending This Week"
+      translation="[0, 60]"
+      font="font:MediumBoldSystemFont"
+    />            
+        <PosterGrid
+      id="homeGrid"
+      translation="[100, 175]"
+      basePosterSize="[500, 280]"
+      itemSpacing="[110, 110]"
+      caption1NumLines="1"
+      caption2NumLines="1"
+      numColumns="3"
+      numRows="4"
+    />
+    </children>
+</component>
