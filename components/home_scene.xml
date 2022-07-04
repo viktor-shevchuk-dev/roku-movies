@@ -3,9 +3,13 @@
   <script type="text/brightscript" uri="pkg:/components/home_scene.brs" />
 <children>
      <HeaderScreen id="headerScreen" visible="true" translation="[0,0]" />
-     <HomeScreen id="homeScreen" visible="false" translation="[0, 0]" />
      <MovieListScreen
       id="movieListScreen"
+      visible="false"
+      translation="[0, 0]"
+    />
+     <SearchForMoviesScreen
+      id="searchForMoviesScreen"
       visible="false"
       translation="[0, 0]"
     />

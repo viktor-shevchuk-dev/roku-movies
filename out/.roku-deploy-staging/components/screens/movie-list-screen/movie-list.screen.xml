@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<component name="MovieListScreen" extends="Group" initialFocus="keyboard">
-    <script type="text/brightscript" uri="../../utils/helpers.brs" />
+<component name="MovieListScreen" extends="Group" initialFocus="homeGrid">
+    <script type="text/brightscript" uri="pkg:/components/utils/helpers.brs" />
     <script type="text/brightscript" uri="./movie-list.screen.brs" />
+    <interface>
+      <field id="data" type="assocarray" onChange="onDataChanged" />
+      <field id="title" type="string" onChange="onTitleChanged" />
+     </interface>
     <children>
     <Label
       id="heading"
-      text="Search for Movies"
+      text=""
       translation="[0, 60]"
       font="font:MediumBoldSystemFont"
+    />            
+        <PosterGrid
+      id="homeGrid"
+      translation="[100, 175]"
+      basePosterSize="[500, 280]"
+      itemSpacing="[110, 110]"
+      caption1NumLines="1"
+      caption2NumLines="1"
+      numColumns="3"
+      numRows="4"
     />
-    <Group id="input">
-    <DynamicMiniKeyboard id="keyboard" />
-    <Button id="searchButton" text="Search" />
-    </Group>
     </children>
 </component>

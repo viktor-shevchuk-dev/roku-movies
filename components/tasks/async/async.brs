@@ -20,12 +20,12 @@ function request()
       if (msg.getresponsecode() > 0 and msg.getresponsecode() < 400)
         m.top.response = msg.getstring()
       else
-        ? "trending load failed: "; msg.getfailurereason();" "; msg.getresponsecode();" "; m.top.url
+        ? "load failed: "; msg.getfailurereason();" "; msg.getresponsecode();" "; m.top.url
         m.top.response = ""
       end if
       http.asynccancel()
     else if (msg = invalid)
-      ? "trending load failed."
+      ? "load failed."
       m.top.response = ""
       http.asynccancel()
     end if

@@ -1,58 +1,45 @@
+function generateImageUrl(filepath)
+  if filepath = invalid
+    return ""
+  end if
+
+  return "https://image.tmdb.org/t/p/w300" + filepath
+end function
+
 sub onVisibleChange()
   if m.top.visible = true then
-    m.keyboard.setFocus(true)
+    m.homeGrid.setFocus(true)
   end if
 end sub
 
-sub onButtonSelected()
-  print m.keyboard.textEditBox.text
-end sub
-
-function adjustKeyboard(node)
-  node.textEditBox.voiceEnabled = true
-  node.setFocus(true)
-end function
-
-function adjustSearchButton(node)
-  node.observeField("buttonSelected", "onButtonSelected")
-  parent = node.getParent()
-  parentRect = parent.boundingRect()
-  x = parentRect.width
-  y = node.translation[1]
-  node.translation = [x, y]
-end function
-
-function init()
-  m.heading = m.top.findNode("heading")
-  m.keyboard = m.top.findNode("keyboard")
-  m.searchButton = m.top.findNode("searchButton")
-  m.input = m.top.findNode("input")
-
-  adjustHeading(m.heading)
-  adjustKeyboard(m.keyboard)
-  adjustSearchButton(m.searchButton)
-  center(m.input)
+sub init()
+  m.homeGrid = m.top.FindNode("homeGrid")
+  m.heading = m.top.FindNode("heading")
+  m.heading.font.size = 50
+  centerHorizontally(m.heading)
   m.top.observeField("visible", "onVisibleChange")
-end function
+end sub
 
-function handleRightClick()
-  m.searchButton.setFocus(true)
-  return true
-end function
+sub onTitleChanged(obj)
+  title = obj.getData()
+  m.heading.text = title
+end sub
 
-function handleLeftClick()
-  m.keyboard.setFocus(true)
-  return true
-end function
+sub onDataChanged(obj)
+  data = obj.getData()
+  postercontent = createObject("roSGNode", "ContentNode")
+  for each item in data.results
+    node = createObject("roSGNode", "ContentNode")
+    node.HDGRIDPOSTERURL = generateImageUrl(item.poster_path)
+    node.SHORTDESCRIPTIONLINE1 = item.title
+    node.SHORTDESCRIPTIONLINE2 = item.overview
+    postercontent.appendChild(node)
+  end for
+  showpostergrid(postercontent)
+end sub
 
-function onKeyEvent(key, press) as boolean
-  if key = "right"
-    return handleRightClick()
-  end if
-  if key = "left" and m.searchButton.hasFocus()
-    return handleLeftClick()
-  end if
-
-  return false
-
-end function
+sub showpostergrid(content)
+  m.homeGrid.content = content
+  m.homeGrid.visible = true
+  m.homeGrid.setFocus(true)
+end sub
