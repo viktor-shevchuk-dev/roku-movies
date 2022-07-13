@@ -5,6 +5,11 @@
     <interface>
       <field id="data" type="assocarray" onChange="onDataChanged" />
       <field id="title" type="string" onChange="onTitleChanged" />
+      <field
+      id="contentSelected"
+      type="assocarray"
+      alias="homeGrid.itemSelected"
+    />
      </interface>
     <children>
     <Label

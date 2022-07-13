@@ -41,25 +41,102 @@ sub onSearchButtonClicked()
   loadUrl("https://api.themoviedb.org/3/search/movie?api_key=04333487fae6801ae7461c72fe9ea316&language=en-US&page=1&include_adult=false&query=" + searchQuery)
 end sub
 
+sub onContentSelected(obj)
+  selectedIndex = obj.getData()
+  m.selectedMedia = m.movieListScreen.findNode("homeGrid").content.getChild(selectedIndex)
+  m.detailsScreen.content = m.selectedMedia
+  m.movieListScreen.visible = false
+  m.detailsScreen.visible = true
+end sub
+
+sub onPlayButtonPressed(obj)
+  switchScreens(m.detailsScreen, m.videoPlayer)
+  m.videoPlayer.content = m.selectedMedia
+  m.videoPlayer.control = "play"
+end sub
+
+sub onPlayerPositionChanged(obj)
+  ? "Player Position: ", obj.getData()
+end sub
+
+sub stopVideo()
+  m.videoPlayer.control = "stop"
+end sub
+
+sub onPlayerStateChanged(obj)
+  state = obj.getData()
+  ? "onPlayerStateChanged: ";state
+  if state = "error"
+    showErrorDialog(m.videoPlayer.errorMsg + chr(10) + "Error Code: " + m.videoPlayer.errorCode.toStr())
+  else if state = "finished"
+    stopVideo()
+    switchScreens(m.videoPlayer, m.detailsScreen)
+  end if
+end sub
+
+sub initializeVideoPlayer()
+  m.videoPlayer.EnableCookies()
+  m.videoPlayer.setCertificatesFile("common:/certs/ca-bundle.crt")
+  m.videoPlayer.InitClientCertificates()
+  m.videoPlayer.notificationInterval = 10
+  m.videoPlayer.observeFieldScoped("position", "onPlayerPositionChanged")
+  m.videoPlayer.observeFieldScoped("state", "onPlayerStateChanged")
+end sub
+
+sub showErrorDialog(message)
+  m.errorDialog.title = "ERROR"
+  m.errorDialog.message = message
+  m.errorDialog.visible = true
+  m.top.dialog = m.errorDialog
+end sub
+
 function init()
   ? "[home_scene] init"
   m.headerScreen = m.top.findNode("headerScreen")
   m.movieListScreen = m.top.findNode("movieListScreen")
   m.searchForMoviesScreen = m.top.findNode("searchForMoviesScreen")
+  m.detailsScreen = m.top.findNode("detailsScreen")
+  m.errorDialog = m.top.findNode("errorDialog")
+
+  m.videoPlayer = m.top.findNode("videoPlayer")
+  initializeVideoPlayer()
 
   m.headerScreen.observeField("pageSelected", "onCategorySelected")
   m.searchForMoviesScreen.observeField("searchButtonClicked", "onSearchButtonClicked")
+  m.movieListScreen.observeField("contentSelected", "onContentSelected")
+  m.detailsScreen.observeField("playButtonPressed", "onPlayButtonPressed")
+
   m.headerScreen.setFocus(true)
 end function
 
-function handleBackButtonClick()
-  if m.movieListScreen.visible or m.searchForMoviesScreen.visible
-    m.movieListScreen.visible = false
-    m.searchForMoviesScreen.visible = false
+function switchScreens(screenToHide, screenToShow)
+  screenToHide.visible = false
+  screenToShow.visible = true
+  screenToShow.setFocus(true)
 
-    m.headerScreen.visible = true
-    m.headerScreen.setFocus(true)
-    return true
+  return true
+end function
+
+function handleBackButtonClickFromMovieListScreen()
+  isSearchForMoviesTitle = Mid(m.movieListScreen.title, 1, 12) = "Searched for"
+  isTrendingThisWeekTitle = m.movieListScreen.title = "Trending This Week"
+  if isSearchForMoviesTitle
+    return switchScreens(m.movieListScreen, m.searchForMoviesScreen)
+  else if isTrendingThisWeekTitle
+    return switchScreens(m.movieListScreen, m.headerScreen)
+  end if
+end function
+
+function handleBackButtonClick()
+  if m.movieListScreen.visible
+    return handleBackButtonClickFromMovieListScreen()
+  else if m.searchForMoviesScreen.visible
+    return switchScreens(m.searchForMoviesScreen, m.headerScreen)
+  else if m.detailsScreen.visible
+    return switchScreens(m.detailsScreen, m.movieListScreen)
+  else if m.videoPlayer.visible
+    stopVideo()
+    return switchScreens(m.videoPlayer, m.detailsScreen)
   end if
 
   return false

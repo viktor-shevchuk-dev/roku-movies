@@ -25,11 +25,22 @@ sub onTitleChanged(obj)
   m.heading.text = title
 end sub
 
+sub loadUrl(url)
+  m.asyncTask = createObject("roSGNode", "LoadAsyncTask")
+  m.asyncTask.observeField("response", "onAsyncTaskResponse")
+  m.asyncTask.url = url
+  m.asyncTask.control = "RUN"
+end sub
+
 sub onDataChanged(obj)
   data = obj.getData()
   postercontent = createObject("roSGNode", "ContentNode")
   for each item in data.results
     node = createObject("roSGNode", "ContentNode")
+
+    node.streamformat = "hls"
+    node.url = "https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_16x9/bipbop_16x9_variant.m3u8"
+
     node.HDGRIDPOSTERURL = generateImageUrl(item.poster_path)
     node.SHORTDESCRIPTIONLINE1 = item.title
     node.SHORTDESCRIPTIONLINE2 = item.overview
