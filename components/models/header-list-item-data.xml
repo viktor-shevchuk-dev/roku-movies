@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<component name="RowListItemData" extends="ContentNode">
+<component name="HeaderListItemData" extends="ContentNode">
 <interface> 
   <field id="labelText" type="string" />
   <field id="urlToMakeQuery" type="string" />

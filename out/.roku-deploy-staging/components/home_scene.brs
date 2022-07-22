@@ -14,7 +14,7 @@ function handleReceivedConfig(config)
   m.APIKey = config.APIKey
   m.baseUrl = config.baseUrl
   params = { config: config }
-  m.headerScreen.callFunc("setRowListContent", params)
+  m.headerScreen.callFunc("setHeaderListContent", params)
   m.movieListScreen.callFunc("updateDummyVideos", params)
 end function
 
@@ -52,7 +52,7 @@ sub loadUrl(url)
 end sub
 
 sub onCategorySelected(obj)
-  list = m.headerScreen.findNode("rowList")
+  list = m.headerScreen.findNode("headerList")
   index = obj.getData()[1]
   category = list.content.getChild(0).getChild(index)
 

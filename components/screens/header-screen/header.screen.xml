@@ -5,20 +5,17 @@
     <field
       id="pageSelected"
       type="assocArray"
-      alias="rowList.rowItemSelected"
+      alias="headerList.rowItemSelected"
     />
-    <function name="setRowListContent" />
+    <function name="setHeaderListContent" />
   </interface>
     <children>
       <RowList
-      id="rowList"
+      id="headerList"
       translation="[100, 100]"
-      itemComponentName="RowListItem"
-      numRows="1"
-      rowHeights="[90]"
+      itemComponentName="HeaderListItem"
       rowItemSize="[[296, 90], [296, 90], [296, 90]]"
-      itemSpacing="[0, 80]"
       rowItemSpacing="[[20, 0]]"
     />
-   </children>
+    </children>
 </component>
