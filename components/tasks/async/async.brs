@@ -4,6 +4,9 @@ sub init()
 end sub
 
 function request()
+  if m.top.url = ""
+    m.top.error = "Url not provided."
+  end if
   url = m.top.url
   http = createObject("roUrlTransfer")
   http.RetainBodyOnError(true)
@@ -20,12 +23,13 @@ function request()
       if (msg.getresponsecode() > 0 and msg.getresponsecode() < 400)
         m.top.response = msg.getstring()
       else
-        ? "load failed: "; msg.getfailurereason();" "; msg.getresponsecode();" "; m.top.url
+        m.top.error = "Url failed to load. " + chr(10) + msg.getfailurereason() + chr(10) + "Code: " + msg.getresponsecode().toStr() + chr(10) + "URL: " + m.top.url
+
         m.top.response = ""
       end if
       http.asynccancel()
     else if (msg = invalid)
-      ? "load failed."
+      m.top.error = "Url failed to load. Unknown reason."
       m.top.response = ""
       http.asynccancel()
     end if

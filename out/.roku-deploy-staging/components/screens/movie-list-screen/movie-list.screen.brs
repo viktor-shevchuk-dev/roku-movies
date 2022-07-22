@@ -32,25 +32,35 @@ sub loadUrl(url)
   m.asyncTask.control = "RUN"
 end sub
 
+function getVideoUrl()
+  dummyVideosCount = m.dummyVideos.count()
+  url = m.dummyVideos[RND(dummyVideosCount)]
+  return url
+end function
+
 sub onDataChanged(obj)
   data = obj.getData()
-  postercontent = createObject("roSGNode", "ContentNode")
+  posterContent = createObject("roSGNode", "ContentNode")
   for each item in data.results
     node = createObject("roSGNode", "ContentNode")
-
-    node.streamformat = "hls"
-    node.url = "https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_16x9/bipbop_16x9_variant.m3u8"
+    node.id = item.id
+    node.streamformat = "mp4"
+    node.url = getVideoUrl()
 
     node.HDGRIDPOSTERURL = generateImageUrl(item.poster_path)
     node.SHORTDESCRIPTIONLINE1 = item.title
     node.SHORTDESCRIPTIONLINE2 = item.overview
-    postercontent.appendChild(node)
+    posterContent.appendChild(node)
   end for
-  showpostergrid(postercontent)
+  showPosterGrid(posterContent)
 end sub
 
-sub showpostergrid(content)
+sub showPosterGrid(content)
   m.homeGrid.content = content
   m.homeGrid.visible = true
   m.homeGrid.setFocus(true)
 end sub
+
+function updateDummyVideos(params)
+  m.dummyVideos = params.config.dummyVideos
+end function

@@ -10,6 +10,7 @@
       type="assocarray"
       alias="homeGrid.itemSelected"
     />
+      <function name="updateDummyVideos" />
      </interface>
     <children>
     <Label

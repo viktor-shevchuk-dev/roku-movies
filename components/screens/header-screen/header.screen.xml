@@ -5,29 +5,20 @@
     <field
       id="pageSelected"
       type="assocArray"
-      alias="headerList.itemSelected"
+      alias="rowList.rowItemSelected"
     />
+    <function name="setRowListContent" />
   </interface>
-  <children>
-     <Label
-      translation="[75, 150]"
-      id="env"
-      font="font:LargeBoldSystemFont"
-      text="PICK A CATEGORY:"
+    <children>
+      <RowList
+      id="rowList"
+      translation="[100, 100]"
+      itemComponentName="RowListItem"
+      numRows="1"
+      rowHeights="[90]"
+      rowItemSize="[[296, 90], [296, 90], [296, 90]]"
+      itemSpacing="[0, 80]"
+      rowItemSpacing="[[20, 0]]"
     />
-    <RadioButtonList
-      id="headerList"
-      translation="[100, 200]"
-      itemSize="[500, 48]"
-    >
-      <ContentNode id="pages" role="content">
-        <PageButtonNode
-          title="Home"
-          urlToMakeQuery="https://api.themoviedb.org/3/trending/movie/week?api_key=04333487fae6801ae7461c72fe9ea316"
-          id="movieListScreen"
-        />
-        <PageButtonNode title="Movies" id="searchForMoviesScreen" />
-      </ContentNode>
-    </RadioButtonList>
-  </children>
+   </children>
 </component>
