@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="ReviewsListContent" extends="ContentNode">
+<script type="text/brightscript" uri="../../../utils/helpers.brs" />
+<script type="text/brightscript" uri="./reviews-list-content.brs" />
+<interface>
+  <field id="reviews" type="roArray" onChange="onReviewsChanged" />
+</interface>
+  <children>
+    <ContentNode id="reviewsWrapper" />
+  </children>
+</component>

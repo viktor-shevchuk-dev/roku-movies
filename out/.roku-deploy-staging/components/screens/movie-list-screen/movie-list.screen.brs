@@ -1,11 +1,3 @@
-function generateImageUrl(filepath)
-  if filepath = invalid
-    return ""
-  end if
-
-  return "https://image.tmdb.org/t/p/w300" + filepath
-end function
-
 sub onVisibleChange()
   if m.top.visible = true then
     m.homeGrid.setFocus(true)
@@ -15,14 +7,13 @@ end sub
 sub init()
   m.homeGrid = m.top.FindNode("homeGrid")
   m.heading = m.top.FindNode("heading")
-  m.heading.font.size = 50
-  centerHorizontally(m.heading)
   m.top.observeField("visible", "onVisibleChange")
 end sub
 
 sub onTitleChanged(obj)
   title = obj.getData()
   m.heading.text = title
+  adjustHeading(m.heading)
 end sub
 
 sub loadUrl(url)
@@ -39,15 +30,15 @@ function getVideoUrl()
 end function
 
 sub onDataChanged(obj)
-  data = obj.getData()
+  results = obj.getData()
   posterContent = createObject("roSGNode", "ContentNode")
-  for each item in data.results
+  for each item in results
     node = createObject("roSGNode", "ContentNode")
     node.id = item.id
     node.streamformat = "mp4"
     node.url = getVideoUrl()
 
-    node.HDGRIDPOSTERURL = generateImageUrl(item.poster_path)
+    node.HDGRIDPOSTERURL = generateImageUrl(item.poster_path, "300")
     node.SHORTDESCRIPTIONLINE1 = item.title
     node.SHORTDESCRIPTIONLINE2 = item.overview
     posterContent.appendChild(node)

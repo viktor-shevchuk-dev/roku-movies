@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="ReviewsListItem" extends="Group">
+ 
+  <interface> 
+    <field id="itemContent" type="node" onChange="showcontent" />
+    <field id="focusPercent" type="float" onChange="showfocus" /> 
+    <field id="rowFocusPercent" type="float" />
+  </interface>
+ <script type="text/brightscript" uri="./reviews-list-item.brs" />
+  <children>
+    <Label id="author" translation="[ 0, 0 ]" horizAlign="left" width="492" />
+    <Poster id="itemPoster" translation="[ 0, 50 ]" width="200">
+     </Poster>
+    <Label id="review" translation="[ 0, 280 ]" width="1600" wrap="true" />
+  </children>
+</component>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="AdditionalInformationListItem" extends="Group">
+<interface> 
+  <field id="itemContent" type="node" onChange="itemContentChanged" /> 
+</interface>
+<script type="text/brightscript" uri="./additional-information-list-item.brs" />
+<children>
+  <Label id="itemText" translation="[20, 20]" font="font:MediumSystemFont" />  
+</children>
+</component>

@@ -13,17 +13,24 @@
       alwaysnotify="true"
       alias="playButton.buttonSelected"
     />
-    <field id="fetchMovieDetails" type="int" />
+    <field id="fetchMovieGenres" type="int" />
+    <field id="setMovieTitle" type="string" />
     <field
       id="movieDetails"
       type="assocarray"
       onChange="onMovieDetailsChanged"
     />
- 	</interface>
+    <field
+      id="additionalInformationSelected"
+      type="assocArray"
+      alias="additionalInformationList.rowItemSelected"
+    />
+    <function name="setDetailsContent" />
+  	</interface>
 	<script type="text/brightscript" uri="./details.screen.brs" />
 	<children>
-    <Poster id="thumbnail" width="500" height="280" translation="[100, 100]" />
-    <Button id="playButton" text="PLAY" translation="[100, 500]" />
+    <Poster id="thumbnail" width="500" height="750" translation="[100, 100]" />
+    <Button id="playButton" text="PLAY" translation="[100, 880]" />
     <Label
       id="title"
       font="font:LargeBoldSystemFont"
@@ -51,7 +58,7 @@
     />
     <LayoutGroup
       id="genresList"
-      translation="[700, 650]"
+      translation="[700, 640]"
       itemSpacings="[20]"
       layoutDirection="horiz"
     />
@@ -62,6 +69,13 @@
       width="800"
       text="Additional Information"
       translation="[700, 750]"
+    />
+    <RowList
+      id="additionalInformationList"
+      translation="[700, 850]"
+      itemComponentName="AdditionalInformationListItem"
+      rowItemSize="[[296, 90], [296, 90], [296, 90]]"
+      rowItemSpacing="[[20, 0]]"
     />
  	</children>
 </component>

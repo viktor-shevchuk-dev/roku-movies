@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="ReviewsScreen" extends="Group" initialFocus="homeGrid">
+    <script type="text/brightscript" uri="pkg:/components/utils/helpers.brs" />
+    <script type="text/brightscript" uri="./reviews.screen.brs" />
+    <interface>
+      <field id="reviews" type="roArray" onChange="onReviewsChanged" />
+      <field id="title" type="string" onChange="onTitleChanged" />
+      </interface>
+    <children>
+    <Label
+      id="heading"
+      text=""
+      translation="[0, 60]"
+      font="font:MediumBoldSystemFont"
+    />            
+    <RowList
+      id="reviewsList"
+      translation="[ 100, 100 ]"
+      itemComponentName="ReviewsListItem"
+      itemSize="[ 1720, 860 ]"
+      rowItemSize="[ [1620, 860] ]"
+      itemSpacing="[ 0, 40 ]"
+      showRowLabel="[ true ]"
+      drawFocusFeedback="false"
+      vertFocusAnimationStyle="fixedFocusWrap"
+      rowFocusAnimationStyle="fixedFocusWrap"
+    />
+    </children>
+</component>

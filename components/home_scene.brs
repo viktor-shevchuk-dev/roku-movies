@@ -15,11 +15,32 @@ function handleReceivedConfig(config)
   m.baseUrl = config.baseUrl
   params = { config: config }
   m.headerScreen.callFunc("setHeaderListContent", params)
+  m.detailsScreen.callFunc("setDetailsContent", params)
   m.movieListScreen.callFunc("updateDummyVideos", params)
 end function
 
 function handleMovieDetails(movieDetails)
   m.detailsScreen.movieDetails = movieDetails
+end function
+
+function handleCast(cast)
+  m.castScreen.title = "Cast of " + m.movieTitle
+  showScreen(m.castScreen.id)
+  m.castScreen.cast = cast
+end function
+
+function handleReviews(reviews)
+  m.reviewsScreen.title = "Reviews of " + m.movieTitle
+  showScreen(m.reviewsScreen.id)
+  m.reviewsScreen.reviews = reviews
+end function
+
+function handleReceivedMoviesOrReviews(results)
+  if results[0].title <> invalid
+    handleReceivedMovies(results)
+  else if results[0].author <> invalid
+    handleReviews(results)
+  end if
 end function
 
 sub onAsyncTaskResponse(obj)
@@ -31,11 +52,13 @@ sub onAsyncTaskResponse(obj)
   end if
 
   if data.results <> invalid
-    handleReceivedMovies(data)
+    handleReceivedMoviesOrReviews(data.results)
   else if data.categories <> invalid
     handleReceivedConfig(data)
   else if data.genres <> invalid
     handleMovieDetails(data)
+  else if data.cast <> invalid
+    handleCast(data.cast)
   end if
 end sub
 
@@ -62,6 +85,14 @@ sub onCategorySelected(obj)
     m.movieListScreen.title = "Trending This Week"
     loadUrl(category.urlToMakeQuery)
   end if
+end sub
+
+sub onAdditionalInformationSelected(obj)
+  list = m.detailsScreen.findNode("additionalInformationList")
+  index = obj.getData()[1]
+  category = list.content.getChild(0).getChild(index)
+  url = m.baseUrl + "/movie/" + m.movieId.toStr() + category.urlToMakeQuery + m.APIKey + "&language=en-US"
+  loadUrl(url)
 end sub
 
 sub onSearchButtonClicked()
@@ -120,9 +151,13 @@ sub showErrorDialog(message)
   m.top.dialog = m.errorDialog
 end sub
 
-sub fetchMovieDetails (obj)
-  movieId = obj.getData()
-  genresUrl = m.baseUrl + "/movie/" + movieId.toStr() + m.APIKey + "&language=en-US"
+sub setMovieTitle(obj)
+  m.movieTitle = obj.getData()
+end sub
+
+sub fetchMovieGenres(obj)
+  m.movieId = obj.getData()
+  genresUrl = m.baseUrl + "/movie/" + m.movieId.toStr() + m.APIKey + "&language=en-US"
 
   loadUrl(genresUrl)
 end sub
@@ -133,6 +168,8 @@ function init()
   m.movieListScreen = m.top.findNode("movieListScreen")
   m.searchForMoviesScreen = m.top.findNode("searchForMoviesScreen")
   m.detailsScreen = m.top.findNode("detailsScreen")
+  m.castScreen = m.top.findNode("castScreen")
+  m.reviewsScreen = m.top.findNode("reviewsScreen")
   m.errorDialog = m.top.findNode("errorDialog")
 
   m.videoPlayer = m.top.findNode("videoPlayer")
@@ -142,10 +179,12 @@ function init()
   m.searchForMoviesScreen.observeField("searchButtonClicked", "onSearchButtonClicked")
   m.movieListScreen.observeField("contentSelected", "onContentSelected")
   m.detailsScreen.observeField("playButtonPressed", "onPlayButtonPressed")
-  m.detailsScreen.observeField("fetchMovieDetails", "fetchMovieDetails")
+  m.detailsScreen.observeField("fetchMovieGenres", "fetchMovieGenres")
+  m.detailsScreen.observeField("additionalInformationSelected", "onAdditionalInformationSelected")
+  m.detailsScreen.observeField("setMovieTitle", "setMovieTitle")
 
   m.headerScreen.setFocus(true)
-  configUrl = "https://run.mocky.io/v3/9268e1d3-ef80-423e-b143-c0bb13b7e340"
+  configUrl = "https://run.mocky.io/v3/11c8372a-10a8-45aa-870c-db3767860bf0"
   loadUrl(configUrl)
 end function
 
@@ -177,6 +216,10 @@ function handleBackButtonClick()
   else if m.videoPlayer.visible
     stopVideo()
     return switchScreens(m.videoPlayer, m.detailsScreen)
+  else if m.castScreen.visible
+    return switchScreens(m.castScreen, m.detailsScreen)
+  else if m.reviewsScreen.visible
+    return switchScreens(m.reviewsScreen, m.detailsScreen)
   end if
 
   return false
