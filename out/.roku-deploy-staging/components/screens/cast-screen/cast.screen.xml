@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<component name="CastScreen" extends="Group" initialFocus="homeGrid">
+<component name="CastScreen" extends="Group" initialFocus="castGrid">
     <script type="text/brightscript" uri="pkg:/components/utils/helpers.brs" />
     <script type="text/brightscript" uri="./cast.screen.brs" />
     <interface>
+      <field
+      id="personSelected"
+      type="assocarray"
+      alias="castGrid.itemSelected"
+    />
       <field id="cast" type="roArray" onChange="onCastChanged" />
       <field id="title" type="string" onChange="onTitleChanged" />
       </interface>
@@ -14,7 +19,7 @@
       font="font:MediumBoldSystemFont"
     />            
     <PosterGrid
-      id="homeGrid"
+      id="castGrid"
       translation="[100, 175]"
       basePosterSize="[400, 600]"
       itemSpacing="[40, 40]"

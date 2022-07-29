@@ -6,7 +6,7 @@
       <field id="data" type="roArray" onChange="onDataChanged" />
       <field id="title" type="string" onChange="onTitleChanged" />
       <field
-      id="contentSelected"
+      id="movieSelected"
       type="assocarray"
       alias="homeGrid.itemSelected"
     />

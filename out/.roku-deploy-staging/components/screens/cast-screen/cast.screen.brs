@@ -1,11 +1,11 @@
 sub onVisibleChange()
   if m.top.visible = true then
-    m.homeGrid.setFocus(true)
+    m.castGrid.setFocus(true)
   end if
 end sub
 
 sub init()
-  m.homeGrid = m.top.FindNode("homeGrid")
+  m.castGrid = m.top.FindNode("castGrid")
   m.heading = m.top.FindNode("heading")
   m.top.observeField("visible", "onVisibleChange")
 end sub
@@ -25,9 +25,9 @@ sub onCastChanged(obj)
 end sub
 
 sub showPosterGrid(content)
-  m.homeGrid.content = content
-  m.homeGrid.visible = true
-  m.homeGrid.setFocus(true)
+  m.castGrid.content = content
+  m.castGrid.visible = true
+  m.castGrid.setFocus(true)
 end sub
 
 sub onTitleChanged(obj)

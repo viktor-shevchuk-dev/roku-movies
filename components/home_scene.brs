@@ -43,6 +43,10 @@ function handleReceivedMoviesOrReviews(results)
   end if
 end function
 
+sub handlePersonDetails(personDetails)
+  m.personScreen.personDetails = personDetails
+end sub
+
 sub onAsyncTaskResponse(obj)
   response = obj.getData()
   data = ParseJson(response)
@@ -59,6 +63,8 @@ sub onAsyncTaskResponse(obj)
     handleMovieDetails(data)
   else if data.cast <> invalid
     handleCast(data.cast)
+  else if data.name <> invalid
+    handlePersonDetails(data)
   end if
 end sub
 
@@ -102,17 +108,25 @@ sub onSearchButtonClicked()
   loadUrl(url)
 end sub
 
-sub onContentSelected(obj)
+sub onPersonSelected(obj)
   selectedIndex = obj.getData()
-  m.selectedMedia = m.movieListScreen.findNode("homeGrid").content.getChild(selectedIndex)
-  m.detailsScreen.content = m.selectedMedia
+  selectedPerson = m.castScreen.findNode("castGrid").content.getChild(selectedIndex)
+  m.personScreen.content = selectedPerson
+  m.castScreen.visible = false
+  m.personScreen.visible = true
+end sub
+
+sub onMovieSelected(obj)
+  selectedIndex = obj.getData()
+  m.selectedMovie = m.movieListScreen.findNode("homeGrid").content.getChild(selectedIndex)
+  m.detailsScreen.content = m.selectedMovie
   m.movieListScreen.visible = false
   m.detailsScreen.visible = true
 end sub
 
 sub onPlayButtonPressed(obj)
   switchScreens(m.detailsScreen, m.videoPlayer)
-  m.videoPlayer.content = m.selectedMedia
+  m.videoPlayer.content = m.selectedMovie
   m.videoPlayer.control = "play"
 end sub
 
@@ -155,6 +169,12 @@ sub setMovieTitle(obj)
   m.movieTitle = obj.getData()
 end sub
 
+sub fetchPersonDetails(obj)
+  personId = obj.getData()
+  personUrl = m.baseUrl + "/person/" + personId.toStr() + m.APIKey + "&language=en-US"
+  loadUrl(personUrl)
+end sub
+
 sub fetchMovieGenres(obj)
   m.movieId = obj.getData()
   genresUrl = m.baseUrl + "/movie/" + m.movieId.toStr() + m.APIKey + "&language=en-US"
@@ -170,18 +190,20 @@ function init()
   m.detailsScreen = m.top.findNode("detailsScreen")
   m.castScreen = m.top.findNode("castScreen")
   m.reviewsScreen = m.top.findNode("reviewsScreen")
+  m.personScreen = m.top.findNode("personScreen")
   m.errorDialog = m.top.findNode("errorDialog")
-
   m.videoPlayer = m.top.findNode("videoPlayer")
   initializeVideoPlayer()
 
   m.headerScreen.observeField("pageSelected", "onCategorySelected")
   m.searchForMoviesScreen.observeField("searchButtonClicked", "onSearchButtonClicked")
-  m.movieListScreen.observeField("contentSelected", "onContentSelected")
+  m.movieListScreen.observeField("movieSelected", "onMovieSelected")
   m.detailsScreen.observeField("playButtonPressed", "onPlayButtonPressed")
   m.detailsScreen.observeField("fetchMovieGenres", "fetchMovieGenres")
   m.detailsScreen.observeField("additionalInformationSelected", "onAdditionalInformationSelected")
   m.detailsScreen.observeField("setMovieTitle", "setMovieTitle")
+  m.castScreen.observeField("personSelected", "onPersonSelected")
+  m.personScreen.observeField("fetchPersonDetails", "fetchPersonDetails")
 
   m.headerScreen.setFocus(true)
   configUrl = "https://run.mocky.io/v3/11c8372a-10a8-45aa-870c-db3767860bf0"
@@ -220,6 +242,8 @@ function handleBackButtonClick()
     return switchScreens(m.castScreen, m.detailsScreen)
   else if m.reviewsScreen.visible
     return switchScreens(m.reviewsScreen, m.detailsScreen)
+  else if m.personScreen.visible
+    return switchScreens(m.personScreen, m.castScreen)
   end if
 
   return false

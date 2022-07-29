@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="PersonScreen" extends="Group" initialFocus="biographyContent">
+	<interface> 
+		<field
+      id="content"
+      type="node"
+      alwaysnotify="true"
+      onChange="onContentChange"
+    />
+		<field id="fetchPersonDetails" type="int" />
+		<field id="personDetails" type="assocarray" onChange="onPersonDetailsChanged" />
+   	</interface>
+	<script type="text/brightscript" uri="./person.screen.brs" />
+	<script type="text/brightscript" uri="../../utils/helpers.brs" />
+	<children> 
+		<Poster id="photo" translation="[90, 60]" />
+		<Label id="name" font="font:MediumBoldSystemFont" translation="[730, 64]" />
+		<Label
+      id="biography"
+      font="font:MediumBoldSystemFont"
+      translation="[730, 150]"
+      text="Biography"
+    />
+		<Group translation="[730, 230]">
+      <Rectangle
+        id="textRectangle"
+        width="1100"
+        height="460"
+        color="0x101010C0"
+      >
+        <ScrollableText
+          id="biographyContent"
+          translation="[ 20, 20 ]"
+          font="font:SmallBoldSystemFont"
+          horizAlign="left"
+          vertAlign="top"
+        />
+        <Rectangle id="instructionbar" color="0x222222FF">
+          <Rectangle id="upDownnInstruct" color="0x10101000">
+            <Poster
+              translation="[ 0, 10 ]"
+              uri="pkg:/images/dpad_updn_hd.png"
+            />
+            <Label
+              width="300"
+              translation="[ 90, 10 ]"
+              text="Scroll Up/Down"
+              horizAlign="right"
+            />
+          </Rectangle>
+        </Rectangle>
+      </Rectangle>
+    </Group>
+ 	</children>
+</component>
