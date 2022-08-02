@@ -23,7 +23,7 @@
       translation="[730, 136]"
       text="Biography"
     />
-		<Group translation="[730, 188]">
+		<Group translation="[730, 186]">
       <Rectangle
         id="textRectangle"
         width="1108"
@@ -56,12 +56,12 @@
     <Label
       id="knownFor"
       font="font:MediumBoldSystemFont"
-      translation="[730, 608]"
+      translation="[730, 604]"
       text="Known For"
     />
     <ZoomRowList
       id="knownForList"
-      translation="[730, 626]"
+      translation="[730, 622]"
       itemComponentName="SimpleGridItem"
       rowItemAspectRatio="[0.548]"
       rowItemZoomHeight="[368]"

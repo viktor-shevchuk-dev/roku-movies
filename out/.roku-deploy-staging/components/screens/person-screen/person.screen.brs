@@ -50,12 +50,8 @@ function focusChanged()
   end if
 end function
 
-function rowFocused()
-  '        print "grid row "; m.knownForList.rowFocused; " focused"
-end function
-
-function rowSelected()
-  '        print "grid row "; m.knownForList.rowSelected; " selected"
+function onRowItemSelected()
+  print m.knownForList.rowItemSelected; " selected"
 end function
 
 sub init()
@@ -66,10 +62,8 @@ sub init()
   m.biography = m.top.FindNode("biography")
   m.biographyContent = m.top.findNode("biographyContent")
   m.knownForList = m.top.findNode("knownForList")
-  m.simpleGridItem = m.knownForList.findNode("simpleGridItem")
-  ' m.simpleGridItem.width = 200
-
   adjustScrollableText()
+  m.knownForList.observeField("rowItemSelected", "onRowItemSelected")
 
   'knownForList continue developing the rowList below with known for movies. I got the known for movies. After clicking one movie - go to movieDetails page
   m.top.observeField("focusedChild", "focusChanged")
