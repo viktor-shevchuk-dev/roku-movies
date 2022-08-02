@@ -35,9 +35,21 @@ function handleReviews(reviews)
   m.reviewsScreen.reviews = reviews
 end function
 
-function handleReceivedMoviesOrReviews(results)
+sub handleKnownForMovies(movies)
+  m.personScreen.knownForMovies = movies
+end sub
+
+sub handleMovies(movies)
+  if m.personScreen.visible = true
+    handleKnownForMovies(movies)
+  else
+    handleReceivedMovies(movies)
+  end if
+end sub
+
+function handleResults(results)
   if results[0].title <> invalid
-    handleReceivedMovies(results)
+    handleMovies(results)
   else if results[0].author <> invalid
     handleReviews(results)
   end if
@@ -56,7 +68,7 @@ sub onAsyncTaskResponse(obj)
   end if
 
   if data.results <> invalid
-    handleReceivedMoviesOrReviews(data.results)
+    handleResults(data.results)
   else if data.categories <> invalid
     handleReceivedConfig(data)
   else if data.genres <> invalid
@@ -169,6 +181,12 @@ sub setMovieTitle(obj)
   m.movieTitle = obj.getData()
 end sub
 
+sub fetchKnownFor(obj)
+  personId = obj.getData()
+  knownForUrl = m.baseUrl + "/discover/movie" + m.APIKey + "&language=en-US&sort_by=popularity.desc&include_adult=false&page=1&with_cast=" + personId.toStr()
+  loadUrl(knownForUrl)
+end sub
+
 sub fetchPersonDetails(obj)
   personId = obj.getData()
   personUrl = m.baseUrl + "/person/" + personId.toStr() + m.APIKey + "&language=en-US"
@@ -204,6 +222,7 @@ function init()
   m.detailsScreen.observeField("setMovieTitle", "setMovieTitle")
   m.castScreen.observeField("personSelected", "onPersonSelected")
   m.personScreen.observeField("fetchPersonDetails", "fetchPersonDetails")
+  m.personScreen.observeField("fetchKnownFor", "fetchKnownFor")
 
   m.headerScreen.setFocus(true)
   configUrl = "https://run.mocky.io/v3/11c8372a-10a8-45aa-870c-db3767860bf0"

@@ -8,24 +8,26 @@
       onChange="onContentChange"
     />
 		<field id="fetchPersonDetails" type="int" />
+		<field id="fetchKnownFor" type="int" />
 		<field id="personDetails" type="assocarray" onChange="onPersonDetailsChanged" />
+		<field id="knownForMovies" type="roArray" onChange="onKnownForMoviesChanged" />
    	</interface>
 	<script type="text/brightscript" uri="./person.screen.brs" />
 	<script type="text/brightscript" uri="../../utils/helpers.brs" />
 	<children> 
-		<Poster id="photo" translation="[90, 60]" />
-		<Label id="name" font="font:MediumBoldSystemFont" translation="[730, 64]" />
+		<Poster id="photo" translation="[90, 50]" />
+		<Label id="name" font="font:MediumBoldSystemFont" translation="[730, 52]" />
 		<Label
       id="biography"
       font="font:MediumBoldSystemFont"
-      translation="[730, 150]"
+      translation="[730, 136]"
       text="Biography"
     />
-		<Group translation="[730, 230]">
+		<Group translation="[730, 188]">
       <Rectangle
         id="textRectangle"
-        width="1100"
-        height="460"
+        width="1108"
+        height="400"
         color="0x101010C0"
       >
         <ScrollableText
@@ -51,5 +53,18 @@
         </Rectangle>
       </Rectangle>
     </Group>
+    <Label
+      id="knownFor"
+      font="font:MediumBoldSystemFont"
+      translation="[730, 608]"
+      text="Known For"
+    />
+    <ZoomRowList
+      id="knownForList"
+      translation="[730, 626]"
+      itemComponentName="SimpleGridItem"
+      rowItemAspectRatio="[0.548]"
+      rowItemZoomHeight="[368]"
+    />
  	</children>
 </component>
