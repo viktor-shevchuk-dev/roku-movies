@@ -11,6 +11,11 @@
 		<field id="fetchKnownFor" type="int" />
 		<field id="personDetails" type="assocarray" onChange="onPersonDetailsChanged" />
 		<field id="knownForMovies" type="roArray" onChange="onKnownForMoviesChanged" />
+    <field
+      id="knownForMovieSelected"
+      type="assocarray"
+      alias="knownForList.rowItemSelected"
+    />
    	</interface>
 	<script type="text/brightscript" uri="./person.screen.brs" />
 	<script type="text/brightscript" uri="../../utils/helpers.brs" />

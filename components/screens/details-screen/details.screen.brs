@@ -37,7 +37,11 @@ sub onContentChange(obj)
   item = obj.getData()
   m.title.text = item.SHORTDESCRIPTIONLINE1
   m.description.text = item.SHORTDESCRIPTIONLINE2
-  m.thumbnail.uri = item.HDGRIDPOSTERURL
+  if item.HDGRIDPOSTERURL <> ""
+    m.thumbnail.uri = item.HDGRIDPOSTERURL
+  else if item.HDPOSTERURL <> ""
+    m.thumbnail.uri = item.HDPOSTERURL
+  end if
   m.top.fetchMovieGenres = item.id
   m.top.setMovieTitle = item.SHORTDESCRIPTIONLINE1
 end sub

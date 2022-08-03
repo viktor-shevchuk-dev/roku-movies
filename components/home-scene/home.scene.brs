@@ -1,12 +1,27 @@
-sub showScreen(screenId)
-  m.headerScreen.visible = false
+function showScreen(screen)
   m.top.focusedChild.visible = false
-  screenToShow = m.top.findNode(screenId)
+  screenToShow = m.top.findNode(screen.screenId)
   screenToShow.visible = true
+  screenToShow.setFocus(true)
+  if screen.addContentIfPresent = true and screen.content <> invalid
+    screenToShow.content = screen.content
+  end if
+
+  return true
+end function
+
+sub showNewScreenWithSavingCurrent(screenToShowId)
+  currentScreen = m.top.findNode(m.top.focusedChild.id)
+  currentScreenContent = currentScreen.content
+
+  historyItem = { screenId: m.top.focusedChild.id, content: currentScreenContent }
+  m.screensHistory.push(historyItem)
+
+  showScreen({ screenId: screenToShowId })
 end sub
 
 function handleReceivedMovies(movies)
-  showScreen(m.movieListScreen.id)
+  showNewScreenWithSavingCurrent(m.movieListScreen.id)
   m.movieListScreen.data = movies
 end function
 
@@ -25,13 +40,13 @@ end function
 
 function handleCast(cast)
   m.castScreen.title = "Cast of " + m.movieTitle
-  showScreen(m.castScreen.id)
+  showNewScreenWithSavingCurrent(m.castScreen.id)
   m.castScreen.cast = cast
 end function
 
 function handleReviews(reviews)
   m.reviewsScreen.title = "Reviews of " + m.movieTitle
-  showScreen(m.reviewsScreen.id)
+  showNewScreenWithSavingCurrent(m.reviewsScreen.id)
   m.reviewsScreen.reviews = reviews
 end function
 
@@ -59,6 +74,28 @@ sub handlePersonDetails(personDetails)
   m.personScreen.personDetails = personDetails
 end sub
 
+sub handleData(data)
+  results = data.results
+  categories = data.categories
+  genres = data.genres
+  cast = data.cast
+  name = data.name
+
+  if results <> invalid and results.count() > 0
+    handleResults(results)
+  else if categories <> invalid and categories.count() > 0
+    handleReceivedConfig(data)
+  else if genres <> invalid and genres.count() > 0
+    handleMovieDetails(data)
+  else if cast <> invalid and cast.count() > 0
+    handleCast(data.cast)
+  else if name <> invalid
+    handlePersonDetails(data)
+  else
+    showErrorDialog("No data found.")
+  end if
+end sub
+
 sub onAsyncTaskResponse(obj)
   response = obj.getData()
   data = ParseJson(response)
@@ -67,17 +104,7 @@ sub onAsyncTaskResponse(obj)
     return
   end if
 
-  if data.results <> invalid
-    handleResults(data.results)
-  else if data.categories <> invalid
-    handleReceivedConfig(data)
-  else if data.genres <> invalid
-    handleMovieDetails(data)
-  else if data.cast <> invalid
-    handleCast(data.cast)
-  else if data.name <> invalid
-    handlePersonDetails(data)
-  end if
+  handleData(data)
 end sub
 
 sub onLoadingUrlError(obj)
@@ -98,7 +125,7 @@ sub onCategorySelected(obj)
   category = list.content.getChild(0).getChild(index)
 
   if category.urlToMakeQuery = ""
-    showScreen(category.id)
+    showNewScreenWithSavingCurrent(category.id)
   else
     m.movieListScreen.title = "Trending This Week"
     loadUrl(category.urlToMakeQuery)
@@ -124,20 +151,25 @@ sub onPersonSelected(obj)
   selectedIndex = obj.getData()
   selectedPerson = m.castScreen.findNode("castGrid").content.getChild(selectedIndex)
   m.personScreen.content = selectedPerson
-  m.castScreen.visible = false
-  m.personScreen.visible = true
+  showNewScreenWithSavingCurrent(m.personScreen.id)
+end sub
+
+sub onKnownForMovieSelected(obj)
+  selectedKnownForMovieIndex = obj.getData()[1]
+  selectedKnownForMovie = m.personScreen.findNode("knownForList").content.getChild(0).getChild(selectedKnownForMovieIndex)
+  m.detailsScreen.content = selectedKnownForMovie
+  showNewScreenWithSavingCurrent(m.detailsScreen.id)
 end sub
 
 sub onMovieSelected(obj)
   selectedIndex = obj.getData()
   m.selectedMovie = m.movieListScreen.findNode("homeGrid").content.getChild(selectedIndex)
   m.detailsScreen.content = m.selectedMovie
-  m.movieListScreen.visible = false
-  m.detailsScreen.visible = true
+  showNewScreenWithSavingCurrent(m.detailsScreen.id)
 end sub
 
 sub onPlayButtonPressed(obj)
-  switchScreens(m.detailsScreen, m.videoPlayer)
+  showNewScreenWithSavingCurrent(m.videoPlayer.id)
   m.videoPlayer.content = m.selectedMovie
   m.videoPlayer.control = "play"
 end sub
@@ -157,7 +189,7 @@ sub onPlayerStateChanged(obj)
     showErrorDialog(m.videoPlayer.errorMsg + chr(10) + "Error Code: " + m.videoPlayer.errorCode.toStr())
   else if state = "finished"
     stopVideo()
-    switchScreens(m.videoPlayer, m.detailsScreen)
+    showNewScreenWithSavingCurrent(m.detailsScreen.id)
   end if
 end sub
 
@@ -216,6 +248,7 @@ function init()
   m.headerScreen.observeField("pageSelected", "onCategorySelected")
   m.searchForMoviesScreen.observeField("searchButtonClicked", "onSearchButtonClicked")
   m.movieListScreen.observeField("movieSelected", "onMovieSelected")
+  m.personScreen.observeField("knownForMovieSelected", "onKnownForMovieSelected")
   m.detailsScreen.observeField("playButtonPressed", "onPlayButtonPressed")
   m.detailsScreen.observeField("fetchMovieGenres", "fetchMovieGenres")
   m.detailsScreen.observeField("additionalInformationSelected", "onAdditionalInformationSelected")
@@ -223,53 +256,15 @@ function init()
   m.castScreen.observeField("personSelected", "onPersonSelected")
   m.personScreen.observeField("fetchPersonDetails", "fetchPersonDetails")
   m.personScreen.observeField("fetchKnownFor", "fetchKnownFor")
-
+  m.screensHistory = []
   m.headerScreen.setFocus(true)
   configUrl = "https://run.mocky.io/v3/11c8372a-10a8-45aa-870c-db3767860bf0"
   loadUrl(configUrl)
 end function
 
-function switchScreens(screenToHide, screenToShow)
-  screenToHide.visible = false
-  screenToShow.visible = true
-  screenToShow.setFocus(true)
-
-  return true
-end function
-
-function handleBackButtonClickFromMovieListScreen()
-  isSearchForMoviesTitle = Mid(m.movieListScreen.title, 1, 12) = "Searched for"
-  isTrendingThisWeekTitle = m.movieListScreen.title = "Trending This Week"
-  if isSearchForMoviesTitle
-    return switchScreens(m.movieListScreen, m.searchForMoviesScreen)
-  else if isTrendingThisWeekTitle
-    return switchScreens(m.movieListScreen, m.headerScreen)
-  end if
-end function
-
-function handleBackButtonClick()
-  if m.movieListScreen.visible
-    return handleBackButtonClickFromMovieListScreen()
-  else if m.searchForMoviesScreen.visible
-    return switchScreens(m.searchForMoviesScreen, m.headerScreen)
-  else if m.detailsScreen.visible
-    return switchScreens(m.detailsScreen, m.movieListScreen)
-  else if m.videoPlayer.visible
-    stopVideo()
-    return switchScreens(m.videoPlayer, m.detailsScreen)
-  else if m.castScreen.visible
-    return switchScreens(m.castScreen, m.detailsScreen)
-  else if m.reviewsScreen.visible
-    return switchScreens(m.reviewsScreen, m.detailsScreen)
-  else if m.personScreen.visible
-    return switchScreens(m.personScreen, m.castScreen)
-  end if
-
-  return false
-end function
-
 function onKeyEvent(key, press) as boolean
   ? "[home_scene] onKeyEvent", key, press
+
   if key = "back" and press
     return handleBackButtonClick()
   end if

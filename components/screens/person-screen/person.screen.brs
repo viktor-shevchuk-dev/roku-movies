@@ -14,7 +14,10 @@ sub onKnownForMoviesChanged(obj)
   for each knownForMovie in knownForMovies
     item = row.CreateChild("ContentNode")
     item.title = knownForMovie.original_title
-    item.hdposterurl = generateImageUrl(knownForMovie.poster_path, "200")
+    item.hdposterurl = generateImageUrl(knownForMovie.poster_path, "300")
+    item.id = knownForMovie.id
+    item.SHORTDESCRIPTIONLINE1 = knownForMovie.original_title
+    item.SHORTDESCRIPTIONLINE2 = knownForMovie.overview
   end for
   content.appendChild(row)
   m.knownForList.content = content
@@ -50,10 +53,6 @@ function focusChanged()
   end if
 end function
 
-function onRowItemSelected()
-  print m.knownForList.rowItemSelected; " selected"
-end function
-
 sub init()
   m.top.observeField("visible", "onVisibleChange")
   m.photo = m.top.findNode("photo")
@@ -63,7 +62,6 @@ sub init()
   m.biographyContent = m.top.findNode("biographyContent")
   m.knownForList = m.top.findNode("knownForList")
   adjustScrollableText()
-  m.knownForList.observeField("rowItemSelected", "onRowItemSelected")
 
   'knownForList continue developing the rowList below with known for movies. I got the known for movies. After clicking one movie - go to movieDetails page
   m.top.observeField("focusedChild", "focusChanged")
