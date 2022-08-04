@@ -3,7 +3,7 @@ function showScreen(screen)
   screenToShow = m.top.findNode(screen.screenId)
   screenToShow.visible = true
   screenToShow.setFocus(true)
-  if screen.addContentIfPresent = true and screen.content <> invalid
+  if screen.content <> invalid
     screenToShow.content = screen.content
   end if
 
