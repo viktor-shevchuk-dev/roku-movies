@@ -10,15 +10,12 @@ sub init()
   m.top.observeField("visible", "onVisibleChange")
 end sub
 
-sub onTitleChanged(obj)
-  title = obj.getData()
-  m.heading.text = title
-  adjustHeading(m.heading)
-end sub
-
 sub onReviewsChanged(obj)
   reviews = obj.getData()
+  m.heading.text = reviews.title
+  adjustHeading(m.heading)
+
   m.reviewslist.content = CreateObject("roSGNode", "ReviewsListContent")
-  m.reviewslist.content.reviews = reviews
+  m.reviewslist.content.reviews = reviews.reviews
   m.reviewslist.setFocus(true)
 end sub

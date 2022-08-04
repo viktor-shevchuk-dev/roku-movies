@@ -12,8 +12,11 @@ end sub
 
 sub onCastChanged(obj)
   cast = obj.getData()
+  m.heading.text = cast.title
+  adjustHeading(m.heading)
+
   posterContent = createObject("roSGNode", "ContentNode")
-  for each item in cast
+  for each item in cast.cast
     node = createObject("roSGNode", "ContentNode")
     node.id = item.id
     node.HDGRIDPOSTERURL = generateImageUrl(item.profile_path, "400")
@@ -28,10 +31,4 @@ sub showPosterGrid(content)
   m.castGrid.content = content
   m.castGrid.visible = true
   m.castGrid.setFocus(true)
-end sub
-
-sub onTitleChanged(obj)
-  title = obj.getData()
-  m.heading.text = title
-  adjustHeading(m.heading)
 end sub

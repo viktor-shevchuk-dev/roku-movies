@@ -8,8 +8,7 @@
       type="assocarray"
       alias="castGrid.itemSelected"
     />
-      <field id="cast" type="roArray" onChange="onCastChanged" />
-      <field id="title" type="string" onChange="onTitleChanged" />
+      <field id="content" type="roAssociativeArray" onChange="onCastChanged" />
       </interface>
     <children>
     <Label

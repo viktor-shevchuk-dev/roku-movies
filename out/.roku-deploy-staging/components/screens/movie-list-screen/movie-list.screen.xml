@@ -3,7 +3,7 @@
     <script type="text/brightscript" uri="pkg:/components/utils/helpers.brs" />
     <script type="text/brightscript" uri="./movie-list.screen.brs" />
     <interface>
-      <field id="data" type="roArray" onChange="onDataChanged" />
+      <field id="content" type="roArray" onChange="onDataChanged" />
       <field id="title" type="string" onChange="onTitleChanged" />
       <field
       id="movieSelected"

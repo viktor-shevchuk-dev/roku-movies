@@ -22,7 +22,7 @@ end sub
 
 function handleReceivedMovies(movies)
   showNewScreenWithSavingCurrent(m.movieListScreen.id)
-  m.movieListScreen.data = movies
+  m.movieListScreen.content = movies
 end function
 
 function handleReceivedConfig(config)
@@ -39,15 +39,15 @@ function handleMovieDetails(movieDetails)
 end function
 
 function handleCast(cast)
-  m.castScreen.title = "Cast of " + m.movieTitle
   showNewScreenWithSavingCurrent(m.castScreen.id)
-  m.castScreen.cast = cast
+  castContent = { title: "Cast of " + m.movieTitle, cast: cast }
+  m.castScreen.content = castContent
 end function
 
 function handleReviews(reviews)
-  m.reviewsScreen.title = "Reviews of " + m.movieTitle
   showNewScreenWithSavingCurrent(m.reviewsScreen.id)
-  m.reviewsScreen.reviews = reviews
+  reviewsContent = { title: "Reviews of " + m.movieTitle, reviews: reviews }
+  m.reviewsScreen.content = reviewsContent
 end function
 
 sub handleKnownForMovies(movies)

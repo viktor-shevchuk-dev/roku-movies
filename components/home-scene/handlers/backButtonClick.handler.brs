@@ -1,23 +1,26 @@
 function handleBackButtonClickFromMovieListScreen()
-  previousScreenId = m.screensHistory.pop().screenId
-  if previousScreenId = "searchForMoviesScreen"
-    return showScreen({ screenId: m.searchForMoviesScreen.id })
-  else if previousScreenId = "headerScreen"
+  screenToGo = m.screensHistory.pop()
+  screenToGoId = screenToGo.screenId
+  screenToGoContent = screenToGo.content
+
+  if screenToGoId = "searchForMoviesScreen"
+    return showScreen({ screenId: m.searchForMoviesScreen.id, content: screenToGoContent })
+  else if screenToGoId = "headerScreen"
     return showScreen({ screenId: m.headerScreen.id })
   end if
 end function
 
 function handleBackButtonClickFromDetailsScreen()
-  previousScreen = m.screensHistory.pop()
-  previousScreenId = previousScreen.screenId
-  previousScreenContent = previousScreen.content
+  screenToGo = m.screensHistory.pop()
+  screenToGoId = screenToGo.screenId
+  screenToGoContent = screenToGo.content
 
-  if previousScreenId = "personScreen"
-    return showScreen({ screenId: m.personScreen.id, addContentIfPresent: true, content: previousScreenContent })
-  else if previousScreenId = "movieListScreen"
-    return showScreen({ screenId: m.movieListScreen.id })
-  else if previousScreenId = "castScreen"
-    return showScreen({ screenId: m.castScreen.id })
+  if screenToGoId = "personScreen"
+    return showScreen({ screenId: m.personScreen.id, addContentIfPresent: true, content: screenToGoContent })
+  else if screenToGoId = "movieListScreen"
+    return showScreen({ screenId: m.movieListScreen.id, addContentIfPresent: true, content: screenToGoContent })
+  else if screenToGoId = "castScreen"
+    return showScreen({ screenId: m.castScreen.id, addContentIfPresent: true, content: screenToGoContent })
   end if
 end function
 
@@ -32,15 +35,23 @@ function handleBackButtonClick()
     stopVideo()
     return showScreen({ screenId: m.screensHistory.pop().screenId })
   else if m.castScreen.visible
-    previousScreen = m.screensHistory.pop()
-    previousScreenId = previousScreen.screenId
-    previousScreenContent = previousScreen.content
+    screenToGo = m.screensHistory.pop()
+    screenToGoId = screenToGo.screenId
+    screenToGoContent = screenToGo.content
 
-    return showScreen({ screenId: previousScreenId, addContentIfPresent: true, content: previousScreenContent })
+    return showScreen({ screenId: screenToGoId, addContentIfPresent: true, content: screenToGoContent })
   else if m.reviewsScreen.visible
-    return showScreen({ screenId: m.screensHistory.pop().screenId, addContentIfPresent: true })
+    screenToGo = m.screensHistory.pop()
+    screenToGoId = screenToGo.screenId
+    screenToGoContent = screenToGo.content
+
+    return showScreen({ screenId: screenToGoId, addContentIfPresent: true, content: screenToGoContent })
   else if m.personScreen.visible
-    return showScreen({ screenId: m.screensHistory.pop().screenId, addContentIfPresent: true })
+    screenToGo = m.screensHistory.pop()
+    screenToGoId = screenToGo.screenId
+    screenToGoContent = screenToGo.content
+
+    return showScreen({ screenId: screenToGoId, addContentIfPresent: true, content: screenToGoContent })
   end if
 
   return false
