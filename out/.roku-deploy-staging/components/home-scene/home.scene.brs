@@ -154,7 +154,11 @@ sub onPersonSelected(obj)
 end sub
 
 function getContentForMovieDetailsScreen(movieContentNode)
-  content = { title: movieContentNode.SHORTDESCRIPTIONLINE1, description: movieContentNode.SHORTDESCRIPTIONLINE2, id: movieContentNode.id }
+  content = {
+    title: movieContentNode.SHORTDESCRIPTIONLINE1,
+    description: movieContentNode.SHORTDESCRIPTIONLINE2,
+    id: movieContentNode.id
+  }
 
   HDGRIDPOSTERURL = movieContentNode.HDGRIDPOSTERURL
   HDPOSTERURL = movieContentNode.HDPOSTERURL

@@ -22,7 +22,9 @@ sub init()
   m.playButton = m.top.FindNode("playButton")
   m.genresList = m.top.FindNode("genresList")
   m.additionalInformationList = m.top.FindNode("additionalInformationList")
+  m.textRectangle = m.top.FindNode("textRectangle")
   m.additionalInformationList.itemSize = [296 * 3 + 20 * 2, 90]
+  adjustScrollableText(m.textRectangle, m.description)
   m.top.observeField("visible", "onVisibleChange")
   m.playButton.setFocus(true)
 end sub
@@ -43,12 +45,11 @@ sub onContentChange(obj)
   end if
   m.top.setMovieTitle = item.title
 
-  ' fix adding genres on top of previous
   if item.genres = invalid
     m.top.fetchMovieGenres = item.id
   else
-    oldLabelList = m.genresList.getChildren(-1, 0)
-    m.genresList.removeChildren(oldLabelList)
+    previousLabelList = m.genresList.getChildren(-1, 0)
+    m.genresList.removeChildren(previousLabelList)
 
     for each genre in item.genres
       label = createObject("roSGNode", "Label")
@@ -60,12 +61,19 @@ sub onContentChange(obj)
 end sub
 
 function onKeyEvent(key as string, press as boolean) as boolean
-  isRightOrDownKey = key = "right" or key = "down"
-  if not key = "OK" and isRightOrDownKey and press and m.playButton.hasFocus()
-    m.additionalInformationList.setFocus(true)
-    return true
-  else if m.additionalInformationList.hasFocus() and key = "left"
-    m.playButton.setFocus(true)
-    return true
+  if not press
+    return false
   end if
+
+  if key = "right" and m.playButton.hasFocus()
+    return m.description.setFocus(true)
+  else if m.description.hasFocus() and key = "down" or key = "right"
+    return m.additionalInformationList.setFocus(true)
+  else if (m.description.hasFocus() or m.additionalInformationList.hasFocus()) and key = "left"
+    return m.playButton.setFocus(true)
+  else if key = "up" and m.additionalInformationList.hasFocus()
+    return m.description.setFocus(true)
+  end if
+
+  return false
 end function
