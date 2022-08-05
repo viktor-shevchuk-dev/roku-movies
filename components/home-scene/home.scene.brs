@@ -12,11 +12,8 @@ end function
 
 sub showNewScreenWithSavingCurrent(screenToShowId)
   currentScreen = m.top.findNode(m.top.focusedChild.id)
-  currentScreenContent = currentScreen.content
-
-  historyItem = { screenId: m.top.focusedChild.id, content: currentScreenContent }
+  historyItem = { screenId: m.top.focusedChild.id, content: currentScreen.content }
   m.screensHistory.push(historyItem)
-
   showScreen({ screenId: screenToShowId })
 end sub
 
@@ -34,8 +31,10 @@ function handleReceivedConfig(config)
   m.movieListScreen.callFunc("updateDummyVideos", params)
 end function
 
-function handleMovieDetails(movieDetails)
-  m.detailsScreen.movieDetails = movieDetails
+function handleMovieGenres(genres)
+  content = m.detailsScreen.content
+  content.genres = genres
+  m.detailsScreen.content = content
 end function
 
 function handleCast(cast)
@@ -86,7 +85,7 @@ sub handleData(data)
   else if categories <> invalid and categories.count() > 0
     handleReceivedConfig(data)
   else if genres <> invalid and genres.count() > 0
-    handleMovieDetails(data)
+    handleMovieGenres(genres)
   else if cast <> invalid and cast.count() > 0
     handleCast(data.cast)
   else if name <> invalid
@@ -154,17 +153,33 @@ sub onPersonSelected(obj)
   showNewScreenWithSavingCurrent(m.personScreen.id)
 end sub
 
+function getContentForMovieDetailsScreen(movieContentNode)
+  content = { title: movieContentNode.SHORTDESCRIPTIONLINE1, description: movieContentNode.SHORTDESCRIPTIONLINE2, id: movieContentNode.id }
+
+  HDGRIDPOSTERURL = movieContentNode.HDGRIDPOSTERURL
+  HDPOSTERURL = movieContentNode.HDPOSTERURL
+
+  if HDGRIDPOSTERURL <> invalid and HDGRIDPOSTERURL <> ""
+    content.posterUrl = HDGRIDPOSTERURL
+  else if HDPOSTERURL <> invalid and HDPOSTERURL <> ""
+    content.posterUrl = movieContentNode.HDPOSTERURL
+  end if
+
+
+  return content
+end function
+
 sub onKnownForMovieSelected(obj)
   selectedKnownForMovieIndex = obj.getData()[1]
   selectedKnownForMovie = m.personScreen.findNode("knownForList").content.getChild(0).getChild(selectedKnownForMovieIndex)
-  m.detailsScreen.content = selectedKnownForMovie
+  m.detailsScreen.content = getContentForMovieDetailsScreen(selectedKnownForMovie)
   showNewScreenWithSavingCurrent(m.detailsScreen.id)
 end sub
 
 sub onMovieSelected(obj)
   selectedIndex = obj.getData()
   m.selectedMovie = m.movieListScreen.findNode("homeGrid").content.getChild(selectedIndex)
-  m.detailsScreen.content = m.selectedMovie
+  m.detailsScreen.content = getContentForMovieDetailsScreen(m.selectedMovie)
   showNewScreenWithSavingCurrent(m.detailsScreen.id)
 end sub
 
@@ -228,7 +243,6 @@ end sub
 sub fetchMovieGenres(obj)
   m.movieId = obj.getData()
   genresUrl = m.baseUrl + "/movie/" + m.movieId.toStr() + m.APIKey + "&language=en-US"
-
   loadUrl(genresUrl)
 end sub
 

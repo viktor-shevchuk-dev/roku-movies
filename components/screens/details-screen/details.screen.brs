@@ -35,25 +35,28 @@ end sub
 
 sub onContentChange(obj)
   item = obj.getData()
-  m.title.text = item.SHORTDESCRIPTIONLINE1
-  m.description.text = item.SHORTDESCRIPTIONLINE2
-  if item.HDGRIDPOSTERURL <> ""
-    m.thumbnail.uri = item.HDGRIDPOSTERURL
-  else if item.HDPOSTERURL <> ""
-    m.thumbnail.uri = item.HDPOSTERURL
+
+  m.title.text = item.title
+  m.description.text = item.description
+  if item.posterUrl <> ""
+    m.thumbnail.uri = item.posterUrl
   end if
-  m.top.fetchMovieGenres = item.id
-  m.top.setMovieTitle = item.SHORTDESCRIPTIONLINE1
-end sub
+  m.top.setMovieTitle = item.title
 
-sub onMovieDetailsChanged(obj)
-  movieDetails = obj.getData()
+  ' fix adding genres on top of previous
+  if item.genres = invalid
+    m.top.fetchMovieGenres = item.id
+  else
+    oldLabelList = m.genresList.getChildren(-1, 0)
+    m.genresList.removeChildren(oldLabelList)
 
-  for each genre in movieDetails.genres
-    label = createObject("roSGNode", "Label")
-    label.text = genre.name
-    m.genresList.appendChild(label)
-  end for
+    for each genre in item.genres
+      label = createObject("roSGNode", "Label")
+      label.text = genre.name
+      label.id = genre.id
+      m.genresList.appendChild(label)
+    end for
+  end if
 end sub
 
 function onKeyEvent(key as string, press as boolean) as boolean

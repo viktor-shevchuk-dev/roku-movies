@@ -3,7 +3,7 @@
 	<interface>
  		<field
       id="content"
-      type="node"
+      type="roAssociativeArray"
       alwaysnotify="true"
       onChange="onContentChange"
     />
@@ -15,11 +15,6 @@
     />
     <field id="fetchMovieGenres" type="int" />
     <field id="setMovieTitle" type="string" />
-    <field
-      id="movieDetails"
-      type="assocarray"
-      onChange="onMovieDetailsChanged"
-    />
     <field
       id="additionalInformationSelected"
       type="assocArray"
