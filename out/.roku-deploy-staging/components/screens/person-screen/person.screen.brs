@@ -49,14 +49,14 @@ sub onVisibleChange()
 end sub
 
 function onKeyEvent(key as string, press as boolean) as boolean
-  if key = "right" and press and m.biographyContent.hasFocus()
-    m.knownForList.setFocus(true)
+  if not press
+    return false
+  end if
 
-    return true
-  else if key = "up" and press and m.knownForList.hasFocus()
-    m.biographyContent.setFocus(true)
-
-    return true
+  if key = "right" and m.biographyContent.hasFocus()
+    return m.knownForList.setFocus(true)
+  else if key = "up" and m.knownForList.hasFocus()
+    return m.biographyContent.setFocus(true)
   end if
 
   return false

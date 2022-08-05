@@ -35,22 +35,15 @@ function init()
   m.top.observeField("visible", "onVisibleChange")
 end function
 
-function handleRightClick()
-  m.searchButton.setFocus(true)
-  return true
-end function
-
-function handleLeftClick()
-  m.keyboard.setFocus(true)
-  return true
-end function
-
 function onKeyEvent(key, press) as boolean
-  if key = "right"
-    return handleRightClick()
+  if not press
+    return false
   end if
-  if key = "left" and m.searchButton.hasFocus()
-    return handleLeftClick()
+
+  if key = "right"
+    return m.searchButton.setFocus(true)
+  else if key = "left" and m.searchButton.hasFocus()
+    return m.keyboard.setFocus(true)
   end if
 
   return false
