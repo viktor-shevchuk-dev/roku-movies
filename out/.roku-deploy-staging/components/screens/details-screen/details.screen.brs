@@ -60,19 +60,25 @@ sub onContentChange(obj)
   end if
 end sub
 
+function focusNodeOnDetailsScreen(node)
+  if node.id = m.description.id then node.color = "0xddddddff" else m.description.color = "0x808080FF"
+
+  return node.setFocus(true)
+end function
+
 function onKeyEvent(key as string, press as boolean) as boolean
   if not press
     return false
   end if
 
   if key = "right" and m.playButton.hasFocus()
-    return m.description.setFocus(true)
+    return focusNodeOnDetailsScreen(m.description)
   else if m.description.hasFocus() and key = "down" or key = "right"
-    return m.additionalInformationList.setFocus(true)
+    return focusNodeOnDetailsScreen(m.additionalInformationList)
   else if (m.description.hasFocus() or m.additionalInformationList.hasFocus()) and key = "left"
-    return m.playButton.setFocus(true)
+    return focusNodeOnDetailsScreen(m.playButton)
   else if key = "up" and m.additionalInformationList.hasFocus()
-    return m.description.setFocus(true)
+    return focusNodeOnDetailsScreen(m.description)
   end if
 
   return false

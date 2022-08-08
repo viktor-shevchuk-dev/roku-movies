@@ -35,7 +35,11 @@
     />
     <Group translation="[700, 166]">
      <Rectangle id="textRectangle" width="1108" height="320" color="0x101010C0">
-        <ScrollableText id="description" translation="[ 20, 20 ]" />
+        <ScrollableText
+          id="description"
+          translation="[ 20, 20 ]"
+          color="0x808080FF"
+        />
         <Rectangle id="instructionbar" color="0x222222FF">
           <Rectangle id="upDownnInstruct" color="0x10101000">
             <Poster
