@@ -1,7 +1,5 @@
 sub onVisibleChange()
-  if m.top.visible = true then
-    m.homeGrid.setFocus(true)
-  end if
+  if m.top.visible = true then m.homeGrid.setFocus(true)
 end sub
 
 sub init()
@@ -14,13 +12,6 @@ sub onTitleChanged(obj)
   title = obj.getData()
   m.heading.text = title
   adjustHeading(m.heading)
-end sub
-
-sub loadUrl(url)
-  m.asyncTask = createObject("roSGNode", "LoadAsyncTask")
-  m.asyncTask.observeField("response", "onAsyncTaskResponse")
-  m.asyncTask.url = url
-  m.asyncTask.control = "RUN"
 end sub
 
 function getVideoUrl()

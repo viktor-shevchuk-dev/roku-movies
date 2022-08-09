@@ -1,7 +1,5 @@
 sub onVisibleChange()
-  if m.top.visible = true then
-    m.keyboard.setFocus(true)
-  end if
+  if m.top.visible = true then m.keyboard.setFocus(true)
 end sub
 
 sub onButtonSelected()
@@ -36,9 +34,7 @@ function init()
 end function
 
 function onKeyEvent(key, press) as boolean
-  if not press
-    return false
-  end if
+  if not press then return false
 
   if key = "right"
     return m.searchButton.setFocus(true)

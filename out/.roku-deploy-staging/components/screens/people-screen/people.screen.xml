@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<component name="CastScreen" extends="Group" initialFocus="castGrid">
+<component name="PeopleScreen" extends="Group" initialFocus="peopleGrid">
     <script type="text/brightscript" uri="pkg:/components/utils/helpers.brs" />
-    <script type="text/brightscript" uri="./cast.screen.brs" />
+    <script type="text/brightscript" uri="/people.screen.brs" />
     <interface>
       <field
       id="personSelected"
       type="assocarray"
-      alias="castGrid.itemSelected"
+      alias="peopleGrid.itemSelected"
     />
       <field id="content" type="roAssociativeArray" onChange="onCastChanged" />
       </interface>
     <children>
     <Label
       id="heading"
-      text="Cast"
       translation="[0, 60]"
       font="font:MediumBoldSystemFont"
     />            
     <PosterGrid
-      id="castGrid"
+      id="peopleGrid"
       translation="[100, 175]"
       basePosterSize="[400, 600]"
       itemSpacing="[40, 40]"

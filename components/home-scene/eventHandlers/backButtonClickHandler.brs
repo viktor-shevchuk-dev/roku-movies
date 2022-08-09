@@ -11,7 +11,7 @@ function handleBackButtonClickFromDetailsScreen(screenToGoId, screenToGoContent)
     return showScreen({ screenId: screenToGoId, content: screenToGoContent })
   else if screenToGoId = "movieListScreen"
     return showScreen({ screenId: screenToGoId, content: screenToGoContent })
-  else if screenToGoId = "castScreen"
+  else if screenToGoId = "peopleScreen"
     return showScreen({ screenId: screenToGoId, content: screenToGoContent })
   end if
 end function
@@ -34,7 +34,7 @@ function handleBackButtonClick()
     return handleBackButtonClickFromDetailsScreen(screenToGoId, screenToGoContent)
   else if m.videoPlayer.visible
     return handleBackButtonClickFromVideoPlayer(screenToGoId, screenToGoContent)
-  else if m.castScreen.visible
+  else if m.peopleScreen.visible
     return showScreen({ screenId: screenToGoId, content: screenToGoContent })
   else if m.reviewsScreen.visible
     return showScreen({ screenId: screenToGoId, content: screenToGoContent })

@@ -21,9 +21,7 @@ sub adjustHeading(node)
 end sub
 
 function generateImageUrl(filepath, w)
-  if filepath = invalid
-    return ""
-  end if
+  if filepath = invalid then return ""
 
   return "https://image.tmdb.org/t/p/w" + w + filepath
 end function

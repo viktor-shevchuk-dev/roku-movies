@@ -3,7 +3,51 @@
   <script type="text/brightscript" uri="./home.scene.brs" />
   <script
     type="text/brightscript"
-    uri="./handlers/backButtonClick.handler.brs"
+    uri="./eventHandlers/backButtonClickHandler.brs"
+  /> 
+   <script
+    type="text/brightscript"
+    uri="./eventHandlers/additionalInformationClickHandler.brs"
+  />
+  <script
+    type="text/brightscript"
+    uri="./eventHandlers/searchButtonClickHandler.brs"
+  />
+  <script
+    type="text/brightscript"
+    uri="./eventHandlers/personCLickHandler.brs"
+  />
+  <script
+    type="text/brightscript"
+    uri="./eventHandlers/categoryClickHandler.brs"
+  />
+  <script
+    type="text/brightscript"
+    uri="./eventHandlers/movieClickHandler.brs"
+  />
+  <script
+    type="text/brightscript"
+    uri="./eventHandlers/playButtonClickHandler.brs"
+  />
+  <script
+    type="text/brightscript"
+    uri="./eventHandlers/playerPositionChangeHandler.brs"
+  />
+  <script
+    type="text/brightscript"
+    uri="./eventHandlers/playerStateChangeHandler.brs"
+  />
+  <script
+    type="text/brightscript"
+    uri="./eventHandlers/knownForMovieClickHandler.brs"
+  />
+  <script
+    type="text/brightscript"
+    uri="./eventHandlers/fetchErrorHandler.brs"
+  /> 
+   <script
+    type="text/brightscript"
+    uri="./eventHandlers/fetchResponseHandler.brs"
   />
 <children>
     <HeaderScreen id="headerScreen" visible="true" translation="[0,0]" />
@@ -18,7 +62,7 @@
       translation="[0, 0]"
     />
     <DetailsScreen id="detailsScreen" visible="false" translation="[0, 0]" />
-    <CastScreen id="castScreen" visible="false" translation="[0, 0]" />
+    <PeopleScreen id="peopleScreen" visible="false" translation="[0, 0]" />
     <ReviewsScreen id="reviewsScreen" visible="false" translation="[0, 0]" />
     <PersonScreen id="personScreen" visible="false" translation="[0, 0]" />
     <Video

@@ -43,20 +43,22 @@ sub init()
 end sub
 
 sub onVisibleChange()
-  if m.top.visible = true then
-    m.biographyContent.setFocus(true)
-  end if
+  if m.top.visible = true then m.biographyContent.setFocus(true)
 end sub
 
-function onKeyEvent(key as string, press as boolean) as boolean
-  if not press
-    return false
-  end if
+function focusNodeOnPersonScreen(node)
+  if node.id = m.biographyContent.id then node.color = "0xddddddff" else m.biographyContent.color = "0x808080FF"
 
-  if key = "right" and m.biographyContent.hasFocus()
-    return m.knownForList.setFocus(true)
+  return node.setFocus(true)
+end function
+
+function onKeyEvent(key as string, press as boolean) as boolean
+  if not press then return false
+
+  if m.biographyContent.hasFocus() and key = "right" or key = "down"
+    return focusNodeOnPersonScreen(m.knownForList)
   else if key = "up" and m.knownForList.hasFocus()
-    return m.biographyContent.setFocus(true)
+    return focusNodeOnPersonScreen(m.biographyContent)
   end if
 
   return false

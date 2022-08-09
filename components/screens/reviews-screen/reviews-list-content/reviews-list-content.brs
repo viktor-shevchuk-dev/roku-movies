@@ -3,16 +3,12 @@ function deleteFirstCharacter(string)
 end function
 
 function createImageUrl(path)
-  if path = invalid
-    return ""
-  end if
+  if path = invalid then return ""
 
   pathIncludesGravatar = path.Instr("gravatar") >= 0
   if pathIncludesGravatar
     firstCharacter = path.left(1)
-    if firstCharacter = "/"
-      return deleteFirstCharacter(path)
-    end if
+    if firstCharacter = "/" then return deleteFirstCharacter(path)
 
     return path
   end if

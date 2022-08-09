@@ -1,7 +1,5 @@
 sub onVisibleChange()
-  if m.top.visible = true then
-    m.headerList.setFocus(true)
-  end if
+  if m.top.visible = true then m.headerList.setFocus(true)
 end sub
 
 function init()
@@ -22,9 +20,7 @@ function setHeaderListContent(params)
     node = row.CreateChild("HeaderListItemData")
     node.labelText = category.title
     node.id = category.id
-    if category.endpoint <> invalid
-      node.urlToMakeQuery = baseUrl + category.endpoint + APIKey
-    end if
+    if category.endpoint <> invalid then node.urlToMakeQuery = baseUrl + category.endpoint + APIKey
   end for
   m.headerList.content = data
 end function

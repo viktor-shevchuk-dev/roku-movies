@@ -1,7 +1,5 @@
 sub onVisibleChange()
-  if m.top.visible = true then
-    m.reviewslist.setFocus(true)
-  end if
+  if m.top.visible = true then m.reviewslist.setFocus(true)
 end sub
 
 sub init()
