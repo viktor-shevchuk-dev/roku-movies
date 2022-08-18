@@ -50,7 +50,7 @@
     uri="./eventHandlers/fetchResponseHandler.brs"
   />
 <children>
-    <HeaderScreen id="headerScreen" visible="true" translation="[0,0]" />
+    <HomeScreen id="homeScreen" visible="true" translation="[0,0]" />
     <MovieListScreen
       id="movieListScreen"
       visible="false"

@@ -1,7 +1,7 @@
 function handleBackButtonClickFromMovieListScreen(screenToGoId, screenToGoContent)
   if screenToGoId = "searchForMoviesScreen"
     return showScreen({ screenId: screenToGoId, content: screenToGoContent })
-  else if screenToGoId = "headerScreen"
+  else if screenToGoId = "homeScreen"
     return showScreen({ screenId: screenToGoId })
   end if
 end function

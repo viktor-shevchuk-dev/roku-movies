@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="HomeScreen" extends="Group">
+  <script type="text/brightscript" uri="../../utils/helpers.brs" />
+  <script type="text/brightscript" uri="./home.screen.brs" />
+  <interface>
+    <field
+      id="pageSelected"
+      type="assocArray"
+      alias="headerList.rowItemSelected"
+    />
+    <function name="setHeaderListContent" />
+    <field
+      id="topRatedMoviesList"
+      type="roArray"
+      onChange="onTopRatedMoviesListChanged"
+    />
+   </interface>
+    <children>
+      <RowList
+      id="headerList"
+      translation="[100, 80]"
+      itemComponentName="HeaderListItem"
+      rowItemSize="[[296, 90], [296, 90], [296, 90]]"
+      rowItemSpacing="[[20, 0]]"
+    />
+    <Label
+      id="title"
+      font="font:LargeBoldSystemFont"
+      color="0xFFFFFF"
+      translation="[100, 222]"
+      text="Top Rated"
+    />
+     <TopRatedMoviesList
+      id="topRatedMoviesList"
+      translation="[100, 258]"
+      itemComponentName="TopRatedMovieItem"
+      itemSize="[690, 594]"
+      rowHeights="[594]"
+      rowItemSize="[[210, 594], [210, 594], [210, 594]]"
+      itemSpacing="[0, 80]"
+      rowItemSpacing="[[20, 0]]"
+      rowFocusAnimationStyle="floatingFocus"
+      showRowLabel="[true, true]"
+    />
+    <Rectangle
+      id="movieDetailWrapper"
+      width="930"
+      height="756"
+      color="0x101010C0"
+      translation="[900, 240]"
+      visible="false"
+    >
+      <Poster id="movieBackdrop" translation="[100, 20]" />
+      <Label
+        id="movieTitle"
+        translation="[ 20, 474 ]"
+        horizAlign="center"
+        width="900"
+      />
+      <Label
+        id="movieDescription"
+        translation="[ 20, 544 ]"
+        numLines="4"
+        wrap="true"
+        width="900"
+      />
+    </Rectangle>
+    </children>
+</component>

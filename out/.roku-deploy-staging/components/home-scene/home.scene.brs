@@ -20,13 +20,19 @@ function handleReceivedMovies(movies)
   m.movieListScreen.content = movies
 end function
 
+sub fetchTopRatedMoviesList()
+  topRatedMoviesListUrl = m.baseUrl + "/movie/top_rated" + m.APIKey + "&language=en-US"
+  fetch(topRatedMoviesListUrl)
+end sub
+
 function handleReceivedConfig(config)
   m.APIKey = config.APIKey
   m.baseUrl = config.baseUrl
   params = { config: config }
-  m.headerScreen.callFunc("setHeaderListContent", params)
+  m.homeScreen.callFunc("setHeaderListContent", params)
   m.detailsScreen.callFunc("setDetailsContent", params)
   m.movieListScreen.callFunc("updateDummyVideos", params)
+  fetchTopRatedMoviesList()
 end function
 
 function handleMovieGenres(genres)
@@ -51,8 +57,24 @@ sub handleKnownForMovies(movies)
   m.personScreen.knownForMovies = movies
 end sub
 
+sub handleTopRatedMoviesList(moviesList)
+  m.homeScreen.topRatedMoviesList = moviesList
+end sub
+
+sub handleMoviesFromHomeScreen(movies)
+  if m.category = invalid
+    handleTopRatedMoviesList(movies)
+  else if m.category.id = m.movieListScreen.id
+    handleReceivedMovies(movies)
+  end if
+end sub
+
 sub handleMovies(movies)
-  if m.personScreen.visible = true then handleKnownForMovies(movies) else handleReceivedMovies(movies)
+  if m.personScreen.visible
+    handleKnownForMovies(movies)
+  else if m.homeScreen.visible
+    handleMoviesFromHomeScreen(movies)
+  end if
 end sub
 
 sub handlePopularActors(popularActorsList)
@@ -177,7 +199,7 @@ end sub
 
 function init()
   ? "[home_scene] init"
-  m.headerScreen = m.top.findNode("headerScreen")
+  m.homeScreen = m.top.findNode("homeScreen")
   m.movieListScreen = m.top.findNode("movieListScreen")
   m.searchForMoviesScreen = m.top.findNode("searchForMoviesScreen")
   m.detailsScreen = m.top.findNode("detailsScreen")
@@ -187,7 +209,7 @@ function init()
   m.errorDialog = m.top.findNode("errorDialog")
   m.videoPlayer = m.top.findNode("videoPlayer")
 
-  m.headerScreen.observeField("pageSelected", "categoryClickHandler")
+  m.homeScreen.observeField("pageSelected", "categoryClickHandler")
   m.searchForMoviesScreen.observeField("searchButtonClicked", "searchButtonClickHandler")
   m.movieListScreen.observeField("movieSelected", "movieClickHandler")
   m.personScreen.observeField("knownForMovieSelected", "knownForMovieClickHandler")
@@ -201,9 +223,9 @@ function init()
 
   initializeVideoPlayer()
   m.screensHistory = []
-  m.headerScreen.setFocus(true)
   configUrl = "https://run.mocky.io/v3/9e42e605-84b7-4215-b1f5-fccae38df7a4"
   fetch(configUrl)
+  m.homeScreen.setFocus(true)
 end function
 
 function onKeyEvent(key, press) as boolean
