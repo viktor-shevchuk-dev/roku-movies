@@ -72,6 +72,8 @@ end sub
 sub handleMovies(movies)
   if m.personScreen.visible
     handleKnownForMovies(movies)
+  else if m.searchForMoviesScreen.visible
+    handleReceivedMovies(movies)
   else if m.homeScreen.visible
     handleMoviesFromHomeScreen(movies)
   end if

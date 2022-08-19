@@ -5,6 +5,6 @@
 </interface>
 <script type="text/brightscript" uri="./header-list-item.brs" />
 <children>
-  <Label id="itemText" translation="[20, 20]" font="font:MediumSystemFont" />  
+  <Label id="itemText" translation="[20, 22]" font="font:MediumSystemFont" />  
 </children>
 </component>

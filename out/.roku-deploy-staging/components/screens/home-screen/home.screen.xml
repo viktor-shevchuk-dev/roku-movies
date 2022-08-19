@@ -25,7 +25,7 @@
       id="headerList"
       translation="[100, 80]"
       itemComponentName="HeaderListItem"
-      rowItemSize="[[296, 90], [296, 90], [296, 90]]"
+      rowItemSize="[[320, 90]]"
       rowItemSpacing="[[20, 0]]"
     />
     <Label

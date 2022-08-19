@@ -4,7 +4,7 @@ end sub
 
 function init()
   m.headerList = m.top.findNode("headerList")
-  m.headerList.itemSize = [296 * 3 + 20 * 2, 90]
+  m.headerList.itemSize = [320 * 3 + 20 * 2, 90]
   m.headerList.setFocus(true)
   m.top.observeField("visible", "onVisibleChange")
   m.topRatedMoviesList = m.top.FindNode("topRatedMoviesList")
