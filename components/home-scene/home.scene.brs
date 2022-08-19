@@ -32,6 +32,8 @@ function handleReceivedConfig(config)
   m.homeScreen.callFunc("setHeaderListContent", params)
   m.detailsScreen.callFunc("setDetailsContent", params)
   m.movieListScreen.callFunc("updateDummyVideos", params)
+  m.personScreen.callFunc("updateDummyVideos", params)
+  m.homeScreen.findNode("topRatedMoviesList").callFunc("updateDummyVideos", params)
   fetchTopRatedMoviesList()
 end function
 

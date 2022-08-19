@@ -57,3 +57,9 @@ function getMovieFromRowListByEvent(rowListNode, eventType)
 
   return movie
 end function
+
+function getRandomVideoUrl(videosList)
+  dummyVideosCount = videosList.count()
+  url = videosList[RND(dummyVideosCount)]
+  return url
+end function

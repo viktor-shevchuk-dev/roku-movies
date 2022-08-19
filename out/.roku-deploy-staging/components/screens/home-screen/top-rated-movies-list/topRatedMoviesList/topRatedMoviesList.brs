@@ -4,6 +4,8 @@ sub appendTopRatedMovieToRow(topRatedMovie, row)
   item.title = topRatedMovie.title
   item.releaseDate = topRatedMovie.release_date
   item.id = topRatedMovie.id
+  item.streamformat = "mp4"
+  item.url = getRandomVideoUrl(m.dummyVideos)
   item.additionalInformation = { description: topRatedMovie.overview, backdropUrl: topRatedMovie.backdrop_path, posterUrl: topRatedMovie.poster_path }
 end sub
 
@@ -30,3 +32,6 @@ sub onTopRatedMoviesListContentChanged(obj)
   showtopRatedMoviesListGrid(topRatedMoviesListContent)
 end sub
 
+function updateDummyVideos(params)
+  m.dummyVideos = params.config.dummyVideos
+end function

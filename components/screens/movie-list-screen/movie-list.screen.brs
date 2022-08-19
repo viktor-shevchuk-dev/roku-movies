@@ -14,24 +14,18 @@ sub onTitleChanged(obj)
   adjustHeading(m.heading)
 end sub
 
-function getVideoUrl()
-  dummyVideosCount = m.dummyVideos.count()
-  url = m.dummyVideos[RND(dummyVideosCount)]
-  return url
-end function
-
 sub onDataChanged(obj)
-  results = obj.getData()
+  moviesList = obj.getData()
   posterContent = createObject("roSGNode", "ContentNode")
-  for each item in results
+  for each movie in moviesList
     node = createObject("roSGNode", "ContentNode")
-    node.id = item.id
+    node.id = movie.id
     node.streamformat = "mp4"
-    node.url = getVideoUrl()
+    node.url = getRandomVideoUrl(m.dummyVideos)
 
-    node.HDGRIDPOSTERURL = generateImageUrl(item.poster_path, "300")
-    node.SHORTDESCRIPTIONLINE1 = item.title
-    node.SHORTDESCRIPTIONLINE2 = item.overview
+    node.HDGRIDPOSTERURL = generateImageUrl(movie.poster_path, "300")
+    node.SHORTDESCRIPTIONLINE1 = movie.title
+    node.SHORTDESCRIPTIONLINE2 = movie.overview
     posterContent.appendChild(node)
   end for
   showPosterGrid(posterContent)

@@ -8,5 +8,6 @@
       type="roArray"
       onChange="onTopRatedMoviesListContentChanged"
     />
+   <function name="updateDummyVideos" />
  </interface>
 </component>

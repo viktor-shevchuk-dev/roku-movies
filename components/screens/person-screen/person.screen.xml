@@ -16,6 +16,7 @@
       type="assocarray"
       alias="knownForList.rowItemSelected"
     />
+    <function name="updateDummyVideos" />
    	</interface>
 	<script type="text/brightscript" uri="./person.screen.brs" />
 	<script type="text/brightscript" uri="../../utils/helpers.brs" />
