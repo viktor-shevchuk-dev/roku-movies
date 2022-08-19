@@ -53,13 +53,8 @@ sub changeMovieDetailContent(title, content)
   if not m.movieDetailWrapper.visible then m.movieDetailWrapper.visible = true
 end sub
 
-function movieFocusHandler() as void
-  indexesList = m.topRatedMoviesList.rowItemFocused
-  rowIndex = indexesList[0]
-  colIndex = indexesList[1]
-  focusedRow = m.topRatedMoviesList.content.getChild(rowIndex)
-  focusedMovie = focusedRow.getChild(colIndex)
+sub movieFocusHandler()
+  focusedMovie = getMovieFromRowListByEvent(m.topRatedMoviesList, "focus")
   changeMovieDetailContent(focusedMovie.title, focusedMovie.additionalInformation)
-end function
+end sub
 
-' made when right click to rectangle - make this rectangle lightly grey

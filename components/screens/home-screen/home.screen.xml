@@ -14,6 +14,11 @@
       type="roArray"
       onChange="onTopRatedMoviesListChanged"
     />
+    <field
+      id="topRatedMovieSelected"
+      type="assocArray"
+      alias="topRatedMoviesList.rowItemSelected"
+    />
    </interface>
     <children>
       <RowList

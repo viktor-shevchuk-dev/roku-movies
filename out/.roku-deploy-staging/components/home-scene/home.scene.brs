@@ -136,25 +136,6 @@ sub showPopularActorsList(urlToMakeQuery)
   fetch(urlToMakeQuery)
 end sub
 
-function getContentForMovieDetailsScreen(movieContentNode)
-  content = {
-    title: movieContentNode.SHORTDESCRIPTIONLINE1,
-    description: movieContentNode.SHORTDESCRIPTIONLINE2,
-    id: movieContentNode.id
-  }
-
-  HDGRIDPOSTERURL = movieContentNode.HDGRIDPOSTERURL
-  HDPOSTERURL = movieContentNode.HDPOSTERURL
-
-  if HDGRIDPOSTERURL <> invalid and HDGRIDPOSTERURL <> ""
-    content.posterUrl = HDGRIDPOSTERURL
-  else if HDPOSTERURL <> invalid and HDPOSTERURL <> ""
-    content.posterUrl = HDPOSTERURL
-  end if
-
-  return content
-end function
-
 sub stopVideo()
   m.videoPlayer.control = "stop"
 end sub
@@ -213,6 +194,7 @@ function init()
   m.searchForMoviesScreen.observeField("searchButtonClicked", "searchButtonClickHandler")
   m.movieListScreen.observeField("movieSelected", "movieClickHandler")
   m.personScreen.observeField("knownForMovieSelected", "knownForMovieClickHandler")
+  m.homeScreen.observeField("topRatedMovieSelected", "topRatedMovieClickHandler")
   m.detailsScreen.observeField("playButtonPressed", "playButtonClickHandler")
   m.detailsScreen.observeField("fetchMovieGenres", "fetchMovieGenres")
   m.detailsScreen.observeField("additionalInformationSelected", "additionalInformationClickHandler")

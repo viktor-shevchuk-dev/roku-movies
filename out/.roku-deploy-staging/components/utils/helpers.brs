@@ -41,3 +41,19 @@ sub adjustScrollableText(textRectangleNode, scrollableTextNode)
   upDownnInstruct.height = 40
   upDownnInstruct.translation = [padding, 10]
 end sub
+
+function getMovieFromRowListByEvent(rowListNode, eventType)
+  indexesList = invalid
+  if eventType = "focus"
+    indexesList = rowListNode.rowItemFocused
+  else if eventType = "click"
+    indexesList = rowListNode.rowItemSelected
+  end if
+
+  rowIndex = indexesList[0]
+  colIndex = indexesList[1]
+  row = rowListNode.content.getChild(rowIndex)
+  movie = row.getChild(colIndex)
+
+  return movie
+end function

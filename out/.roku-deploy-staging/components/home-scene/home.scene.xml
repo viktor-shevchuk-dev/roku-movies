@@ -1,54 +1,50 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <component name="HomeScene" extends="Scene">
-  <script type="text/brightscript" uri="./home.scene.brs" />
-  <script
+<script type="text/brightscript" uri="../utils/helpers.brs" />
+<script
     type="text/brightscript"
     uri="./eventHandlers/backButtonClickHandler.brs"
   /> 
-   <script
+  <script
     type="text/brightscript"
     uri="./eventHandlers/additionalInformationClickHandler.brs"
   />
-  <script
+<script
     type="text/brightscript"
     uri="./eventHandlers/searchButtonClickHandler.brs"
   />
-  <script
-    type="text/brightscript"
-    uri="./eventHandlers/personCLickHandler.brs"
-  />
-  <script
+<script type="text/brightscript" uri="./eventHandlers/personCLickHandler.brs" />
+<script
     type="text/brightscript"
     uri="./eventHandlers/categoryClickHandler.brs"
   />
-  <script
-    type="text/brightscript"
-    uri="./eventHandlers/movieClickHandler.brs"
-  />
-  <script
+<script type="text/brightscript" uri="./eventHandlers/movieClickHandler.brs" />
+<script
     type="text/brightscript"
     uri="./eventHandlers/playButtonClickHandler.brs"
   />
-  <script
+<script
     type="text/brightscript"
     uri="./eventHandlers/playerPositionChangeHandler.brs"
   />
-  <script
+<script
     type="text/brightscript"
     uri="./eventHandlers/playerStateChangeHandler.brs"
   />
-  <script
+<script
     type="text/brightscript"
     uri="./eventHandlers/knownForMovieClickHandler.brs"
   />
+<script type="text/brightscript" uri="./eventHandlers/fetchErrorHandler.brs" /> 
   <script
-    type="text/brightscript"
-    uri="./eventHandlers/fetchErrorHandler.brs"
-  /> 
-   <script
     type="text/brightscript"
     uri="./eventHandlers/fetchResponseHandler.brs"
   />
+<script
+    type="text/brightscript"
+    uri="./eventHandlers/topRatedMovieClickHandler.brs"
+  />
+<script type="text/brightscript" uri="./home.scene.brs" />
 <children>
     <HomeScreen id="homeScreen" visible="true" translation="[0,0]" />
     <MovieListScreen
