@@ -6,6 +6,7 @@ end function
 
 function handleBackButtonClick()
   screenToGo = m.screensHistory.pop()
+  if screenToGo = invalid then return false
   screenToGoId = screenToGo.screenId
   screenToGoContent = screenToGo.content
 
