@@ -4,7 +4,7 @@ sub appendTopRatedMovieToRow(topRatedMovie, row)
   item.title = topRatedMovie.title
   item.releaseDate = topRatedMovie.release_date
   item.id = topRatedMovie.id
-  item.additionalInformation = { description: topRatedMovie.overview, backdropUrl: topRatedMovie.backdrop_path }
+  item.additionalInformation = { description: topRatedMovie.overview, backdropUrl: topRatedMovie.backdrop_path, posterUrl: topRatedMovie.poster_path }
 end sub
 
 sub showtopRatedMoviesListGrid(content)
