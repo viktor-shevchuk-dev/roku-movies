@@ -8,6 +8,14 @@ sub init()
   m.top.observeField("visible", "onVisibleChange")
 end sub
 
+sub appendKnownForMoviesList(node, knownForMoviesList)
+  knowForMoviesTitlesList = []
+  for each movie in knownForMoviesList
+    knowForMoviesTitlesList.push(movie.title)
+  end for
+  node.SHORTDESCRIPTIONLINE2 = knowForMoviesTitlesList.join(", ")
+end sub
+
 sub onCastChanged(obj)
   people = obj.getData()
   m.heading.text = people.title
@@ -19,6 +27,7 @@ sub onCastChanged(obj)
     node.id = person.id
     node.HDGRIDPOSTERURL = generateImageUrl(person.profile_path, "400")
     node.SHORTDESCRIPTIONLINE1 = person.name
+    appendKnownForMoviesList(node, person.known_for)
     if person.character <> invalid then node.SHORTDESCRIPTIONLINE2 = "Character: " + person.character
     posterContent.appendChild(node)
   end for
