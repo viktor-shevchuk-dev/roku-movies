@@ -3,7 +3,7 @@
 	<interface>
  		<field
       id="content"
-      type="roAssociativeArray"
+      type="assocarray"
       alwaysnotify="true"
       onChange="onContentChange"
     />

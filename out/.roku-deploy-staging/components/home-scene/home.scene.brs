@@ -209,7 +209,7 @@ function init()
 
   initializeVideoPlayer()
   m.screensHistory = []
-  configUrl = "https://run.mocky.io/v3/9e42e605-84b7-4215-b1f5-fccae38df7a4"
+  configUrl = "https://run.mocky.io/v3/453b094b-334a-41d8-8ca4-22d36b66837d"
   fetch(configUrl)
   m.homeScreen.setFocus(true)
 end function

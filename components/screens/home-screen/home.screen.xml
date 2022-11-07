@@ -20,13 +20,22 @@
       alias="topRatedMoviesList.rowItemSelected"
     />
    </interface>
-    <children>
-      <RowList
+   <children>
+   <Label
+      id="logo"
+      height="90"
+      font="font:MediumBoldSystemFont"
+      text="EPAM-TV"
+      translation="[ 100, 80 ]"
+      vertAlign="center"
+      color="0x00CED1FF"
+    />
+    <RowList
       id="headerList"
-      translation="[100, 80]"
+      translation="[ 350, 80 ]"
       itemComponentName="HeaderListItem"
-      rowItemSize="[[320, 90]]"
-      rowItemSpacing="[[20, 0]]"
+      rowItemSize="[ [ 320, 90 ] ]"
+      rowItemSpacing="[ [ 20, 0 ] ]"
     />
     <Label
       id="title"
@@ -35,7 +44,7 @@
       translation="[100, 222]"
       text="Top Rated"
     />
-     <TopRatedMoviesList
+    <TopRatedMoviesList
       id="topRatedMoviesList"
       translation="[100, 258]"
       itemComponentName="TopRatedMovieItem"
@@ -55,14 +64,14 @@
       translation="[900, 240]"
       visible="false"
     >
-      <Poster id="movieBackdrop" translation="[100, 20]" />
-      <Label
+    <Poster id="movieBackdrop" translation="[100, 20]" />
+    <Label
         id="movieTitle"
         translation="[ 20, 474 ]"
         horizAlign="center"
         width="900"
       />
-      <Label
+    <Label
         id="movieDescription"
         translation="[ 20, 544 ]"
         numLines="4"
@@ -70,5 +79,5 @@
         width="900"
       />
     </Rectangle>
-    </children>
+   </children>
 </component>

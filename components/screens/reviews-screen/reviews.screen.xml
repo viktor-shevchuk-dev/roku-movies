@@ -3,11 +3,7 @@
     <script type="text/brightscript" uri="pkg:/components/utils/helpers.brs" />
     <script type="text/brightscript" uri="./reviews.screen.brs" />
     <interface>
-      <field
-      id="content"
-      type="roAssociativeArray"
-      onChange="onReviewsChanged"
-    />
+      <field id="content" type="assocarray" onChange="onReviewsChanged" />
        </interface>
     <children>
     <Label

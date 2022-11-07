@@ -3,46 +3,55 @@
 <script type="text/brightscript" uri="../utils/helpers.brs" />
 <script
     type="text/brightscript"
-    uri="./eventHandlers/backButtonClickHandler.brs"
+    uri="./event-handlers/back-button-click.handler.brs"
   /> 
   <script
     type="text/brightscript"
-    uri="./eventHandlers/additionalInformationClickHandler.brs"
+    uri="./event-handlers/additional-information-click.handler.brs"
   />
 <script
     type="text/brightscript"
-    uri="./eventHandlers/searchButtonClickHandler.brs"
-  />
-<script type="text/brightscript" uri="./eventHandlers/personCLickHandler.brs" />
-<script
-    type="text/brightscript"
-    uri="./eventHandlers/categoryClickHandler.brs"
-  />
-<script type="text/brightscript" uri="./eventHandlers/movieClickHandler.brs" />
-<script
-    type="text/brightscript"
-    uri="./eventHandlers/playButtonClickHandler.brs"
+    uri="./event-handlers/searchButtonClickHandler.brs"
   />
 <script
     type="text/brightscript"
-    uri="./eventHandlers/playerPositionChangeHandler.brs"
+    uri="./event-handlers/person-cLick.handler.brs"
   />
 <script
     type="text/brightscript"
-    uri="./eventHandlers/playerStateChangeHandler.brs"
+    uri="./event-handlers/category-click.handler.brs"
   />
 <script
     type="text/brightscript"
-    uri="./eventHandlers/knownForMovieClickHandler.brs"
+    uri="./event-handlers/movie-click.handler.brs"
   />
-<script type="text/brightscript" uri="./eventHandlers/fetchErrorHandler.brs" /> 
+<script
+    type="text/brightscript"
+    uri="./event-handlers/play-button-click.handler.brs"
+  />
+<script
+    type="text/brightscript"
+    uri="./event-handlers/player-position-change.handler.brs"
+  />
+<script
+    type="text/brightscript"
+    uri="./event-handlers/player-state-change.handler.brs"
+  />
+<script
+    type="text/brightscript"
+    uri="./event-handlers/known-for-movie-click.handler.brs"
+  />
+<script
+    type="text/brightscript"
+    uri="./event-handlers/fetch-error.handler.brs"
+  /> 
   <script
     type="text/brightscript"
-    uri="./eventHandlers/fetchResponseHandler.brs"
+    uri="./event-handlers/fetch-response.handler.brs"
   />
 <script
     type="text/brightscript"
-    uri="./eventHandlers/topRatedMovieClickHandler.brs"
+    uri="./event-handlers/top-rated-movie-click.handler.brs"
   />
 <script type="text/brightscript" uri="./home.scene.brs" />
 <children>

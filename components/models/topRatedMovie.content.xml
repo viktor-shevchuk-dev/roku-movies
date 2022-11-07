@@ -3,6 +3,6 @@
 <interface> 
   <field id="title" type="string" />
   <field id="posterUrl" type="string" />
-  <field id="additionalInformation" type="roAssociativeArray" />
+  <field id="additionalInformation" type="assocarray" />
 </interface> 
 </component>

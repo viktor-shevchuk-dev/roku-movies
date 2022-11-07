@@ -8,7 +8,7 @@
       type="assocarray"
       alias="peopleGrid.itemSelected"
     />
-      <field id="content" type="roAssociativeArray" onChange="onCastChanged" />
+      <field id="content" type="assocarray" onChange="onCastChanged" />
       </interface>
     <children>
     <Label

@@ -1,6 +1,4 @@
 function setDetailsContent(params)
-  baseUrl = params.config.baseUrl
-  APIKey = params.config.APIKey
   additionalInformation = params.config.additionalInformation
 
   data = CreateObject("roSGNode", "ContentNode")

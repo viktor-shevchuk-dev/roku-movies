@@ -6,7 +6,8 @@ sub appendTopRatedMovieToRow(topRatedMovie, row)
   item.id = topRatedMovie.id
   item.streamformat = "mp4"
   item.url = getRandomVideoUrl(m.dummyVideos)
-  item.additionalInformation = { description: topRatedMovie.overview, backdropUrl: topRatedMovie.backdrop_path, posterUrl: topRatedMovie.poster_path }
+  additionalInformation = { description: topRatedMovie.overview, backdropUrl: topRatedMovie.backdrop_path, posterUrl: topRatedMovie.poster_path }
+  item.additionalInformation = additionalInformation
 end sub
 
 sub showtopRatedMoviesListGrid(content)
