@@ -3,5 +3,5 @@
 <interface> 
   <field id="labelText" type="string" />
   <field id="urlToMakeQuery" type="string" />
- </interface>
+</interface>
 </component>

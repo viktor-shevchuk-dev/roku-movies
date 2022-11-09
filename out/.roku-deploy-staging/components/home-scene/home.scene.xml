@@ -11,7 +11,7 @@
   />
 <script
     type="text/brightscript"
-    uri="./event-handlers/searchButtonClickHandler.brs"
+    uri="./event-handlers/search-button-click.handler.brs"
   />
 <script
     type="text/brightscript"
@@ -20,6 +20,10 @@
 <script
     type="text/brightscript"
     uri="./event-handlers/category-click.handler.brs"
+  />
+<script
+    type="text/brightscript"
+    uri="./event-handlers/search-click.handler.brs"
   />
 <script
     type="text/brightscript"

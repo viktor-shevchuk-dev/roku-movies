@@ -3,12 +3,11 @@ sub categoryClickHandler(obj)
   index = obj.getData()[1]
   m.category = list.content.getChild(0).getChild(index)
   urlToMakeQuery = m.category.urlToMakeQuery
+  id = m.category.id
 
-  if urlToMakeQuery = ""
-    showNewScreenWithSavingCurrent(m.category.id)
-  else if m.category.id = m.movieListScreen.id
+  if id = m.movieListScreen.id
     showTrendingThisWeek(urlToMakeQuery)
-  else if m.category.id = m.peopleScreen.id
+  else if id = m.peopleScreen.id
     showPopularActorsList(urlToMakeQuery)
   end if
 end sub

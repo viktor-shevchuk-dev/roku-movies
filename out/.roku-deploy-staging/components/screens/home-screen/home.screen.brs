@@ -4,45 +4,75 @@ end sub
 
 function init()
   m.headerList = m.top.findNode("headerList")
-  m.headerList.itemSize = [320 * 3 + 20 * 2, 90]
+  m.movieDetailWrapper = m.top.findNode("movieDetailWrapper")
+  m.movieTitle = m.top.findNode("movieTitle")
+  m.movieDescription = m.top.findNode("movieDescription")
+  m.movieBackdrop = m.top.findNode("movieBackdrop")
+  m.topRatedMoviesList = m.top.findNode("topRatedMoviesList")
+  m.search = m.top.findNode("search")
+
   m.headerList.setFocus(true)
   m.top.observeField("visible", "onVisibleChange")
-  m.topRatedMoviesList = m.top.FindNode("topRatedMoviesList")
   m.topRatedMoviesList.observeField("rowItemFocused", "movieFocusHandler")
-  m.movieDetailWrapper = m.top.FindNode("movieDetailWrapper")
-  m.movieTitle = m.top.FindNode("movieTitle")
-  m.movieDescription = m.top.FindNode("movieDescription")
-  m.movieBackdrop = m.top.FindNode("movieBackdrop")
+  m.search.observeField("focusedChild", "searchFocusHandler")
 end function
 
-function setHeaderListContent(params)
+sub setHeaderListContent(params)
   baseUrl = params.config.baseUrl
   APIKey = params.config.APIKey
   categories = params.config.categories
 
-  data = CreateObject("roSGNode", "ContentNode")
-  row = data.CreateChild("ContentNode")
+  headerListContent = CreateObject("roSGNode", "ContentNode")
+  row = headerListContent.CreateChild("ContentNode")
   for each category in categories
-    node = row.CreateChild("HeaderListItemData")
-    node.labelText = category.title
-    node.id = category.id
-    if category.endpoint <> invalid then node.urlToMakeQuery = baseUrl + category.endpoint + APIKey
+    headerListItem = row.CreateChild("HeaderListItemData")
+    headerListItem.id = category.id
+    headerListItem.labelText = category.title
+    headerListItem.urlToMakeQuery = baseUrl + category.endpoint + APIKey
   end for
-  m.headerList.content = data
-end function
+  m.headerList.content = headerListContent
+end sub
 
 sub onTopRatedMoviesListChanged(obj)
   topRatedMoviesList = obj.getData()
   m.topRatedMoviesList.topRatedMoviesListContent = topRatedMoviesList
 end sub
 
+sub searchFocusHandler()
+  if m.search.hasFocus()
+    m.search.scale = [1.5, 1.5]
+    m.search.translation = [m.search.translation[0] - 16, m.search.translation[1] - 16]
+  else
+    m.search.scale = [1, 1]
+    m.search.translation = [m.search.translation[0] + 16, m.search.translation[1] + 16]
+  end if
+end sub
+
+function handleHeaderListFocusChange(key) as boolean
+  if key = "down"
+    return m.topRatedMoviesList.setFocus(true)
+  else if key = "right"
+    return m.search.setFocus(true)
+  end if
+end function
+
+function handleSearchFocusChange(key) as boolean
+  if key = "left"
+    return m.headerList.setFocus(true)
+  else if key = "down"
+    return m.topRatedMoviesList.setFocus(true)
+  end if
+end function
+
 function onKeyEvent(key as string, press as boolean) as boolean
   if not press then return false
 
-  if key = "down" and m.headerList.hasFocus()
-    return m.topRatedMoviesList.setFocus(true)
-  else if key = "up" and m.topRatedMoviesList.hasFocus()
+  if m.headerList.hasFocus()
+    return handleHeaderListFocusChange(key)
+  else if m.topRatedMoviesList.hasFocus() and key = "up"
     return m.headerList.setFocus(true)
+  else if m.search.hasFocus()
+    return handleSearchFocusChange(key)
   end if
 end function
 

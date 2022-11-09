@@ -195,6 +195,7 @@ function init()
   m.videoPlayer = m.top.findNode("videoPlayer")
 
   m.homeScreen.observeField("pageSelected", "categoryClickHandler")
+  m.homeScreen.observeField("searchForMoviesPageSelected", "searchClickHandler")
   m.searchForMoviesScreen.observeField("searchButtonClicked", "searchButtonClickHandler")
   m.movieListScreen.observeField("movieSelected", "movieClickHandler")
   m.personScreen.observeField("knownForMovieSelected", "knownForMovieClickHandler")
@@ -209,7 +210,7 @@ function init()
 
   initializeVideoPlayer()
   m.screensHistory = []
-  configUrl = "https://run.mocky.io/v3/453b094b-334a-41d8-8ca4-22d36b66837d"
+  configUrl = "https://run.mocky.io/v3/37c243b6-c63c-42c2-a879-3b85d7b5b3ff"
   fetch(configUrl)
   m.homeScreen.setFocus(true)
 end function

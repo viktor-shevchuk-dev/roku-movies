@@ -1,8 +1,8 @@
-function itemContentChanged()
+sub itemContentChanged()
   itemData = m.top.itemContent
   m.itemText.text = itemData.labelText
-end function
+end sub
 
-function init()
+sub init()
   m.itemText = m.top.findNode("itemText")
-end function
+end sub

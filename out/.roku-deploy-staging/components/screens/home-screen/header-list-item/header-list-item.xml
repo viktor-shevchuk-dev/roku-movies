@@ -4,13 +4,15 @@
   <field id="itemContent" type="node" onChange="itemContentChanged" /> 
 </interface>
 <script type="text/brightscript" uri="./header-list-item.brs" />
-<children>
-  <Label
+<children> 
+    <Label
       id="itemText"
-      translation="[20, 22]"
       font="font:MediumSystemFont"
-      vertAlign="center"
+      translation="[0, 0]"
       horizAlign="center"
+      vertAlign="center"
+      width="320"
+      height="64"
     />  
-</children>
+ </children>
 </component>
