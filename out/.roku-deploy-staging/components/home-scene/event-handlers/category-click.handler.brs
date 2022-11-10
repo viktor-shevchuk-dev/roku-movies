@@ -8,7 +8,6 @@ sub categoryClickHandler(obj)
   if id = m.movieListScreen.id
     showTrendingThisWeek(urlToMakeQuery)
   else if id = m.peopleScreen.id
-STOP
     showPopularActorsList(urlToMakeQuery)
   end if
 end sub

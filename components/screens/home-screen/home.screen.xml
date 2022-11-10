@@ -29,7 +29,7 @@
    <Label
       id="logo"
       height="64"
-      font="font:MediumBoldSystemFont"
+      font="font:LargeBoldSystemFont"
       text="EPAM-TV"
       translation="[100, 80]"
       vertAlign="center"
@@ -37,7 +37,7 @@
     />
     <RowList
       id="headerList"
-      translation="[ 350, 80 ]"
+      translation="[ 400, 80 ]"
       itemComponentName="HeaderListItem"
       rowItemSize="[[320, 64]]"
       itemSize="[1000, 64]"
