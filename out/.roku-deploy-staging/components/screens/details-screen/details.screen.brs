@@ -1,5 +1,5 @@
-function setDetailsContent(params)
-  additionalInformation = params.config.additionalInformation
+function setDetailsContent(config)
+  additionalInformation = config.additionalInformation
 
   data = CreateObject("roSGNode", "ContentNode")
   row = data.CreateChild("ContentNode")

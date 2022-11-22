@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<component name="LoadAsyncTask" extends="task">
+<component name="FetchTask" extends="task">
   <interface>
     <field id="url" type="string" />
     <field id="response" type="string" />
     <field id="error" type="string" />
   </interface>
-  <script type="text/brightscript" uri="./async.task.brs" />
+  <script type="text/brightscript" uri="./fetch.task.brs" />
 </component>

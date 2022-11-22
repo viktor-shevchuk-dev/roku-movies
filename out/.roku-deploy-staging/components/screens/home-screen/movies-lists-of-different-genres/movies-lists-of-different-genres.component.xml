@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="MoviesListsOfDifferentGenres" extends="RowList">
+<script type="text/brightscript" uri="pkg:/components/utils/helpers.brs" />
+<script
+    type="text/brightscript"
+    uri="./movies-lists-of-different-genres.component.brs"
+  />
+<interface>
+   <field id="onFetchSpecificGenreMoviesList" type="int" />  
+   <field
+      id="specificGenreMoviesList"
+      type="roArray"
+      onChange="onSpecificGenreMoviesListChanged"
+    />
+    <field id="genresList" type="roArray" onChange="onGenresListChanged" />
+   <function name="updateDummyVideos" />
+ </interface>
+</component>

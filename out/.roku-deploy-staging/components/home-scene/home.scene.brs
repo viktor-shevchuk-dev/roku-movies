@@ -20,27 +20,26 @@ function handleReceivedMovies(movies)
   m.movieListScreen.content = movies
 end function
 
-sub fetchTopRatedMoviesList()
-  topRatedMoviesListUrl = m.baseUrl + "/movie/top_rated" + m.APIKey + "&language=en-US"
-  fetch(topRatedMoviesListUrl)
-end sub
-
 function handleReceivedConfig(config)
   m.APIKey = config.APIKey
   m.baseUrl = config.baseUrl
-  params = { config: config }
-  m.homeScreen.callFunc("setHeaderListContent", params)
-  m.detailsScreen.callFunc("setDetailsContent", params)
-  m.movieListScreen.callFunc("updateDummyVideos", params)
-  m.personScreen.callFunc("updateDummyVideos", params)
-  m.homeScreen.findNode("topRatedMoviesList").callFunc("updateDummyVideos", params)
-  fetchTopRatedMoviesList()
+  m.homeScreen.callFunc("setHeaderListContent", config)
+  m.detailsScreen.callFunc("setDetailsContent", config)
+  m.movieListScreen.callFunc("updateDummyVideos", config)
+  m.personScreen.callFunc("updateDummyVideos", config)
+  m.homeScreen.findNode("moviesListsOfDifferentGenres").callFunc("updateDummyVideos", config)
+  genresListUrl = m.baseUrl + "/genre/movie/list" + m.APIKey
+  fetch(genresListurl)
 end function
 
-function handleMovieGenres(genres)
-  content = m.detailsScreen.content
-  content.genres = genres
-  m.detailsScreen.content = content
+function handleMovieGenres(genresList)
+  if m.homeScreen.visible
+    m.homeScreen.findNode("moviesListsOfDifferentGenres").genresList = genresList
+  else if m.detailsScreen.visible
+    content = m.detailsScreen.content
+    content.genres = genresList
+    m.detailsScreen.content = content
+  end if
 end function
 
 function handleCast(cast)
@@ -59,15 +58,11 @@ sub handleKnownForMovies(movies)
   m.personScreen.knownForMovies = movies
 end sub
 
-sub handleTopRatedMoviesList(moviesList)
-  m.homeScreen.topRatedMoviesList = moviesList
-end sub
-
-sub handleMoviesFromHomeScreen(movies)
+sub handleMoviesFromHomeScreen(moviesList)
   if m.category = invalid
-    handleTopRatedMoviesList(movies)
+    m.homeScreen.findNode("moviesListsOfDifferentGenres").specificGenreMoviesList = moviesList
   else if m.category.id = m.movieListScreen.id
-    handleReceivedMovies(movies)
+    handleReceivedMovies(moviesList)
   end if
 end sub
 
@@ -124,11 +119,11 @@ sub handleData(data)
 end sub
 
 sub fetch(url)
-  m.asyncTask = createObject("roSGNode", "LoadAsyncTask")
-  m.asyncTask.observeField("error", "fetchErrorHandler")
-  m.asyncTask.observeField("response", "fetchResponseHandler")
-  m.asyncTask.url = url
-  m.asyncTask.control = "RUN"
+  m.fetchTask = createObject("roSGNode", "fetchTask")
+  m.fetchTask.observeField("error", "fetchErrorHandler")
+  m.fetchTask.observeField("response", "fetchResponseHandler")
+  m.fetchTask.url = url
+  m.fetchTask.control = "RUN"
 end sub
 
 sub showTrendingThisWeek(urlToMakeQuery)
@@ -182,8 +177,13 @@ sub fetchMovieGenres(obj)
   fetch(genresUrl)
 end sub
 
+sub fetchSpecificGenreMoviesList(obj)
+  genreId = obj.getData()
+  specificGenreMoviesListUrl = m.baseUrl + "/discover/movie" + m.APIKey + "&language=en-US&with_genres=" + genreId.toStr()
+  fetch(specificGenreMoviesListUrl)
+end sub
+
 function init()
-  ? "[home_scene] init"
   m.homeScreen = m.top.findNode("homeScreen")
   m.movieListScreen = m.top.findNode("movieListScreen")
   m.searchForMoviesScreen = m.top.findNode("searchForMoviesScreen")
@@ -194,6 +194,7 @@ function init()
   m.errorDialog = m.top.findNode("errorDialog")
   m.videoPlayer = m.top.findNode("videoPlayer")
 
+  m.homeScreen.findNode("moviesListsOfDifferentGenres").observeField("onFetchSpecificGenreMoviesList", "fetchSpecificGenreMoviesList")
   m.homeScreen.observeField("pageSelected", "categoryClickHandler")
   m.homeScreen.observeField("searchForMoviesPageSelected", "searchClickHandler")
   m.searchForMoviesScreen.observeField("searchButtonClicked", "searchButtonClickHandler")
@@ -210,7 +211,7 @@ function init()
 
   initializeVideoPlayer()
   m.screensHistory = []
-  configUrl = "https://run.mocky.io/v3/c7ff41df-b9de-471f-bd9d-0d7d34e45a5a"
+  configUrl = "https://run.mocky.io/v3/cd0b4546-d642-4901-b5fe-e9e9740cd57d"
   fetch(configUrl)
   m.homeScreen.setFocus(true)
 end function

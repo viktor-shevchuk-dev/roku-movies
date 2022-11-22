@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<component name="TopRatedMovieItem" extends="Group">
- 
+<component name="MovieItemOfSpecificGenre" extends="Group">
 <interface> 
   <field id="itemContent" type="node" onChange="itemContentChanged" /> 
 </interface>
- 
-<script type="text/brightscript" uri="./topRatedMovie.item.brs" />
+<script
+    type="text/brightscript"
+    uri="./movie-item-of-specific-genre.component.brs"
+  />
 <script type="text/brightscript" uri="../../../../utils/helpers.brs" />
 <children>
-    <LayoutGroup
+    <!-- <LayoutGroup
       layoutDirection="vert"
       vertAlignment="top"
       itemSpacings="20"
       translation="[5, 0]"
-    >
+    > -->
       <Poster id="topRatedMoviePoster" width="200" />
-        <Label
+        <!-- <Label
         id="topRatedMovieTitle"
         font="font:MediumSystemFont"
         width="200"
@@ -24,7 +25,7 @@
         color="0xC0C0C0FF"
       />
       <Label id="topRatedMovieReleaseDate" width="200" color="0x808080" />
-    </LayoutGroup>
+    </LayoutGroup> -->
 </children>
 
 </component>

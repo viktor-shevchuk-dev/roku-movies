@@ -8,19 +8,24 @@ function init()
   m.movieTitle = m.top.findNode("movieTitle")
   m.movieDescription = m.top.findNode("movieDescription")
   m.movieBackdrop = m.top.findNode("movieBackdrop")
-  m.topRatedMoviesList = m.top.findNode("topRatedMoviesList")
+  m.moviesListsOfDifferentGenres = m.top.findNode("moviesListsOfDifferentGenres")
   m.search = m.top.findNode("search")
 
   m.headerList.setFocus(true)
   m.top.observeField("visible", "onVisibleChange")
-  m.topRatedMoviesList.observeField("rowItemFocused", "movieFocusHandler")
+  m.moviesListsOfDifferentGenres.observeField("rowItemFocused", "movieFocusHandler")
   m.search.observeField("focusedChild", "searchFocusHandler")
+
+  '
+  ' m.genresList = m.top.findNode("genresList")
+  ' m.genresList.setFocus(true)
+
 end function
 
-sub setHeaderListContent(params)
-  baseUrl = params.config.baseUrl
-  APIKey = params.config.APIKey
-  categories = params.config.categories
+sub setHeaderListContent(config)
+  baseUrl = config.baseUrl
+  APIKey = config.APIKey
+  categories = config.categories
 
   headerListContent = CreateObject("roSGNode", "ContentNode")
   row = headerListContent.CreateChild("ContentNode")
@@ -31,11 +36,6 @@ sub setHeaderListContent(params)
     headerListItem.urlToMakeQuery = baseUrl + category.endpoint + APIKey
   end for
   m.headerList.content = headerListContent
-end sub
-
-sub onTopRatedMoviesListChanged(obj)
-  topRatedMoviesList = obj.getData()
-  m.topRatedMoviesList.topRatedMoviesListContent = topRatedMoviesList
 end sub
 
 sub searchFocusHandler()
@@ -50,7 +50,7 @@ end sub
 
 function handleHeaderListFocusChange(key) as boolean
   if key = "down"
-    return m.topRatedMoviesList.setFocus(true)
+    return m.moviesListsOfDifferentGenres.setFocus(true)
   else if key = "right"
     return m.search.setFocus(true)
   end if
@@ -60,7 +60,7 @@ function handleSearchFocusChange(key) as boolean
   if key = "left"
     return m.headerList.setFocus(true)
   else if key = "down"
-    return m.topRatedMoviesList.setFocus(true)
+    return m.moviesListsOfDifferentGenres.setFocus(true)
   end if
 end function
 
@@ -69,7 +69,7 @@ function onKeyEvent(key as string, press as boolean) as boolean
 
   if m.headerList.hasFocus()
     return handleHeaderListFocusChange(key)
-  else if m.topRatedMoviesList.hasFocus() and key = "up"
+  else if m.moviesListsOfDifferentGenres.hasFocus() and key = "up"
     return m.headerList.setFocus(true)
   else if m.search.hasFocus()
     return handleSearchFocusChange(key)
@@ -84,7 +84,6 @@ sub changeMovieDetailContent(title, content)
 end sub
 
 sub movieFocusHandler()
-  focusedMovie = getMovieFromRowListByEvent(m.topRatedMoviesList, "focus")
-  changeMovieDetailContent(focusedMovie.title, focusedMovie.additionalInformation)
+  focusedMovie = getMovieFromRowListByEvent(m.moviesListsOfDifferentGenres, "focus")
+  ' changeMovieDetailContent(focusedMovie.title, focusedMovie.additionalInformation)
 end sub
-

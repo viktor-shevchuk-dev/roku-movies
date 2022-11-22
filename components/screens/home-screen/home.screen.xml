@@ -15,14 +15,9 @@
     />
     <function name="setHeaderListContent" />
     <field
-      id="topRatedMoviesList"
-      type="roArray"
-      onChange="onTopRatedMoviesListChanged"
-    />
-    <field
       id="topRatedMovieSelected"
       type="assocArray"
-      alias="topRatedMoviesList.rowItemSelected"
+      alias="moviesListsOfDifferentGenres.rowItemSelected"
     />
    </interface>
    <children>
@@ -55,14 +50,7 @@
       minWidth="64"
       height="64"
     />
-    <Label
-      id="title"
-      font="font:LargeBoldSystemFont"
-      color="0xFFFFFF"
-      translation="[100, 222]"
-      text="Top Rated"
-    />
-    <TopRatedMoviesList
+    <!-- <TopRatedMoviesList
       id="topRatedMoviesList"
       translation="[100, 258]"
       itemComponentName="TopRatedMovieItem"
@@ -73,6 +61,22 @@
       rowItemSpacing="[[20, 0]]"
       rowFocusAnimationStyle="floatingFocus"
       showRowLabel="[true, true]"
+    /> -->
+    <MoviesListsOfDifferentGenres
+      id="moviesListsOfDifferentGenres"
+      translation="[0, 258]"
+      itemComponentName="MovieItemOfSpecificGenre"
+      itemSize="[1920,300]"
+      numRows="5"
+      rowItemSize="[[1220,591],[351,234]]"
+      rowHeights="[648,300]"
+      rowItemSpacing="[[54,0],[18,0]]"
+      focusXOffset="[350,47]"
+      rowLabelOffset="[[47,8]]"
+      showRowLabel="[true]"
+      showRowCounter="[true]"
+      variableWidthItems="[true]"
+      rowFocusAnimationStyle="fixedFocusWrap"
     />
     <Rectangle
       id="movieDetailWrapper"

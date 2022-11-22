@@ -37,6 +37,6 @@ sub showPosterGrid(content)
   m.homeGrid.setFocus(true)
 end sub
 
-function updateDummyVideos(params)
-  m.dummyVideos = params.config.dummyVideos
+function updateDummyVideos(config)
+  m.dummyVideos = config.dummyVideos
 end function

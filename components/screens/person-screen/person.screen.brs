@@ -6,8 +6,8 @@ sub onContentChange(obj)
   m.name.text = personItem.SHORTDESCRIPTIONLINE1
 end sub
 
-function updateDummyVideos(params)
-  m.dummyVideos = params.config.dummyVideos
+function updateDummyVideos(config)
+  m.dummyVideos = config.dummyVideos
 end function
 
 sub onKnownForMoviesChanged(obj)

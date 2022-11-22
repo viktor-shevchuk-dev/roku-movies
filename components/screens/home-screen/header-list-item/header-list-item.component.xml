@@ -3,7 +3,7 @@
 <interface> 
   <field id="itemContent" type="node" onChange="itemContentChanged" /> 
 </interface>
-<script type="text/brightscript" uri="./header-list-item.brs" />
+<script type="text/brightscript" uri="./header-list-item.component.brs" />
 <children> 
     <Label
       id="itemText"
