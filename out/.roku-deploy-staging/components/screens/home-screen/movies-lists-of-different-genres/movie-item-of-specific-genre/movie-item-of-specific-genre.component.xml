@@ -8,6 +8,6 @@
     uri="./movie-item-of-specific-genre.component.brs"
   />
 <children>
-  <Poster id="poster" width="200" translation="[0, 0]" />
+  <Poster id="poster" width="200" height="300" translation="[0, 0]" />
 </children>
 </component>

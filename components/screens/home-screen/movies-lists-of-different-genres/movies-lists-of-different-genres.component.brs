@@ -2,6 +2,13 @@ sub onGenresListChanged(obj)
   m.genresList = obj.getData()
   content = CreateObject("roSGNode", "ContentNode")
   m.top.content = content
+  m.top.numRows = m.genresList.count()
+
+  for each genre in m.genresList
+    row = CreateObject("rosgnode", "ContentNode")
+    m.top.content.appendChild(row)
+  end for
+
   m.currentGenreIndex = 0
   firtsGenre = m.genresList[m.currentGenreIndex]
   m.top.onFetchSpecificGenreMoviesList = firtsGenre.id
@@ -9,15 +16,12 @@ end sub
 
 sub onSpecificGenreMoviesListChanged(obj)
   specificGenreMoviesList = obj.getData()
-  row = CreateObject("rosgnode", "ContentNode")
   currentGenre = m.genresList[m.currentGenreIndex]
-  row.title = currentGenre.name
-
-
-  m.top.content.appendChild(row)
+  currentRow = CreateObject("rosgnode", "ContentNode")
+  currentRow.title = currentGenre.name
 
   for each movie in specificGenreMoviesList
-    item = row.CreateChild("SpecificGenreMovieContent")
+    item = currentRow.CreateChild("SpecificGenreMovieContent")
     item.title = movie.title
     item.overview = movie.overview
     item.backdropUrl = generateImageUrl(movie.backdrop_path, "200")
@@ -28,6 +32,8 @@ sub onSpecificGenreMoviesListChanged(obj)
     item.addField("FHDItemWidth", "float", false)
     item.FHDItemWidth = "200"
   end for
+
+  m.top.content.replaceChild(currentRow, m.currentGenreIndex)
 
   m.currentGenreIndex = m.currentGenreIndex + 1
   nextGenre = m.genresList[m.currentGenreIndex]
