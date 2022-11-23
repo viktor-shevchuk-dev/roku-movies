@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<component name="MoviesListOfSpecificGenreContent" extends="Task">
+  <script type="text/brightscript" uri="../../utils/helpers.brs" />
+  <script
+    type="text/brightscript"
+    uri="./movies-list-of-specific-genre-content.task.brs"
+  />
+    <interface>
+        <field id="moviesList" type="roArray" />
+        <field id="rowTitle" type="string" />
+        <field id="dummyVideos" type="roArray" />
+        <field id="content" type="node" />
+        <field id="rowIndex" type="int" />
+     </interface>
+</component>

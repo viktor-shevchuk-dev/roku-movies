@@ -32,14 +32,14 @@
     />
     <RowList
       id="headerList"
-      translation="[ 400, 50 ]"
+      translation="[400, 50]"
       itemComponentName="HeaderListItem"
       rowItemSize="[[320, 64]]"
       itemSize="[1000, 64]"
       rowItemSpacing="[[40, 0]]"
     /> 
     <Button
-      translation="[ 1756, 50 ]"
+      translation="[1786, 50]"
       id="search"
       iconUri=""
       focusedIconUri=""
@@ -50,18 +50,6 @@
       minWidth="64"
       height="64"
     />
-    <!-- <TopRatedMoviesList
-      id="topRatedMoviesList"
-      translation="[100, 258]"
-      itemComponentName="TopRatedMovieItem"
-      itemSize="[690, 594]"
-      rowHeights="[594]"
-      rowItemSize="[[210, 594], [210, 594], [210, 594]]"
-      itemSpacing="[0, 80]"
-      rowItemSpacing="[[20, 0]]"
-      rowFocusAnimationStyle="floatingFocus"
-      showRowLabel="[true, true]"
-    /> -->
     <MoviesListsOfDifferentGenres
       id="moviesListsOfDifferentGenres"
       translation="[0, 560]"

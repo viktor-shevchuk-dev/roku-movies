@@ -1,14 +1,14 @@
 sub onGenresListChanged(obj)
   m.genresList = obj.getData()
   content = CreateObject("roSGNode", "ContentNode")
-  m.top.content = content
   m.top.numRows = m.genresList.count()
 
   for each genre in m.genresList
     row = CreateObject("rosgnode", "ContentNode")
-    m.top.content.appendChild(row)
+    content.appendChild(row)
   end for
 
+  m.top.content = content
   m.currentGenreIndex = 0
   firtsGenre = m.genresList[m.currentGenreIndex]
   m.top.onFetchSpecificGenreMoviesList = firtsGenre.id
@@ -16,26 +16,15 @@ end sub
 
 sub onSpecificGenreMoviesListChanged(obj)
   specificGenreMoviesList = obj.getData()
-  currentGenre = m.genresList[m.currentGenreIndex]
-  currentRow = CreateObject("rosgnode", "ContentNode")
-  currentRow.title = currentGenre.name
+  LoadRowTask = createObject("roSGNode", "MoviesListOfSpecificGenreContent")
+  LoadRowTask.moviesList = specificGenreMoviesList
+  LoadRowTask.content = m.top.content
+  LoadRowTask.rowIndex = m.currentGenreIndex
+  LoadRowTask.rowTitle = m.genresList[m.currentGenreIndex].name
+  LoadRowTask.dummyVideos = m.dummyVideos
+  LoadRowTask.control = "run"
 
-  for each movie in specificGenreMoviesList
-    item = currentRow.CreateChild("SpecificGenreMovieContent")
-    item.title = movie.title
-    item.overview = movie.overview
-    item.backdropUrl = generateImageUrl(movie.backdrop_path, "200")
-    item.posterUrl = generateImageUrl(movie.poster_path, "200")
-    item.id = movie.id
-    item.streamformat = "mp4"
-    item.url = getRandomVideoUrl(m.dummyVideos)
-    item.addField("FHDItemWidth", "float", false)
-    item.FHDItemWidth = "200"
-  end for
-
-  m.top.content.replaceChild(currentRow, m.currentGenreIndex)
-
-  m.currentGenreIndex = m.currentGenreIndex + 1
+  m.currentGenreIndex++
   nextGenre = m.genresList[m.currentGenreIndex]
 
   if nextGenre = invalid then return
