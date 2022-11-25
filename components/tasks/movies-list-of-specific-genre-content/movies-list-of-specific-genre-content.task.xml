@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <component name="MoviesListOfSpecificGenreContent" extends="Task">
-  <script type="text/brightscript" uri="../../utils/helpers.brs" />
+  <script type="text/brightscript" uri="../../utils/generate-image-url.brs" />
+  <script type="text/brightscript" uri="../../utils/get-display-size.brs" />
+  <script type="text/brightscript" uri="../../utils/get-random-video-url.brs" />
   <script
     type="text/brightscript"
     uri="./movies-list-of-specific-genre-content.task.brs"

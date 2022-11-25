@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <component name="HomeScene" extends="Scene">
-<script type="text/brightscript" uri="../utils/helpers.brs" />
 <script
     type="text/brightscript"
     uri="./event-handlers/back-button-click.handler.brs"
@@ -55,7 +54,7 @@
   />
 <script
     type="text/brightscript"
-    uri="./event-handlers/top-rated-movie-click.handler.brs"
+    uri="./event-handlers/specific-genre-movie-click.handler.brs"
   />
 <script type="text/brightscript" uri="./home.scene.brs" />
 <children>

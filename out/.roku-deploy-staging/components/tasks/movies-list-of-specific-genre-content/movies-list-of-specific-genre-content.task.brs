@@ -18,13 +18,14 @@ sub loadContent()
     item = row.createChild("SpecificGenreMovieContent")
     item.title = movie.title
     item.overview = movie.overview
-    item.backdropUrl = generateImageUrl(movie.backdrop_path, "200")
-    item.posterUrl = generateImageUrl(movie.poster_path, "200")
+    item.loadingBitmapUri = generateImageUrl(movie.backdrop_path, "250", "141")
+    item.backdropUrl = generateImageUrl(movie.backdrop_path, getDisplaySize().w.toStr(), getDisplaySize().h.toStr())
+    item.posterUrl = generateImageUrl(movie.poster_path, "220", "330")
     item.id = movie.id
     item.streamformat = "mp4"
     item.url = getRandomVideoUrl(dummyVideos)
     item.addField("FHDItemWidth", "float", false)
-    item.FHDItemWidth = "200"
+    item.FHDItemWidth = "220"
   end for
 
   content.replaceChild(row, rowIndex)

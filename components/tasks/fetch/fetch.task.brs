@@ -4,9 +4,8 @@ sub init()
 end sub
 
 function request()
-  if m.top.url = ""
-    m.top.error = "Url not provided."
-  end if
+  if m.top.url = "" then m.top.error = "Url not provided."
+
   url = m.top.url
   http = createObject("roUrlTransfer")
   http.RetainBodyOnError(true)

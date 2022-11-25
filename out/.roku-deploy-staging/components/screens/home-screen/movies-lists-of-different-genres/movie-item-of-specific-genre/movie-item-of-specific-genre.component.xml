@@ -2,12 +2,12 @@
 <component name="MovieItemOfSpecificGenre" extends="Group">
 <interface> 
   <field id="itemContent" type="node" onChange="itemContentChanged" /> 
-</interface>
+ </interface>
 <script
     type="text/brightscript"
     uri="./movie-item-of-specific-genre.component.brs"
   />
 <children>
-  <Poster id="poster" width="200" height="300" translation="[0, 0]" />
+  <Poster id="poster" width="220" height="330" translation="[0, 0]" />
 </children>
 </component>

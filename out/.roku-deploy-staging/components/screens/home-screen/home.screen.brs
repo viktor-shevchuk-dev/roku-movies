@@ -4,22 +4,15 @@ end sub
 
 function init()
   m.headerList = m.top.findNode("headerList")
-  m.movieDetailWrapper = m.top.findNode("movieDetailWrapper")
-  m.movieTitle = m.top.findNode("movieTitle")
-  m.movieDescription = m.top.findNode("movieDescription")
-  m.movieBackdrop = m.top.findNode("movieBackdrop")
   m.moviesListsOfDifferentGenres = m.top.findNode("moviesListsOfDifferentGenres")
   m.search = m.top.findNode("search")
+  m.previousBgImg = m.top.findNode("previousBgImg")
+  m.currentBgImg = m.top.findNode("currentBgImg")
 
   m.headerList.setFocus(true)
   m.top.observeField("visible", "onVisibleChange")
   m.moviesListsOfDifferentGenres.observeField("rowItemFocused", "movieFocusHandler")
   m.search.observeField("focusedChild", "searchFocusHandler")
-
-  '
-  ' m.genresList = m.top.findNode("genresList")
-  ' m.genresList.setFocus(true)
-
 end function
 
 sub setHeaderListContent(config)
@@ -76,14 +69,10 @@ function onKeyEvent(key as string, press as boolean) as boolean
   end if
 end function
 
-sub changeMovieDetailContent(title, content)
-  m.movieTitle.text = title
-  m.movieDescription.text = content.description
-  m.movieBackdrop.uri = generateImageUrl(content.backdropUrl, "500")
-  if not m.movieDetailWrapper.visible then m.movieDetailWrapper.visible = true
-end sub
-
 sub movieFocusHandler()
-  focusedMovie = getMovieFromRowListByEvent(m.moviesListsOfDifferentGenres, "focus")
-  ' changeMovieDetailContent(focusedMovie.title, focusedMovie.additionalInformation)
+  m.focusedMovie = getItemFromRowList(m.moviesListsOfDifferentGenres, "focus")
+
+  if m.currentBgImg.uri <> "" then m.previousBgImg.uri = m.currentBgImg.uri
+
+  m.currentBgImg.uri = m.focusedMovie.backdropUrl
 end sub

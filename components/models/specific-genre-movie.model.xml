@@ -3,6 +3,7 @@
 <interface> 
   <field id="posterUrl" type="string" />
   <field id="backdropUrl" type="string" />
+  <field id="loadingBitmapUri" type="string" />
   <field id="overview" type="string" />
  </interface> 
 </component>

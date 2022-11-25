@@ -22,7 +22,7 @@
     />
     <function name="setDetailsContent" />
   	</interface>
-	<script type="text/brightscript" uri="../../utils/helpers.brs" />
+	<script type="text/brightscript" uri="../../utils/adjust-scrollable-text.brs" />
 	<script type="text/brightscript" uri="./details.screen.brs" />
 	<children>
     <Poster id="thumbnail" width="500" height="750" translation="[100, 100]" />

@@ -5,3 +5,4 @@ end sub
 sub init() as void
   m.poster = m.top.findNode("poster")
 end sub
+

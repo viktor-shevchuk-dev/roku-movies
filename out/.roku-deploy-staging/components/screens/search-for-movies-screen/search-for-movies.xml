@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <component name="SearchForMoviesScreen" extends="Group" initialFocus="keyboard">
-    <script type="text/brightscript" uri="../../utils/helpers.brs" />
+    <script type="text/brightscript" uri="../../utils/adjust-heading.brs" />
+    <script type="text/brightscript" uri="../../utils/center.brs" />
+    <script
+    type="text/brightscript"
+    uri="../../utils/center-horizontally.brs"
+  />
+    <script type="text/brightscript" uri="../../utils/set-font-size.brs" />
     <script type="text/brightscript" uri="./search-for-movies.brs" />
     <interface>
       <field

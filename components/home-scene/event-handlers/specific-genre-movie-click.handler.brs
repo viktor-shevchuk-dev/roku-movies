@@ -1,4 +1,4 @@
-sub topRatedMovieClickHandler(obj)
+sub specificGenreMovieClickHandler(obj)
   contextScreen = obj.getRoSGNode()
   topRatedMoviesList = contextScreen.findNode ("topRatedMoviesList")
   m.selectedMovie = getMovieFromRowListByEvent(topRatedMoviesList, "click")

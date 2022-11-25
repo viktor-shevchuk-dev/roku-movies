@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <component name="MovieListScreen" extends="Group" initialFocus="homeGrid">
-    <script type="text/brightscript" uri="pkg:/components/utils/helpers.brs" />
     <script type="text/brightscript" uri="./movie-list.screen.brs" />
     <interface>
       <field id="content" type="roArray" onChange="onDataChanged" />

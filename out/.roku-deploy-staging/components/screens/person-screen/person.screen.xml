@@ -19,7 +19,8 @@
     <function name="updateDummyVideos" />
    	</interface>
 	<script type="text/brightscript" uri="./person.screen.brs" />
-	<script type="text/brightscript" uri="../../utils/helpers.brs" />
+	<script type="text/brightscript" uri="../../utils/set-font-size.brs" />
+	<script type="text/brightscript" uri="../../utils/adjust-scrollable-text.brs" />
 	<children> 
 		<Poster id="photo" translation="[90, 50]" />
 		<Label id="name" font="font:MediumBoldSystemFont" translation="[730, 52]" />

@@ -4,7 +4,6 @@
     <field id="itemContent" type="node" onChange="itemContentChanged" /> 
 </interface>
 <script type="text/brightscript" uri="./simple-grid-item.brs" />
-<script type="text/brightscript" uri="../../../utils/helpers.brs" />
 <children>
     <Poster id="itemPoster" width="200" height="300" translation="[0, 0]" />
     <Label
