@@ -179,7 +179,7 @@ end sub
 
 sub fetchSpecificGenreMoviesList(obj)
   genreId = obj.getData()
-  specificGenreMoviesListUrl = m.baseUrl + "/discover/movie" + m.APIKey + "&language=en-US&with_genres=" + genreId.toStr()
+  specificGenreMoviesListUrl = m.baseUrl + "/discover/movie" + m.APIKey + "&language=en-US&sort_by=vote_count.desc&with_genres=" + genreId.toStr()
   fetch(specificGenreMoviesListUrl)
 end sub
 

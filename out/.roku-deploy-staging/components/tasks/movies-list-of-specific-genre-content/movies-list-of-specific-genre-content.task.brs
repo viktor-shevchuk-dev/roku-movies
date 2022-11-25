@@ -18,7 +18,6 @@ sub loadContent()
     item = row.createChild("SpecificGenreMovieContent")
     item.title = movie.title
     item.overview = movie.overview
-    item.loadingBitmapUri = generateImageUrl(movie.backdrop_path, "250", "141")
     item.backdropUrl = generateImageUrl(movie.backdrop_path, getDisplaySize().w.toStr(), getDisplaySize().h.toStr())
     item.posterUrl = generateImageUrl(movie.poster_path, "220", "330")
     item.id = movie.id

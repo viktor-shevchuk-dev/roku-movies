@@ -70,9 +70,9 @@ function onKeyEvent(key as string, press as boolean) as boolean
 end function
 
 sub movieFocusHandler()
-  m.focusedMovie = getItemFromRowList(m.moviesListsOfDifferentGenres, "focus")
+  focusedMovie = getItemFromRowList(m.moviesListsOfDifferentGenres, "focus")
 
   if m.currentBgImg.uri <> "" then m.previousBgImg.uri = m.currentBgImg.uri
 
-  m.currentBgImg.uri = m.focusedMovie.backdropUrl
+  m.currentBgImg.uri = focusedMovie.backdropUrl
 end sub
