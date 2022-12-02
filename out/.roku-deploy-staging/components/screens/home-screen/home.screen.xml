@@ -1,10 +1,8 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <component name="HomeScreen" extends="Group">
-  <script
-    type="text/brightscript"
-    uri="../../utils/get-item-from-row-list.brs"
-  />
-  <script type="text/brightscript" uri="./home.screen.brs" />
+  <script type="text/brightscript" uri="../../utils/set-font-size.brs"/>
+  <script type="text/brightscript" uri="../../utils/get-item-from-row-list.brs"/>
+  <script type="text/brightscript" uri="./home.screen.brs"/>
   <interface>
     <field
       id="pageSelected"
@@ -16,17 +14,17 @@
       type="assocArray"
       alias="search.buttonSelected"
     />
-    <function name="setHeaderListContent" />
+    <function name="setHeaderListContent"/>
     <field
       id="movieSelected"
       type="assocArray"
       alias="moviesListsOfDifferentGenres.rowItemSelected"
     />
-   </interface>
-   <children> 
-      <Poster id="previousBgImg" translation="[0, 0]" blendColor="0x808080FF"> 
-      <Poster id="currentBgImg" translation="[0, 0]" blendColor="0x808080FF"> 
-         <Label
+  </interface>
+  <children>
+    <Poster id="previousBgImg" translation="[0, 0]" blendColor="0x2F4F4FFF">
+      <Poster id="currentBgImg" translation="[0, 0]" blendColor="0x2F4F4FFF">
+        <Label
           id="logo"
           height="64"
           font="font:LargeBoldSystemFont"
@@ -42,7 +40,7 @@
           rowItemSize="[[320, 64]]"
           itemSize="[1000, 64]"
           rowItemSpacing="[[40, 0]]"
-        /> 
+        />
         <Button
           translation="[1786, 50]"
           id="search"
@@ -55,9 +53,26 @@
           minWidth="64"
           height="64"
         />
+        <Label id="title" translation="[50, 194]" font="font:MediumBoldSystemFont"/>
+        <VoteAverage
+          id="voteAverage"
+          layoutDirection="horiz"
+          vertAlignment="center"
+          itemSpacings="[12]"
+          visible="false"
+          height="56"
+        />
+        <Label
+          id="description"
+          translation="[50, 292]"
+          width="1600"
+          wrap="true"
+          height="0"
+          maxLines="3"
+        />
         <MoviesListsOfDifferentGenres
           id="moviesListsOfDifferentGenres"
-          translation="[0, 560]"
+          translation="[0, 518]"
           itemComponentName="MovieItemOfSpecificGenre"
           itemSize="[1920, 330]"
           itemSpacing="[0, 80]"
@@ -69,8 +84,8 @@
           showRowCounter="[true]"
           variableWidthItems="[true]"
           rowFocusAnimationStyle="fixedFocusWrap"
-        /> 
-       </Poster>    
-      </Poster>    
-    </children>
+        />
+      </Poster>
+    </Poster>
+  </children>
 </component>

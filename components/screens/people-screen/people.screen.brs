@@ -25,7 +25,7 @@ sub onCastChanged(obj)
   for each person in people.peopleList
     node = createObject("roSGNode", "ContentNode")
     node.id = person.id
-    node.HDGRIDPOSTERURL = generateImageUrl(person.profile_path, "400")
+    node.HDGRIDPOSTERURL = generateImageUrl(person.profile_path, "300", "450")
     node.SHORTDESCRIPTIONLINE1 = person.name
     appendKnownForMoviesList(node, person.known_for)
     if person.character <> invalid then node.SHORTDESCRIPTIONLINE2 = "Character: " + person.character

@@ -1,29 +1,33 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <component name="PeopleScreen" extends="Group" initialFocus="peopleGrid">
-    <script type="text/brightscript" uri="/people.screen.brs" />
-    <interface>
-      <field
+  <script type="text/brightscript" uri="../../utils/adjust-heading.brs"/>
+  <script type="text/brightscript" uri="../../utils/center-horizontally.brs"/>
+  <script type="text/brightscript" uri="../../utils/set-font-size.brs"/>
+  <script type="text/brightscript" uri="../../utils/generate-image-url.brs"/>
+  <script type="text/brightscript" uri="/people.screen.brs"/>
+  <interface>
+    <field
       id="personSelected"
       type="assocarray"
       alias="peopleGrid.itemSelected"
     />
-      <field id="content" type="assocarray" onChange="onCastChanged" />
-      </interface>
-    <children>
+    <field id="content" type="assocarray" onChange="onCastChanged"/>
+  </interface>
+  <children>
     <Label
       id="heading"
       translation="[0, 60]"
       font="font:MediumBoldSystemFont"
-    />            
+    />
     <PosterGrid
       id="peopleGrid"
       translation="[100, 175]"
-      basePosterSize="[400, 600]"
+      basePosterSize="[300, 450]"
       itemSpacing="[40, 40]"
       caption1NumLines="1"
       caption2NumLines="1"
       numColumns="4"
       numRows="10"
     />
-    </children>
+  </children>
 </component>

@@ -13,7 +13,7 @@ function createImageUrl(path)
     return path
   end if
 
-  return generateImageUrl(path, "200")
+  return generateImageUrl(path, "220", "330")
 end function
 
 sub init()

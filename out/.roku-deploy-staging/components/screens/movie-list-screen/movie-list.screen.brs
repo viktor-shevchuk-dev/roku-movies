@@ -23,7 +23,7 @@ sub onDataChanged(obj)
     node.streamformat = "mp4"
     node.url = getRandomVideoUrl(m.dummyVideos)
 
-    node.HDGRIDPOSTERURL = generateImageUrl(movie.poster_path, "300")
+    node.HDGRIDPOSTERURL = generateImageUrl(movie.poster_path, "300", "450")
     node.SHORTDESCRIPTIONLINE1 = movie.title
     node.SHORTDESCRIPTIONLINE2 = movie.overview
     posterContent.appendChild(node)

@@ -5,5 +5,6 @@
   <field id="backdropUrl" type="string" />
   <field id="loadingBitmapUri" type="string" />
   <field id="overview" type="string" />
+  <field id="voteAverage" type="float" />
  </interface> 
 </component>

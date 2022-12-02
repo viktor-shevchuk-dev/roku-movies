@@ -18,7 +18,7 @@ sub onKnownForMoviesChanged(obj)
   for each knownForMovie in knownForMovies
     item = row.CreateChild("ContentNode")
     item.title = knownForMovie.original_title
-    item.hdposterurl = generateImageUrl(knownForMovie.poster_path, "300")
+    item.hdposterurl = generateImageUrl(knownForMovie.poster_path, "300", "450")
     item.id = knownForMovie.id
     item.streamformat = "mp4"
     item.url = getRandomVideoUrl(m.dummyVideos)

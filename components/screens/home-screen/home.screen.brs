@@ -8,6 +8,9 @@ function init()
   m.search = m.top.findNode("search")
   m.previousBgImg = m.top.findNode("previousBgImg")
   m.currentBgImg = m.top.findNode("currentBgImg")
+  m.title = m.top.findNode("title")
+  m.description = m.top.findNode("description")
+  m.voteAverage = m.top.findNode("voteAverage")
 
   m.headerList.setFocus(true)
   m.top.observeField("visible", "onVisibleChange")
@@ -69,10 +72,29 @@ function onKeyEvent(key as string, press as boolean) as boolean
   end if
 end function
 
+sub showScore(percentage)
+  titleBoundingRect = m.title.boundingRect()
+  titleWidth = titleBoundingRect.width
+  titleHeight = titleBoundingRect.height
+  translationX = m.title.translation[0] + titleWidth + 42
+  translationY = m.title.translation[1] + titleHeight / 2
+  m.voteAverage.translation = [translationX, translationY]
+  m.voteAverage.percentage = percentage
+  m.voteAverage.visible = true
+end sub
+
 sub movieFocusHandler()
   focusedMovie = getItemFromRowList(m.moviesListsOfDifferentGenres, "focus")
 
   if m.currentBgImg.uri <> "" then m.previousBgImg.uri = m.currentBgImg.uri
 
   m.currentBgImg.uri = focusedMovie.backdropUrl
+
+  m.title.text = focusedMovie.title
+  m.description.text = focusedMovie.overview
+  setFontSize(m.title, 56)
+  setFontSize(m.description, 38)
+
+  scorePercentage = focusedMovie.voteAverage * 10
+  showScore(scorePercentage)
 end sub

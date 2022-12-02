@@ -1,36 +1,39 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <component name="PersonScreen" extends="Group" initialFocus="biographyContent">
-	<interface> 
-		<field
+  <interface>
+    <field
       id="content"
       type="node"
       alwaysnotify="true"
       onChange="onContentChange"
     />
-		<field id="fetchPersonDetails" type="int" />
-		<field id="fetchKnownFor" type="int" />
-		<field id="personDetails" type="assocarray" onChange="onPersonDetailsChanged" />
-		<field id="knownForMovies" type="roArray" onChange="onKnownForMoviesChanged" />
+    <field id="fetchPersonDetails" type="int"/>
+    <field id="fetchKnownFor" type="int"/>
+    <field id="personDetails" type="assocarray" onChange="onPersonDetailsChanged"/>
+    <field id="knownForMovies" type="roArray" onChange="onKnownForMoviesChanged"/>
     <field
       id="knownForMovieSelected"
       type="assocarray"
       alias="knownForList.rowItemSelected"
     />
-    <function name="updateDummyVideos" />
-   	</interface>
-	<script type="text/brightscript" uri="./person.screen.brs" />
-	<script type="text/brightscript" uri="../../utils/set-font-size.brs" />
-	<script type="text/brightscript" uri="../../utils/adjust-scrollable-text.brs" />
-	<children> 
-		<Poster id="photo" translation="[90, 50]" />
-		<Label id="name" font="font:MediumBoldSystemFont" translation="[730, 52]" />
-		<Label
+    <function name="updateDummyVideos"/>
+  </interface>
+  <script type="text/brightscript" uri="./person.screen.brs"/>
+  <script type="text/brightscript" uri="../../utils/set-font-size.brs"/>
+  <script type="text/brightscript" uri="../../utils/adjust-scrollable-text.brs"/>
+  <script type="text/brightscript" uri="../../utils/set-font-size.brs"/>
+  <script type="text/brightscript" uri="../../utils/generate-image-url.brs"/>
+  <script type="text/brightscript" uri="../../utils/get-random-video-url.brs"/>
+  <children>
+    <Poster id="photo" translation="[90, 50]"/>
+    <Label id="name" font="font:MediumBoldSystemFont" translation="[730, 52]"/>
+    <Label
       id="biography"
       font="font:MediumBoldSystemFont"
       translation="[730, 136]"
       text="Biography"
     />
-		<Group translation="[730, 186]">
+    <Group translation="[730, 186]">
       <Rectangle
         id="textRectangle"
         width="1108"
@@ -71,5 +74,5 @@
       rowItemAspectRatio="[0.548]"
       rowItemZoomHeight="[368]"
     />
- 	</children>
+  </children>
 </component>

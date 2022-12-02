@@ -10,7 +10,8 @@
       "request": "launch",
       "host": "192.168.145.235",
       "password": "aaaa",
-      "rootDir": "${workspaceFolder}"
+      "rootDir": "${workspaceFolder}",
+      "injectRdbOnDeviceComponent": true
     }
   ]
 }
