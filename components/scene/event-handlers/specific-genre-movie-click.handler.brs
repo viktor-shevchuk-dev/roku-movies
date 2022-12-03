@@ -1,7 +1,7 @@
 sub specificGenreMovieClickHandler(obj)
   contextScreen = obj.getRoSGNode()
   topRatedMoviesList = contextScreen.findNode ("topRatedMoviesList")
-  m.selectedMovie = getMovieFromRowListByEvent(topRatedMoviesList, "click")
+  m.selectedMovie = getItemFromRowList(topRatedMoviesList, "click")
   content = { title: m.selectedMovie.title,
     description: m.selectedMovie.additionalInformation.description,
   id: m.selectedMovie.id, posterUrl: generateImageUrl(m.selectedMovie.additionalInformation.posterUrl, "300") }

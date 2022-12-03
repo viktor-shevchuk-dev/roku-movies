@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component name="ParseJsonTask" extends="task">
+  <interface>
+    <field id="json" type="string"/>
+    <field id="parsedJson" type="assocarray"/>
+    <field id="error" type="string"/>
+  </interface>
+  <script type="text/brightscript" uri="./parse-json.task.brs"/>
+</component>

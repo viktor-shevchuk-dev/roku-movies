@@ -3,7 +3,7 @@
   name="VoteAverage"
   extends="LayoutGroup"
 >
-  <script type="text/brightscript" uri="../../../utils/set-font-size.brs"/>
+  <script type="text/brightscript" uri="../utils/set-font-size.brs"/>
   <script
     type="text/brightscript"
     uri="./vote-average.component.brs"

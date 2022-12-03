@@ -25,12 +25,14 @@ sub setHeaderListContent(config)
 
   headerListContent = CreateObject("roSGNode", "ContentNode")
   row = headerListContent.CreateChild("ContentNode")
+
   for each category in categories
     headerListItem = row.CreateChild("HeaderListItemData")
     headerListItem.id = category.id
     headerListItem.labelText = category.title
     headerListItem.urlToMakeQuery = baseUrl + category.endpoint + APIKey
   end for
+
   m.headerList.content = headerListContent
 end sub
 
