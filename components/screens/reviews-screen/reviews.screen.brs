@@ -11,8 +11,8 @@ end sub
 sub onReviewsChanged(obj)
   reviews = obj.getData()
   m.heading.text = reviews.title
-  adjustHeading(m.heading)
-
+  centerHorizontally(m.heading)
+  setFontSize(m.heading, 50)
   m.reviewslist.content = CreateObject("roSGNode", "ReviewsListContent")
   m.reviewslist.content.reviews = reviews.reviews
   m.reviewslist.setFocus(true)

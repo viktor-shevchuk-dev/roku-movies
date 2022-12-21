@@ -1,6 +1,7 @@
 ## Channel Details
 
 title=EPAM-TV
+subtitle=Millions of movies to discover. Explore now.
 major_version=1
 minor_version=0
 build_version=0
@@ -27,3 +28,5 @@ ui_resolutions=fhd
 splash_rsg_optimization=1
 
 splash_min_time=0
+
+developer_ID=1

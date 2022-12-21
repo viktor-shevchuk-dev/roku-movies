@@ -17,7 +17,9 @@ function request()
   http.enablepeerverification(false)
   http.setUrl(url)
 
-  if not http.AsyncGetToString() then return false
+  ok = http.AsyncGetToString()
+
+  if not ok then return false
 
   msg = wait(10000, port)
 

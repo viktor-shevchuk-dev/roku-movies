@@ -3,11 +3,12 @@ sub init()
 end sub
 
 sub loadContent()
-  moviesList = m.top.moviesList
   content = m.top.content
-  rowIndex = m.top.rowIndex
-  rowTitle = m.top.rowTitle
-  dummyVideos = m.top.dummyVideos
+  container = content.container
+  moviesList = content.moviesList
+  rowIndex = content.rowIndex
+  rowTitle = content.rowTitle
+  dummyVideos = content.dummyVideos
 
   if moviesList = invalid or content = invalid or rowIndex = invalid or rowTitle = invalid or dummyVideos = invalid then return
 
@@ -28,5 +29,5 @@ sub loadContent()
     item.FHDItemWidth = "220"
   end for
 
-  content.replaceChild(row, rowIndex)
+  container.replaceChild(row, rowIndex)
 end sub

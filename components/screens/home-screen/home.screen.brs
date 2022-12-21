@@ -85,18 +85,16 @@ sub showScore(percentage)
   m.voteAverage.visible = true
 end sub
 
-sub movieFocusHandler()
+sub movieFocusHandler(obj)
   focusedMovie = getItemFromRowList(m.moviesListsOfDifferentGenres, "focus")
 
   if m.currentBgImg.uri <> "" then m.previousBgImg.uri = m.currentBgImg.uri
 
   m.currentBgImg.uri = focusedMovie.backdropUrl
-
   m.title.text = focusedMovie.title
   m.description.text = focusedMovie.overview
   setFontSize(m.title, 56)
   setFontSize(m.description, 38)
-
   scorePercentage = focusedMovie.voteAverage * 10
   showScore(scorePercentage)
 end sub

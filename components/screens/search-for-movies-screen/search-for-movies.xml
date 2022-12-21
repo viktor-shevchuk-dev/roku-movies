@@ -1,22 +1,21 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <component name="SearchForMoviesScreen" extends="Group" initialFocus="keyboard">
-    <script type="text/brightscript" uri="../../utils/adjust-heading.brs" />
-    <script type="text/brightscript" uri="../../utils/center.brs" />
-    <script
+  <script type="text/brightscript" uri="../../utils/center.brs"/>
+  <script
     type="text/brightscript"
     uri="../../utils/center-horizontally.brs"
   />
-    <script type="text/brightscript" uri="../../utils/set-font-size.brs" />
-    <script type="text/brightscript" uri="./search-for-movies.brs" />
-    <interface>
-      <field
+  <script type="text/brightscript" uri="../../utils/set-font-size.brs"/>
+  <script type="text/brightscript" uri="./search-for-movies.brs"/>
+  <interface>
+    <field
       id="searchButtonClicked"
       type="assocArray"
       alias="searchButton.buttonSelected"
     />
-      <field id="searchQuery" type="string" />
-    </interface>
-    <children>
+    <field id="searchQuery" type="string"/>
+  </interface>
+  <children>
     <Label
       id="heading"
       text="Search for Movies"
@@ -24,8 +23,8 @@
       font="font:MediumBoldSystemFont"
     />
     <Group id="input">
-    <DynamicMiniKeyboard id="keyboard" />
-    <Button id="searchButton" text="Search" />
+      <DynamicMiniKeyboard id="keyboard"/>
+      <Button id="searchButton" text="Search"/>
     </Group>
-    </children>
+  </children>
 </component>

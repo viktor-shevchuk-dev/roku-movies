@@ -19,7 +19,8 @@ end sub
 sub onCastChanged(obj)
   people = obj.getData()
   m.heading.text = people.title
-  adjustHeading(m.heading)
+  centerHorizontally(m.heading)
+  setFontSize(m.heading, 50)
 
   posterContent = createObject("roSGNode", "ContentNode")
   for each person in people.peopleList

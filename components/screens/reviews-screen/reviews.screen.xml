@@ -1,20 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <component name="ReviewsScreen" extends="Group" initialFocus="homeGrid">
-  <script type="text/brightscript" uri="../../utils/adjust-heading.brs"/>
-  <script type="text/brightscript" uri="../../utils/set-font-size.brs"/>
-  <script type="text/brightscript" uri="../../utils/center-horizontally.brs"/>
-  <script type="text/brightscript" uri="./reviews.screen.brs"/>
-  <interface>
-    <field id="content" type="assocarray" onChange="onReviewsChanged"/>
-  </interface>
-  <children>
-    <Label
+	<script type="text/brightscript" uri="../../utils/set-font-size.brs" />
+	<script type="text/brightscript" uri="../../utils/center-horizontally.brs" />
+	<script type="text/brightscript" uri="./reviews.screen.brs" />
+	<interface>  
+		<field id="content" type="assocarray" onChange="onReviewsChanged" />
+	</interface>
+	<children>
+		<Label
       id="heading"
       text=""
       translation="[0, 60]"
       font="font:MediumBoldSystemFont"
     />
-    <RowList
+		<RowList
       id="reviewsList"
       translation="[ 100, 100 ]"
       itemComponentName="ReviewsListItem"
@@ -26,5 +25,5 @@
       vertFocusAnimationStyle="fixedFocusWrap"
       rowFocusAnimationStyle="fixedFocusWrap"
     />
-  </children>
+	</children>
 </component>

@@ -186,7 +186,7 @@ end function
 
 function findChildNodeWithId(parentNode as Object, id as String, maxDepth = 10 as Integer, depth = 0 as Integer) as Dynamic
 	if depth > maxDepth then
-		logWarn(depth.toStr() + " exceeded maxium depth of " + maxDepth.toStr())
+		logWarn(depth.toStr() + " exceeded maximum depth of " + maxDepth.toStr())
 		return Invalid
 	end if
 
@@ -206,12 +206,12 @@ end function
 
 ' /**
 ' * @description Gets the index position for this node in its parent
-' * @param {Node} node Object to get parent from
+' * @param {Node} node we want to find the parent index for
+' * @param {Node} parent we are searching for the children of
 ' * @return {Integer} Result or -1
 ' */
-function getNodeParentIndex(node as Object) as Integer
+function getNodeParentIndex(node as Object, parent) as Integer
 	if isNode(node) then
-		parent = node.getParent()
 		for i = 0 to getLastIndex(parent)
 			if node.isSameNode(parent.getChild(i)) then
 				return i
@@ -232,6 +232,13 @@ function getFocusedNode() as Dynamic
 		end if
 	end while
 	return node
+end function
+
+function getNodeSubtype(node as Object) as String
+	if isNode(node) then
+		return node.subtype()
+	end if
+	return ""
 end function
 
 '*************************************************************************
@@ -274,13 +281,13 @@ function callBrightscriptInterfaceFunction(functionName as string, callOn as Dyn
 		if isNode(callOn) then
 			return callOn.getParent()
 		else
-			logWarn("tried to call getParent() on non node of type " + type(functionName))
+			logWarn("tried to call getParent() on non node of type " + type(callOn))
 		end if
 	else if functionName = "count()" then
 		if isArray(callOn) OR isKeyedValueType(callOn) then
 			return callOn.count()
 		else
-			logWarn("tried to call count() on non AA or array of type " + type(functionName))
+			logWarn("tried to call count() on non AA or array of type " + type(callOn))
 		end if
 	else if functionName = "keys()" then
 		if isNode(callOn) then
@@ -288,55 +295,55 @@ function callBrightscriptInterfaceFunction(functionName as string, callOn as Dyn
 		else if isAA(callOn) then
 			return callOn.keys()
 		else
-			logWarn("tried to call keys() on non keyed value of type " + type(functionName))
+			logWarn("tried to call keys() on non keyed value of type " + type(callOn))
 		end if
 	else if functionName = "len()" then
 		if isString(callOn) then
 			return callOn.len()
 		else
-			logWarn("tried to call len() on non string of type " + type(functionName))
+			logWarn("tried to call len() on non string of type " + type(callOn))
 		end if
 	else if functionName = "getChildCount()" then
 		if isNode(callOn) then
 			return callOn.getChildCount()
 		else
-			logWarn("tried to call getChildCount() on non node of type " + type(functionName))
+			logWarn("tried to call getChildCount() on non node of type " + type(callOn))
 		end if
 	else if functionName = "threadinfo()" then
 		if isNode(callOn) then
 			return callOn.threadinfo()
 		else
-			logWarn("tried to call threadinfo() on non node of type " + type(functionName))
+			logWarn("tried to call threadinfo() on non node of type " + type(callOn))
 		end if
 	else if functionName = "getFieldTypes()" then
 		if isNode(callOn) then
 			return callOn.getFieldTypes()
 		else
-			logWarn("tried to call getFieldTypes() on non node of type " + type(functionName))
+			logWarn("tried to call getFieldTypes() on non node of type " + type(callOn))
 		end if
 	else if functionName = "subtype()" then
 		if isNode(callOn) then
 			return callOn.subtype()
 		else
-			logWarn("tried to call subtype() on non node of type " + type(functionName))
+			logWarn("tried to call subtype() on non node of type " + type(callOn))
 		end if
 	else if functionName = "boundingRect()" then
 		if isNode(callOn) then
 			return callOn.boundingRect()
 		else
-			logWarn("tried to call boundingRect() on non node of type " + type(functionName))
+			logWarn("tried to call boundingRect() on non node of type " + type(callOn))
 		end if
 	else if functionName = "localBoundingRect()" then
 		if isNode(callOn) then
 			return callOn.localBoundingRect()
 		else
-			logWarn("tried to call localBoundingRect() on non node of type " + type(functionName))
+			logWarn("tried to call localBoundingRect() on non node of type " + type(callOn))
 		end if
 	else if functionName = "sceneBoundingRect()" then
 		if isNode(callOn) then
 			return callOn.sceneBoundingRect()
 		else
-			logWarn("tried to call sceneBoundingRect() on non node of type " + type(functionName))
+			logWarn("tried to call sceneBoundingRect() on non node of type " + type(callOn))
 		end if
 	else
 		logWarn("tried to call unknown function" + functionName)
@@ -519,11 +526,12 @@ function convertLogLevelStringToInteger(logLevel as String) as Integer
 	if logLevel = "error" then return 1
 	if logLevel = "off" then return 0
 	logWarn("Invalid logLevel passed in '" + logLevel + "'")
+	return 0
 end function
 
-function setLogLevel(logLevel as String)
+sub setLogLevel(logLevel as String)
 	m.logLevel = convertLogLevelStringToInteger(logLevel)
-end function
+end sub
 
 sub logVerbose(message as String, value = "nil" as Dynamic)
 	_log(5, message, value)

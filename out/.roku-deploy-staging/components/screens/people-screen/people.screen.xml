@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component name="PeopleScreen" extends="Group" initialFocus="peopleGrid">
-  <script type="text/brightscript" uri="../../utils/adjust-heading.brs"/>
   <script type="text/brightscript" uri="../../utils/center-horizontally.brs"/>
   <script type="text/brightscript" uri="../../utils/set-font-size.brs"/>
   <script type="text/brightscript" uri="../../utils/generate-image-url.brs"/>

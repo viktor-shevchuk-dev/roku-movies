@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="Parser"
+  extends="ContentNode">
+  <script type="text/brightscript"
+    uri="../utils/generate-image-url.brs" />
+  <script type="text/brightscript"
+    uri="../utils/get-display-size.brs" />
+  <script type="text/brightscript"
+    uri="../utils/get-random-video-url.brs" />
+  <interface>
+    <!-- Contains the response content -->
+    <field id="response"
+      type="assocarray"
+      onChange="parseResponse"/>
+  </interface>
+  <script type="text/brightscript"
+    uri="./parser.brs"/>
+</component>

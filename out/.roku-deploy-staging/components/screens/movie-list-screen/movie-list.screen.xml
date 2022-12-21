@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component name="MovieListScreen" extends="Group" initialFocus="homeGrid">
-  <script type="text/brightscript" uri="../../utils/adjust-heading.brs"/>
   <script type="text/brightscript" uri="../../utils/center-horizontally.brs"/>
   <script type="text/brightscript" uri="../../utils/set-font-size.brs"/>
   <script type="text/brightscript" uri="../../utils/get-random-video-url.brs"/>
@@ -19,7 +18,6 @@
   <children>
     <Label
       id="heading"
-      text=""
       translation="[0, 60]"
       font="font:MediumBoldSystemFont"
     />

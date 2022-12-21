@@ -11,7 +11,8 @@ end sub
 sub onTitleChanged(obj)
   title = obj.getData()
   m.heading.text = title
-  adjustHeading(m.heading)
+  centerHorizontally(m.heading)
+  setFontSize(m.heading, 50)
 end sub
 
 sub onDataChanged(obj)

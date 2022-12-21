@@ -1,6 +1,5 @@
 sub center(node)
-  nodeRect = node.boundingRect()
-  centerX = (1920 - nodeRect.width) / 2
-  centerY = (1080 - nodeRect.height) / 2
-  node.translation = [centerX, centerY]
+  nodeBoundingRect = centerHorizontally(node)
+  centerY = (1080 - nodeBoundingRect.height) / 2
+  node.translation = [node.translation[0], centerY]
 end sub
