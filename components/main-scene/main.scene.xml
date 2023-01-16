@@ -2,6 +2,10 @@
 <component name="MainScene"
   extends="Scene">
   <script type="text/brightscript"
+    uri="../utils/is-match.brs" />
+  <script type="text/brightscript"
+    uri="../utils/get-movie-db-url.brs" />
+  <script type="text/brightscript"
     uri="../utils/get-item-from-row-list.brs"/>
   <script type="text/brightscript"
     uri="../utils/generate-image-url.brs"/>

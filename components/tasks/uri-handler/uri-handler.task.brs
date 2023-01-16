@@ -155,27 +155,22 @@ function processResponse(msg as object)
   job = m.jobsById[idKey]
 
   if job = invalid then return "Error: event for unknown job " + idkey
+  test = msg.GetSourceIdentity()
 
   code = msg.GetResponseCode()
-  context = job.context.context
-  num = job.context.num
-
-  result = {
-    code: code,
-    headers: msg.GetResponseHeaders(),
-    content: msg.GetString(),
-    context: context
-  }
-  if num <> invalid then result.context.jobnum = num
-  ' could handle various error codes, retry, etc. here
-  m.jobsById.delete(idKey)
-  job.context.context.response = result
-  if code = 200
-    'm.Parser.response = (result.content, result.num)
-    ' m.Parser.response = result
-  else
-    print "Error: status code was: " + code.toStr()
+  if code <> 200
     m.top.numBadRequests++
     m.top.numRowsReceived++
+    return "Error: status code was: " + code.toStr()
   end if
+
+  parameters = job.context.context.parameters
+  url = parameters.url
+  num = parameters.num
+
+  ' could handle various error codes, retry, etc. here
+  m.jobsById.delete(idKey)
+  response = { content: msg.GetString(), url: url }
+  if num <> invalid then response.num = num
+  job.context.context.response = response
 end function

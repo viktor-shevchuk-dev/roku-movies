@@ -2,12 +2,8 @@ sub categoryClickHandler(obj)
   list = m.homeScreen.findNode("headerList")
   index = obj.getData()[1]
   m.category = list.content.getChild(0).getChild(index)
-  urlToMakeQuery = m.category.urlToMakeQuery
-  id = m.category.id
+  endpoint = m.category.endpoint
+  url = getMovieDBUrl(endpoint)
 
-  if id = m.movieListScreen.id
-    showTrendingThisWeek(urlToMakeQuery)
-  else if id = m.peopleScreen.id
-    showPopularActorsList(urlToMakeQuery)
-  end if
+  if m.movieDB.home.endpoint = endpoint showTrendingThisWeek(url) else if m.movieDB.popularActorsList.endpoint = endpoint showPopularActorsList(url)
 end sub

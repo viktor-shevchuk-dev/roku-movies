@@ -1,16 +1,16 @@
-function setDetailsContent(config)
-  additionalInformation = config.additionalInformation
+function setDetailsContent(movieMediaList as object)
+  content = createObject("roSGNode", "ContentNode")
+  row = content.createChild("ContentNode")
 
-  data = CreateObject("roSGNode", "ContentNode")
-  row = data.CreateChild("ContentNode")
-  for each button in additionalInformation
-    node = row.CreateChild("HeaderListItemData")
-    node.labelText = button.title
+  for each mediaName in movieMediaList.keys()
+    button = movieMediaList[mediaName]
+    node = row.createChild("HeaderListItemData")
+    node.labelText = button.label
     node.id = button.id
-    node.urlToMakeQuery = button.endpoint
+    node.endpoint = button.endpoint
   end for
 
-  m.additionalInformationList.content = data
+  m.additionalInformationList.content = content
 end function
 
 sub init()
@@ -31,11 +31,11 @@ sub onVisibleChange()
   if m.top.visible = true then m.playButton.setFocus(true)
 end sub
 
-sub appendNewGenres(genres)
+sub appendNewGenres(genresList)
   previousLabelList = m.genresList.getChildren(-1, 0)
   m.genresList.removeChildren(previousLabelList)
 
-  for each genre in genres
+  for each genre in genresList
     label = createObject("roSGNode", "Label")
     label.text = genre.name
     label.id = genre.id
@@ -47,13 +47,13 @@ sub onContentChange(obj)
   item = obj.getData()
   title = item.title
   posterUrl = item.posterUrl
-  genres = item.genres
+  genresList = item.genresList
 
   m.title.text = title
   m.top.setMovieTitle = title
   m.description.text = item.description
   if posterUrl <> "" then m.thumbnail.uri = posterUrl
-  if genres = invalid then m.top.fetchMovieGenres = item.id else appendNewGenres(genres)
+  if genresList = invalid then m.top.fetchMovieGenres = item.id else appendNewGenres(genresList)
 end sub
 
 function focusNodeOnDetailsScreen(node)

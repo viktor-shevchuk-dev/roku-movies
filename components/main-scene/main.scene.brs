@@ -1,5 +1,6 @@
 ' fix a bug where when navigating to look for movies - list of movies displayed instead (it is because genres are still being loaded)
 ' I may load list of a genre one by one concurrently, not waiting for previous to load to request the next. Or even load the first two and when focusing the row - loading the next one and so forth
+' check every and debug function what it does and potentially maybe some values are useless.
 
 function init()
   m.homeScreen = m.top.findNode("homeScreen")
@@ -12,7 +13,6 @@ function init()
   m.errorDialog = m.top.findNode("errorDialog")
   m.videoPlayer = m.top.findNode("videoPlayer")
 
-  m.homeScreen.findNode("moviesListsOfDifferentGenres").observeField("onFetchSpecificGenreMoviesList", "fetchSpecificGenreMoviesList")
   m.homeScreen.observeField("pageSelected", "categoryClickHandler")
   m.homeScreen.observeField("searchForMoviesPageSelected", "searchClickHandler")
   m.searchForMoviesScreen.observeField("searchButtonClicked", "searchButtonClickHandler")
@@ -34,16 +34,9 @@ function init()
 
   m.UriHandler = createObject("roSGNode", "UriHandler")
   m.UriHandler.observeField("content", "onContentChanged")
-  configUrl = "https://run.mocky.io/v3/cd0b4546-d642-4901-b5fe-e9e9740cd57d"
-  ' makeRequest({ uri: configUrl }, "handleUriResult")
-
-  context = createObject("roSGNode", "Node")
-  context.addFields({
-    parameters: { url: configUrl }
-    response: {}
-  })
-  context.observeField("response", "observeResponseFromNewUriHandler")
-  m.UriHandler.request = { context: context }
+  ' makeRequest({ uri: configUrl })
+  m.config = { baseUrl: "https://run.mocky.io/v3/a4803a81-dcb6-4d5c-a353-994916449a5c" }
+  makeRequest({ url: m.config.baseUrl })
 end function
 
 function showScreen(screen)
@@ -63,21 +56,36 @@ sub showNewScreenWithSavingCurrent(screenToShowId)
   showScreen({ screenId: screenToShowId })
 end sub
 
-function handleReceivedMovies(movies)
+function handleMovies(movies)
   showNewScreenWithSavingCurrent(m.movieListScreen.id)
   m.movieListScreen.content = movies
 end function
 
-function handleReceivedConfig(config)
-  m.APIKey = config.APIKey
-  m.baseUrl = config.baseUrl
-  m.homeScreen.callFunc("setHeaderListContent", config)
-  m.detailsScreen.callFunc("setDetailsContent", config)
-  m.movieListScreen.callFunc("updateDummyVideos", config)
-  m.personScreen.callFunc("updateDummyVideos", config)
-  m.homeScreen.findNode("moviesListsOfDifferentGenres").callFunc("updateDummyVideos", config)
-  genresListUrl = m.baseUrl + "/genre/movie/list" + m.APIKey
-  makeRequest({ uri: genresListurl }, "handleUriResult")
+function saveEndpointsList(sectionsList)
+  m.movieDB = {}
+
+  for each sectionName in sectionsList.keys()
+    section = sectionsList[sectionName]
+    for each endpointName in section.keys()
+      m.movieDB[endpointName] = section[endpointName]
+    end for
+  end for
+end function
+
+function handleConfig(config)
+  m.global.addFields({ movieDB: { baseURL: config.baseURL, APIKey: config.APIKey } })
+  movieDB = config.movieDB
+  dummyVideosList = config.dummyVideosList
+  saveEndpointsList(movieDB)
+
+  m.homeScreen.callFunc("setHeaderListContent", movieDB.categoriesList)
+  m.detailsScreen.callFunc("setDetailsContent", movieDB.movieMedia)
+  m.movieListScreen.callFunc("updateDummyVideos", dummyVideosList)
+  m.personScreen.callFunc("updateDummyVideos", dummyVideosList)
+  m.homeScreen.findNode("moviesListsOfDifferentGenres").callFunc("updateDummyVideos", dummyVideosList)
+
+  genresListUrl = getMovieDBUrl(m.movieDB.genresList.endpoint)
+  makeRequest({ url: genresListurl })
 end function
 
 sub onContentChanged()
@@ -94,28 +102,19 @@ function observeResponseFromNewUriHandler(obj)
   m.parseResponseTask.control = "run"
 end function
 
-function handleMovieGenres(genresList)
+function handleGenresList(genresList)
   if m.homeScreen.visible
     numRows = genresList.count()
 
-    moviesListsOfDifferentGenres = m.homeScreen.findNode("moviesListsOfDifferentGenres")
-    moviesListsOfDifferentGenres.genresList = genresList
+    m.homeScreen.findNode("moviesListsOfDifferentGenres").genresList = genresList
 
-    for i = 0 to genresList.count() - 1
+    for i = 0 to numRows - 1
       genre = genresList[i]
-      id = genre.id
-      url = m.baseUrl + "/discover/movie" + m.APIKey + "&language=en-US&sort_by=vote_count.desc&with_genres=" + id.toStr()
-
-      context = createObject("roSGNode", "Node")
-      context.addFields({
-        parameters: {
-          url: url,
-          num: i
-        },
-        response: {}
-      })
-      context.observeField("response", "observeResponseFromNewUriHandler")
-      m.UriHandler.request = { context: context }
+      searchParamsList = []
+      searchParamsList = m.movieDB.genreMoviesList.searchParamsList
+      searchParamsList.addReplace("with_genres", genre.id)
+      genreMoviesListUrl = getMovieDBUrl(m.movieDB.genreMoviesList.endpoint, searchParamsList)
+      makeRequest({ url: genreMoviesListUrl, num: i })
     end for
   else if m.detailsScreen.visible
     content = m.detailsScreen.content
@@ -140,66 +139,55 @@ sub handleKnownForMovies(movies)
   m.personScreen.knownForMovies = movies
 end sub
 
-sub handleMoviesFromHomeScreen(moviesList)
-  if m.category = invalid
-    m.homeScreen.findNode("moviesListsOfDifferentGenres").specificGenreMoviesList = moviesList
-  else if m.category.id = m.movieListScreen.id
-    handleReceivedMovies(moviesList)
-  end if
-end sub
-
-sub handleMovies(movies)
-  if m.personScreen.visible
-    handleKnownForMovies(movies)
-  else if m.searchForMoviesScreen.visible
-    handleReceivedMovies(movies)
-  else if m.homeScreen.visible
-    handleMoviesFromHomeScreen(movies)
-  end if
-end sub
-
 sub handlePopularActors(popularActorsList)
   showNewScreenWithSavingCurrent(m.peopleScreen.id)
   popularActorsListContent = { title: "Popular Actors", peopleList: popularActorsList }
   m.peopleScreen.content = popularActorsListContent
 end sub
 
-function handleResults(results)
-  if results[0].title <> invalid
-    handleMovies(results)
-  else if results[0].author <> invalid
-    handleReviews(results)
-  else if results[0].name <> invalid
-    handlePopularActors(results)
-  end if
-end function
-
 sub handlePersonDetails(personDetails)
   m.personScreen.personDetails = personDetails
 end sub
 
-sub handleData(data)
-  content = data.content
-  num = data.num
-  parameters = data.parameters
-  results = content.results
-  categories = content.categories
-  genres = content.genres
-  cast = content.cast
-  name = content.name
+function handleMovieGenresList(genresList)
+  content = m.detailsScreen.content
+  content.genresList = genresList
+  m.detailsScreen.content = content
+end function
 
-  if results <> invalid and results.count() > 0
-    handleResults(results)
-  else if categories <> invalid and categories.count() > 0
-    handleReceivedConfig(content)
-  else if genres <> invalid and genres.count() > 0
-    handleMovieGenres(genres)
-  else if cast <> invalid and cast.count() > 0
+sub handleGenreMoviesList(moviesList)
+  m.homeScreen.findNode("moviesListsOfDifferentGenres").specificGenreMoviesList = moviesList
+end sub
+
+sub handleData(data)
+  url = data.url
+  content = data.content
+  results = content.results
+  genresList = content.genres
+  ' fix order of fetching movies of certain genre on home screen. I get a num. So I can guarantee a right order.
+  ' add timer to brightscript and check why first 20 lists of movies by different genres load and only then popular by week screen opens
+  if isMatch(m.config.baseUrl, url)
+    handleConfig(content)
+  else if isMatch(m.movieDB.genresList.endpoint, url)
+    handleGenresList(genresList)
+  else if isMatch(m.movieDB.reviewsList.endpoint.split("/")[3], url)
+    handleReviews(results)
+  else if isMatch(m.movieDB.popularActorsList.endpoint, url)
+    handlePopularActors(results)
+  else if isMatch(m.movieDB.knownFor.searchParamsList.keys()[1], url)
+    handleKnownForMovies(results)
+  else if isMatch(m.movieDB.cast.endpoint.split("/")[3], url)
     handleCast(content.cast)
-  else if name <> invalid
+  else if isMatch(m.movieDB.person.endpoint, url)
     handlePersonDetails(content)
-  else
-    showErrorDialog("No data found.")
+  else if isMatch(m.movieDB.search.endpoint, url)
+    handleMovies(results)
+  else if isMatch(m.movieDB.genreMoviesList.searchParamsList.keys()[1], url)
+    handleGenreMoviesList(results)
+  else if isMatch(m.movieDB.home.endpoint, url)
+    handleMovies(results)
+  else if isMatch(m.movieDB.movie.endpoint, url)
+    handleMovieGenresList(genresList)
   end if
 end sub
 
@@ -213,11 +201,11 @@ end sub
 
 sub showTrendingThisWeek(urlToMakeQuery)
   m.movieListScreen.title = "Trending This Week"
-  makeRequest({ uri: urlToMakeQuery }, "handleUriResult")
+  makeRequest({ url: urlToMakeQuery })
 end sub
 
 sub showPopularActorsList(urlToMakeQuery)
-  makeRequest({ uri: urlToMakeQuery }, "handleUriResult")
+  makeRequest({ url: urlToMakeQuery })
 end sub
 
 sub stopVideo()
@@ -247,26 +235,23 @@ end sub
 
 sub fetchKnownFor(obj)
   personId = obj.getData()
-  knownForUrl = m.baseUrl + "/discover/movie" + m.APIKey + "&language=en-US&sort_by=popularity.desc&include_adult=false&page=1&with_cast=" + personId.toStr()
-  makeRequest({ uri: knownForUrl }, "handleUriResult")
+  searchParamsList = m.movieDB.knownFor.searchParamsList
+  searchParamsList.addReplace("with_cast", personId)
+
+  knownForUrl = getMovieDBUrl(m.movieDB.knownFor.endpoint, searchParamsList)
+  makeRequest({ url: knownForUrl })
 end sub
 
 sub fetchPersonDetails(obj)
   personId = obj.getData()
-  personUrl = m.baseUrl + "/person/" + personId.toStr() + m.APIKey + "&language=en-US"
-  makeRequest({ uri: personUrl }, "handleUriResult")
+  personUrl = getMovieDBUrl(m.movieDB.person.endpoint, personId)
+  makeRequest({ url: personUrl })
 end sub
 
 sub fetchMovieGenres(obj)
   m.movieId = obj.getData()
-  genresUrl = m.baseUrl + "/movie/" + m.movieId.toStr() + m.APIKey + "&language=en-US"
-  makeRequest({ uri: genresUrl }, "handleUriResult")
-end sub
-
-sub fetchSpecificGenreMoviesList(obj)
-  genreId = obj.getData()
-  specificGenreMoviesListUrl = m.baseUrl + "/discover/movie" + m.APIKey + "&language=en-US&sort_by=vote_count.desc&with_genres=" + genreId.toStr()
-  makeRequest({ uri: specificGenreMoviesListUrl }, "handleUriResult")
+  movieGenresListUrl = getMovieDBUrl(m.movieDB.movie.endpoint, m.movieId)
+  makeRequest({ url: movieGenresListUrl })
 end sub
 
 function handleUriResult(msg as object)
@@ -295,13 +280,11 @@ function handleUriResult(msg as object)
   end if
 end function
 
-function makeRequest(parameters as object, parserComponent as string)
-  context = createObject("RoSGNode", "Node")
-  if type(parameters) = "roAssociativeArray"
-    context.addFields({ parameters: parameters, response: {} })
-    context.observeField("response", parserComponent) ' response parserComponent is request-specific
-    m.uriFetcher.request = { context: context }
-  end if
+function makeRequest(parameters as object)
+  context = createObject("roSGNode", "Node")
+  context.addFields({ parameters: parameters, response: {} })
+  context.observeField("response", "observeResponseFromNewUriHandler")
+  m.uriHandler.request = { context: context }
 end function
 
 function onKeyEvent(key, press) as boolean

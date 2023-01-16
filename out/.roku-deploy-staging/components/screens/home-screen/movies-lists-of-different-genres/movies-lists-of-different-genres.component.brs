@@ -22,6 +22,6 @@ sub onSpecificGenreMoviesListChanged(obj)
   m.currentGenreIndex++
 end sub
 
-function updateDummyVideos(config)
-  m.dummyVideos = config.dummyVideos
+function updateDummyVideos(dummyVideos)
+  m.dummyVideos = dummyVideos
 end function

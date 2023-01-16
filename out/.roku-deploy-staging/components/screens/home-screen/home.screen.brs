@@ -18,22 +18,19 @@ function init()
   m.search.observeField("focusedChild", "searchFocusHandler")
 end function
 
-sub setHeaderListContent(config)
-  baseUrl = config.baseUrl
-  APIKey = config.APIKey
-  categories = config.categories
+sub setHeaderListContent(headerList)
+  content = createObject("roSGNode", "ContentNode")
+  row = content.createChild("ContentNode")
 
-  headerListContent = CreateObject("roSGNode", "ContentNode")
-  row = headerListContent.CreateChild("ContentNode")
-
-  for each category in categories
-    headerListItem = row.CreateChild("HeaderListItemData")
+  for each categoryName in headerList.keys()
+    category = headerList[categoryName]
+    headerListItem = row.createChild("HeaderListItemData")
     headerListItem.id = category.id
-    headerListItem.labelText = category.title
-    headerListItem.urlToMakeQuery = baseUrl + category.endpoint + APIKey
+    headerListItem.labelText = category.label
+    headerListItem.endpoint = category.endpoint
   end for
 
-  m.headerList.content = headerListContent
+  m.headerList.content = content
 end sub
 
 sub searchFocusHandler()

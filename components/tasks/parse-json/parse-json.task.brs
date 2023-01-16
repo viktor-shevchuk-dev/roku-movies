@@ -4,15 +4,17 @@ sub init()
 end sub
 
 function parse()
-  if m.top.response = invalid then m.top.error = "Response is invalid."
-  json = m.top.response.content
-  if json = "" or json = invalid then m.top.error = "Json string not provided."
+  response = m.top.response
+  isInvalidResponse = response = invalid or type(response) <> "roAssociativeArray"
+  if isInvalidResponse then m.top.error = "Response is invalid."
+  json = response.content
+  num = response.num
+  isNotProvidedJson = json = "" or json = invalid
+  if isNotProvidedJson then m.top.error = "Json string not provided."
 
-  parsedJson = ParseJson(json)
+  content = ParseJson(json)
 
-  if parsedJson = invalid then m.top.error = "Json is malformed."
-
-  parsedResponse = m.top.response
-  parsedResponse.content = parsedJson
-  m.top.parsedResponse = parsedResponse
+  if content = invalid then m.top.error = "Json is malformed."
+  response.content = content
+  m.top.parsedResponse = response
 end function
