@@ -106,10 +106,9 @@ function handleGenresList(genresList)
   if m.homeScreen.visible
     numRows = genresList.count()
 
-    moviesListsOfDifferentGenres = m.homeScreen.findNode("moviesListsOfDifferentGenres")
-    moviesListsOfDifferentGenres.genresList = genresList
+    m.homeScreen.findNode("moviesListsOfDifferentGenres").genresList = genresList
 
-    for i = 0 to genresList.count() - 1
+    for i = 0 to numRows - 1
       genre = genresList[i]
       searchParamsList = []
       searchParamsList = m.movieDB.genreMoviesList.searchParamsList
