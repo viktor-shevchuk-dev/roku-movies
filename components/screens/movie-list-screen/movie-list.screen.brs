@@ -23,7 +23,7 @@ sub onDataChanged(obj)
     node = createObject("roSGNode", "ContentNode")
     node.id = movie.id
     node.streamformat = "mp4"
-    node.url = getRandomVideoUrl(m.dummyVideos)
+    node.url = getRandomVideoUrl(m.global.dummyVideosList)
     node.HDGRIDPOSTERURL = generateImageUrl(movie.poster_path, "300", "450")
     node.SHORTDESCRIPTIONLINE1 = movie.title
     node.SHORTDESCRIPTIONLINE2 = movie.overview
@@ -39,6 +39,3 @@ sub showPosterGrid(content)
   m.homeGrid.setFocus(true)
 end sub
 
-function updateDummyVideos(dummyVideos)
-  m.dummyVideos = dummyVideos
-end function

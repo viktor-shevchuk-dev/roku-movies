@@ -5,5 +5,9 @@ sub categoryClickHandler(obj)
   endpoint = m.category.endpoint
   url = getMovieDBUrl(endpoint)
 
-  if m.global.movieDB.home.endpoint = endpoint showTrendingThisWeek(url) else if m.global.movieDB.endpointsList.endpointsList.popularActorsList.endpoint = endpoint showPopularActorsList(url)
+  if m.global.movieDB.endpointsList.home.endpoint = endpoint
+    showTrendingThisWeek(url)
+  else if m.global.movieDB.endpointsList.popularActorsList.endpoint = endpoint
+    showPopularActorsList(url)
+  end if
 end sub

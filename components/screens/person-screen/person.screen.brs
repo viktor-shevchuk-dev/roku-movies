@@ -6,10 +6,6 @@ sub onContentChange(obj)
   m.name.text = personItem.SHORTDESCRIPTIONLINE1
 end sub
 
-function updateDummyVideos(dummyVideos)
-  m.dummyVideos = dummyVideos
-end function
-
 sub onKnownForMoviesChanged(obj)
   knownForMovies = obj.getData()
 
@@ -21,7 +17,7 @@ sub onKnownForMoviesChanged(obj)
     item.hdposterurl = generateImageUrl(knownForMovie.poster_path, "300", "450")
     item.id = knownForMovie.id
     item.streamformat = "mp4"
-    item.url = getRandomVideoUrl(m.dummyVideos)
+    item.url = getRandomVideoUrl(m.global.dummyVideosList)
     item.SHORTDESCRIPTIONLINE1 = knownForMovie.original_title
     item.SHORTDESCRIPTIONLINE2 = knownForMovie.overview
   end for

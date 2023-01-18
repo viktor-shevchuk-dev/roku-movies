@@ -2,10 +2,6 @@
 <component name="genresMoviesList"
   extends="RowList">
   <script type="text/brightscript"
-    uri="../../../utils/observe-response-from-new-uri-handler.brs" />
-  <script type="text/brightscript"
-    uri="../../../utils/make-request.brs" />
-  <script type="text/brightscript"
     uri="../../../utils/is-match.brs" />
   <script type="text/brightscript"
     uri="../../../utils/get-movie-db-url.brs" />
@@ -20,6 +16,5 @@
     <field id="specificGenreMoviesList"
       type="assocarray"
       onChange="onSpecificGenreMoviesListChanged" />
-    <function name="updateDummyVideos" />
   </interface>
 </component>

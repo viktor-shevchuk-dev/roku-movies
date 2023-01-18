@@ -5,7 +5,6 @@ end sub
 sub render() as void
   event = m.top.genreMoviesList
   parent = event.parent
-  dummyVideos = event.dummyVideos
   moviesList = event.moviesList
 
   for each movie in moviesList
@@ -17,7 +16,7 @@ sub render() as void
     item.posterUrl = generateImageUrl(movie.poster_path, "220", "330")
     item.voteAverage = movie.vote_average
     item.streamformat = "mp4"
-    item.url = getRandomVideoUrl(dummyVideos)
+    item.url = getRandomVideoUrl(m.global.dummyVideosList)
     item.addField("FHDItemWidth", "float", false)
     item.FHDItemWidth = "220"
   end for

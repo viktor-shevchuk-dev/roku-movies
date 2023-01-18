@@ -33,10 +33,28 @@ function init()
   m.homeScreen.setFocus(true)
   m.uriFetcher = createObject("roSGNode", "UriFetcher")
 
-  m.global.addFields({ uriHandler: createObject("roSGNode", "UriHandler") })
+  m.uriHandler = createObject("roSGNode", "UriHandler")
 
-  m.config = { baseUrl: "https://run.mocky.io/v3/d819f04a-9c35-438b-89ee-7d47357ea214" }
+  m.config = {
+    baseUrl: "https://run.mocky.io/v3/d819f04a-9c35-438b-89ee-7d47357ea214"
+  }
   makeRequest({ url: m.config.baseUrl })
+end function
+
+function observeResponseFromNewUriHandler(obj)
+  response = obj.getData()
+  parseResponseTask = createObject("roSGNode", "parseResponseTask")
+  parseResponseTask.observeField("error", "parseJsonErrorHandler")
+  parseResponseTask.observeField("parsedResponse", "parsedResponseHandler")
+  parseResponseTask.response = response
+  parseResponseTask.control = "run"
+end function
+
+function makeRequest(parameters as object)
+  context = createObject("roSGNode", "Node")
+  context.addFields({ parameters: parameters, response: {} })
+  context.observeField("response", "observeResponseFromNewUriHandler")
+  m.uriHandler.request = { context: context }
 end function
 
 sub genreMoviesListParametersHandler(event)
@@ -68,6 +86,7 @@ end function
 
 function saveEndpointsList(config)
   movieDB = config.movieDB
+
   endpointsList = {}
 
   for each sectionName in movieDB.keys()
@@ -77,22 +96,24 @@ function saveEndpointsList(config)
     end for
   end for
 
-  m.global.addFields({ movieDB: { baseURL: config.baseURL, APIKey: config.APIKey, endpointsList: endpointsList } })
+  m.global.addFields({
+    movieDB: {
+      baseURL: config.baseURL,
+      APIKey: config.APIKey,
+      endpointsList: endpointsList
+    },
+    dummyVideosList: config.dummyVideosList
+  })
 end function
 
 function handleConfig(config)
   saveEndpointsList(config)
   movieDB = config.movieDB
-  dummyVideosList = config.dummyVideosList
-
   m.homeScreen.callFunc("setHeaderListContent", movieDB.categoriesList)
   m.detailsScreen.callFunc("setDetailsContent", movieDB.movieMedia)
-  m.movieListScreen.callFunc("updateDummyVideos", dummyVideosList)
-  m.personScreen.callFunc("updateDummyVideos", dummyVideosList)
-  m.homeScreen.findNode("genresMoviesList").callFunc("updateDummyVideos", dummyVideosList)
-
-  genresListUrl = getMovieDBUrl(m.global.movieDB.endpointsList.genresList.endpoint)
-  makeRequest({ url: genresListurl })
+  makeRequest({
+    url: getMovieDBUrl(m.global.movieDB.endpointsList.genresList.endpoint)
+  })
 end function
 
 function handleGenresList(genresList)

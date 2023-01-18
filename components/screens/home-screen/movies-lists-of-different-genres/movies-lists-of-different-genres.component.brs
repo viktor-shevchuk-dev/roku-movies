@@ -17,13 +17,14 @@ sub genresListHandler(event)
 
   for i = 0 to numRows - 1
     genre = genresList[i]
-    searchParamsList = []
     searchParamsList = m.global.movieDB.endpointsList.genreMoviesList.searchParamsList
     key = searchParamsList.keys()[1]
     searchParamsList.addReplace(key, genre.id)
     genreMoviesListUrl = getMovieDBUrl(m.global.movieDB.endpointsList.genreMoviesList.endpoint, searchParamsList)
-    genreMoviesListParameters = { url: genreMoviesListUrl, num: i }
-    m.top.genreMoviesListParameters = genreMoviesListParameters
+    m.top.genreMoviesListParameters = {
+      url: genreMoviesListUrl,
+      num: i
+    }
   end for
 end sub
 
@@ -35,11 +36,6 @@ sub onSpecificGenreMoviesListChanged(obj)
   LoadRowTask.genreMoviesList = {
     parent: m.top.content.getChild(num),
     moviesList: moviesList,
-    dummyVideos: m.dummyVideos,
   }
   LoadRowTask.control = "run"
 end sub
-
-function updateDummyVideos(dummyVideos)
-  m.dummyVideos = dummyVideos
-end function
