@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="GenresListTask"
+  extends="Task">
+  <script type="text/brightscript"
+    uri="genres-list.task.brs" />
+  <interface>
+    <field id="genresList"
+      type="assocarray" />
+  </interface>
+</component>

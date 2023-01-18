@@ -17,7 +17,7 @@
         <function name="setHeaderListContent" />
         <field id="movieSelected"
             type="assocArray"
-            alias="moviesListsOfDifferentGenres.rowItemSelected" />
+            alias="genresMoviesList.rowItemSelected" />
     </interface>
     <children>
         <Poster id="previousBgImg"
@@ -64,7 +64,7 @@
                     wrap="true"
                     height="0"
                     maxLines="3" />
-                <MoviesListsOfDifferentGenres id="moviesListsOfDifferentGenres"
+                <GenresMoviesList id="genresMoviesList"
                     translation="[0, 518]"
                     itemComponentName="MovieItemOfSpecificGenre"
                     itemSize="[1920, 330]"

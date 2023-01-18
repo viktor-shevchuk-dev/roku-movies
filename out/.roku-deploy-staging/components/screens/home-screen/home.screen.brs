@@ -4,7 +4,7 @@ end sub
 
 function init()
   m.headerList = m.top.findNode("headerList")
-  m.moviesListsOfDifferentGenres = m.top.findNode("moviesListsOfDifferentGenres")
+  m.genresMoviesList = m.top.findNode("genresMoviesList")
   m.search = m.top.findNode("search")
   m.previousBgImg = m.top.findNode("previousBgImg")
   m.currentBgImg = m.top.findNode("currentBgImg")
@@ -14,7 +14,7 @@ function init()
 
   m.headerList.setFocus(true)
   m.top.observeField("visible", "onVisibleChange")
-  m.moviesListsOfDifferentGenres.observeField("rowItemFocused", "movieFocusHandler")
+  m.genresMoviesList.observeField("rowItemFocused", "movieFocusHandler")
   m.search.observeField("focusedChild", "searchFocusHandler")
 end function
 
@@ -45,7 +45,7 @@ end sub
 
 function handleHeaderListFocusChange(key) as boolean
   if key = "down"
-    return m.moviesListsOfDifferentGenres.setFocus(true)
+    return m.genresMoviesList.setFocus(true)
   else if key = "right"
     return m.search.setFocus(true)
   end if
@@ -55,7 +55,7 @@ function handleSearchFocusChange(key) as boolean
   if key = "left"
     return m.headerList.setFocus(true)
   else if key = "down"
-    return m.moviesListsOfDifferentGenres.setFocus(true)
+    return m.genresMoviesList.setFocus(true)
   end if
 end function
 
@@ -64,7 +64,7 @@ function onKeyEvent(key as string, press as boolean) as boolean
 
   if m.headerList.hasFocus()
     return handleHeaderListFocusChange(key)
-  else if m.moviesListsOfDifferentGenres.hasFocus() and key = "up"
+  else if m.genresMoviesList.hasFocus() and key = "up"
     return m.headerList.setFocus(true)
   else if m.search.hasFocus()
     return handleSearchFocusChange(key)
@@ -83,7 +83,7 @@ sub showScore(percentage)
 end sub
 
 sub movieFocusHandler(obj)
-  focusedMovie = getItemFromRowList(m.moviesListsOfDifferentGenres, "focus")
+  focusedMovie = getItemFromRowList(m.genresMoviesList, "focus")
 
   if m.currentBgImg.uri <> "" then m.previousBgImg.uri = m.currentBgImg.uri
 

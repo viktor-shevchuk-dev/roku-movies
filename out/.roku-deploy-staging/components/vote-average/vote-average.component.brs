@@ -7,9 +7,10 @@ sub init()
 end sub
 
 sub onPercentageChange(obj)
-  percentage = obj.getData()
+  percentage = obj.getData().toStr()
   m.scorePercentage.width = percentage
-  m.scoreValue.text = percentage.toStr() + " %"
+
+  m.scoreValue.text = substitute("{0} %", percentage)
 
   m.scoreContainer.height = m.top.height
   m.scorePercentage.height = m.top.height

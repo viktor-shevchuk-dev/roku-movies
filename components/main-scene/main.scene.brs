@@ -26,18 +26,23 @@ function init()
   m.peopleScreen.observeField("personSelected", "personCLickHandler")
   m.personScreen.observeField("fetchPersonDetails", "fetchPersonDetails")
   m.personScreen.observeField("fetchKnownFor", "fetchKnownFor")
+  genresMoviesList = m.homeScreen.findNode("genresMoviesList").observeField("genreMoviesListParameters", "genreMoviesListParametersHandler")
 
   initializeVideoPlayer()
   m.screensHistory = []
   m.homeScreen.setFocus(true)
   m.uriFetcher = createObject("roSGNode", "UriFetcher")
 
-  m.UriHandler = createObject("roSGNode", "UriHandler")
-  m.UriHandler.observeField("content", "onContentChanged")
-  ' makeRequest({ uri: configUrl })
-  m.config = { baseUrl: "https://run.mocky.io/v3/a4803a81-dcb6-4d5c-a353-994916449a5c" }
+  m.global.addFields({ uriHandler: createObject("roSGNode", "UriHandler") })
+
+  m.config = { baseUrl: "https://run.mocky.io/v3/d819f04a-9c35-438b-89ee-7d47357ea214" }
   makeRequest({ url: m.config.baseUrl })
 end function
+
+sub genreMoviesListParametersHandler(event)
+  genreMoviesListParameters = event.getData()
+  makeRequest(genreMoviesListParameters)
+end sub
 
 function showScreen(screen)
   m.top.focusedChild.visible = false
@@ -61,77 +66,49 @@ function handleMovies(movies)
   m.movieListScreen.content = movies
 end function
 
-function saveEndpointsList(sectionsList)
-  m.movieDB = {}
+function saveEndpointsList(config)
+  movieDB = config.movieDB
+  endpointsList = {}
 
-  for each sectionName in sectionsList.keys()
-    section = sectionsList[sectionName]
+  for each sectionName in movieDB.keys()
+    section = movieDB[sectionName]
     for each endpointName in section.keys()
-      m.movieDB[endpointName] = section[endpointName]
+      endpointsList[endpointName] = section[endpointName]
     end for
   end for
+
+  m.global.addFields({ movieDB: { baseURL: config.baseURL, APIKey: config.APIKey, endpointsList: endpointsList } })
 end function
 
 function handleConfig(config)
-  m.global.addFields({ movieDB: { baseURL: config.baseURL, APIKey: config.APIKey } })
+  saveEndpointsList(config)
   movieDB = config.movieDB
   dummyVideosList = config.dummyVideosList
-  saveEndpointsList(movieDB)
 
   m.homeScreen.callFunc("setHeaderListContent", movieDB.categoriesList)
   m.detailsScreen.callFunc("setDetailsContent", movieDB.movieMedia)
   m.movieListScreen.callFunc("updateDummyVideos", dummyVideosList)
   m.personScreen.callFunc("updateDummyVideos", dummyVideosList)
-  m.homeScreen.findNode("moviesListsOfDifferentGenres").callFunc("updateDummyVideos", dummyVideosList)
+  m.homeScreen.findNode("genresMoviesList").callFunc("updateDummyVideos", dummyVideosList)
 
-  genresListUrl = getMovieDBUrl(m.movieDB.genresList.endpoint)
+  genresListUrl = getMovieDBUrl(m.global.movieDB.endpointsList.genresList.endpoint)
   makeRequest({ url: genresListurl })
 end function
 
-sub onContentChanged()
-  ' m.top.numBadRequests = m.UriHandler.numBadRequests
-  m.homeScreen.findNode("moviesListsOfDifferentGenres").content = m.UriHandler.content
-end sub
-
-function observeResponseFromNewUriHandler(obj)
-  response = obj.getData()
-  m.parseResponseTask = createObject("roSGNode", "parseResponseTask")
-  m.parseResponseTask.observeField("error", "parseJsonErrorHandler")
-  m.parseResponseTask.observeField("parsedResponse", "parsedResponseHandler")
-  m.parseResponseTask.response = response
-  m.parseResponseTask.control = "run"
-end function
-
 function handleGenresList(genresList)
-  if m.homeScreen.visible
-    numRows = genresList.count()
-
-    m.homeScreen.findNode("moviesListsOfDifferentGenres").genresList = genresList
-
-    for i = 0 to numRows - 1
-      genre = genresList[i]
-      searchParamsList = []
-      searchParamsList = m.movieDB.genreMoviesList.searchParamsList
-      searchParamsList.addReplace("with_genres", genre.id)
-      genreMoviesListUrl = getMovieDBUrl(m.movieDB.genreMoviesList.endpoint, searchParamsList)
-      makeRequest({ url: genreMoviesListUrl, num: i })
-    end for
-  else if m.detailsScreen.visible
-    content = m.detailsScreen.content
-    content.genres = genresList
-    m.detailsScreen.content = content
-  end if
+  genresMoviesList = m.homeScreen.findNode("genresMoviesList")
+  genresMoviesList.genresList = genresList
 end function
 
 function handleCast(cast)
   showNewScreenWithSavingCurrent(m.peopleScreen.id)
-  castContent = { title: "Cast of " + m.movieTitle, peopleList: cast }
+  castContent = { title: substitute("Cast of {0}", m.movieTitle), peopleList: cast }
   m.peopleScreen.content = castContent
 end function
 
 function handleReviews(reviews)
   showNewScreenWithSavingCurrent(m.reviewsScreen.id)
-  reviewsContent = { title: "Reviews of " + m.movieTitle, reviews: reviews }
+  reviewsContent = { title: substitute("Reviews of {0}", m.movieTitle), reviews: reviews }
   m.reviewsScreen.content = reviewsContent
 end function
 
@@ -155,8 +132,8 @@ function handleMovieGenresList(genresList)
   m.detailsScreen.content = content
 end function
 
-sub handleGenreMoviesList(moviesList)
-  m.homeScreen.findNode("moviesListsOfDifferentGenres").specificGenreMoviesList = moviesList
+sub handleGenreMoviesList(row as object)
+  m.homeScreen.findNode("genresMoviesList").specificGenreMoviesList = row
 end sub
 
 sub handleData(data)
@@ -168,25 +145,25 @@ sub handleData(data)
   ' add timer to brightscript and check why first 20 lists of movies by different genres load and only then popular by week screen opens
   if isMatch(m.config.baseUrl, url)
     handleConfig(content)
-  else if isMatch(m.movieDB.genresList.endpoint, url)
+  else if isMatch(m.global.movieDB.endpointsList.genresList.endpoint, url)
     handleGenresList(genresList)
-  else if isMatch(m.movieDB.reviewsList.endpoint.split("/")[3], url)
+  else if isMatch(m.global.movieDB.endpointsList.reviewsList.endpoint.split("/")[3], url)
     handleReviews(results)
-  else if isMatch(m.movieDB.popularActorsList.endpoint, url)
+  else if isMatch(m.global.movieDB.endpointsList.popularActorsList.endpoint, url)
     handlePopularActors(results)
-  else if isMatch(m.movieDB.knownFor.searchParamsList.keys()[1], url)
+  else if isMatch(m.global.movieDB.endpointsList.knownFor.searchParamsList.keys()[1], url)
     handleKnownForMovies(results)
-  else if isMatch(m.movieDB.cast.endpoint.split("/")[3], url)
+  else if isMatch(m.global.movieDB.endpointsList.cast.endpoint.split("/")[3], url)
     handleCast(content.cast)
-  else if isMatch(m.movieDB.person.endpoint, url)
+  else if isMatch(m.global.movieDB.endpointsList.person.endpoint, url)
     handlePersonDetails(content)
-  else if isMatch(m.movieDB.search.endpoint, url)
+  else if isMatch(m.global.movieDB.endpointsList.search.endpoint, url)
     handleMovies(results)
-  else if isMatch(m.movieDB.genreMoviesList.searchParamsList.keys()[1], url)
-    handleGenreMoviesList(results)
-  else if isMatch(m.movieDB.home.endpoint, url)
+  else if isMatch(m.global.movieDB.endpointsList.genreMoviesList.searchParamsList.keys()[1], url)
+    handleGenreMoviesList({ num: data.num, moviesList: results })
+  else if isMatch(m.global.movieDB.endpointsList.home.endpoint, url)
     handleMovies(results)
-  else if isMatch(m.movieDB.movie.endpoint, url)
+  else if isMatch(m.global.movieDB.endpointsList.movie.endpoint, url)
     handleMovieGenresList(genresList)
   end if
 end sub
@@ -235,22 +212,22 @@ end sub
 
 sub fetchKnownFor(obj)
   personId = obj.getData()
-  searchParamsList = m.movieDB.knownFor.searchParamsList
-  searchParamsList.addReplace("with_cast", personId)
-
-  knownForUrl = getMovieDBUrl(m.movieDB.knownFor.endpoint, searchParamsList)
+  searchParamsList = m.global.movieDB.endpointsList.knownFor.searchParamsList
+  key = searchParamsList.keys()[1]
+  searchParamsList.addReplace(key, personId)
+  knownForUrl = getMovieDBUrl(m.global.movieDB.endpointsList.knownFor.endpoint, searchParamsList)
   makeRequest({ url: knownForUrl })
 end sub
 
 sub fetchPersonDetails(obj)
   personId = obj.getData()
-  personUrl = getMovieDBUrl(m.movieDB.person.endpoint, personId)
+  personUrl = getMovieDBUrl(m.global.movieDB.endpointsList.person.endpoint, personId)
   makeRequest({ url: personUrl })
 end sub
 
 sub fetchMovieGenres(obj)
   m.movieId = obj.getData()
-  movieGenresListUrl = getMovieDBUrl(m.movieDB.movie.endpoint, m.movieId)
+  movieGenresListUrl = getMovieDBUrl(m.global.movieDB.endpointsList.movie.endpoint, m.movieId)
   makeRequest({ url: movieGenresListUrl })
 end sub
 
@@ -278,13 +255,6 @@ function handleUriResult(msg as object)
   else
     showErrorDialog("Unknown message type - " + messageType + ".")
   end if
-end function
-
-function makeRequest(parameters as object)
-  context = createObject("roSGNode", "Node")
-  context.addFields({ parameters: parameters, response: {} })
-  context.observeField("response", "observeResponseFromNewUriHandler")
-  m.uriHandler.request = { context: context }
 end function
 
 function onKeyEvent(key, press) as boolean

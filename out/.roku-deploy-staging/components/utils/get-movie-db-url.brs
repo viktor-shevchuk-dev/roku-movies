@@ -21,7 +21,8 @@ function getMovieDBUrl(endpoint as string, searchParams = invalid as dynamic) as
   url.push("&page=1")
 
   for each key in params.keys()
-    url.push("&" + key + "=" + params[key].toStr())
+    searchParam = substitute("&{0}={1}", key, params[key].toStr())
+    url.push(searchParam)
   end for
 
   return url.join("")
