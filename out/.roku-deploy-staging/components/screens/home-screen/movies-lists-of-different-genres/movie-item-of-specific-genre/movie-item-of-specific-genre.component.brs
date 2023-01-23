@@ -1,6 +1,6 @@
 sub itemContentChanged()
   poster = m.top.findNode("poster")
-  animation = m.top.findNode("floatAnimation")
+  animation = m.top.findNode("animation")
 
   if m.top.itemContent.loading
     animation.control = "start"

@@ -12,21 +12,24 @@
     <Rectangle color="0x696969FF"
       width="220"
       height="330"
-      id="skeleton"
-      translation="[0, 0]"/>
+      id="skeleton">
+      <Rectangle color="0xFFFFFF"
+        width="35"
+        height="330"
+        id="loader" />
+    </Rectangle>
 
     <Poster id="poster"
       width="220"
       height="330"
-      visible="false"
-      translation="[0, 0]"/>
-    <Animation id="floatAnimation"
+      visible="false" />
+    <Animation id="animation"
       duration="1"
       repeat="true"
-      easeFunction="linear">
-      <FloatFieldInterpolator key="[ 0.0, 0.5, 1.0 ]"
-        keyValue="[ 1.0, 0.0, 1.0 ]"
-        fieldToInterp="skeleton.opacity" />
+      easeFunction="outCubic">
+      <Vector2DFieldInterpolator key="[ 0.0, 1.0 ]"
+        keyValue="[ [0, 0], [185, 0] ]"
+        fieldToInterp="loader.translation" />
     </Animation>
   </children>
 </component>
