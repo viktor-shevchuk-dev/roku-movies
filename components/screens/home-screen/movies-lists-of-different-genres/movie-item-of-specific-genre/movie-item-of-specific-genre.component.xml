@@ -9,14 +9,14 @@
   <script type="text/brightscript"
     uri="./movie-item-of-specific-genre.component.brs" />
   <children>
-    <Rectangle color="0x696969FF"
+    <Rectangle id="skeleton"
       width="220"
       height="330"
-      id="skeleton">
-      <Rectangle color="0xFFFFFF"
-        width="35"
+      color="0xFFFFFF">
+      <Rectangle color="0x696969FF"
+        width="220"
         height="330"
-        id="loader" />
+        id="loader"/>
     </Rectangle>
 
     <Poster id="poster"
@@ -24,12 +24,12 @@
       height="330"
       visible="false" />
     <Animation id="animation"
-      duration="1"
+      duration="1.4"
       repeat="true"
-      easeFunction="outCubic">
-      <Vector2DFieldInterpolator key="[ 0.0, 1.0 ]"
-        keyValue="[ [0, 0], [185, 0] ]"
-        fieldToInterp="loader.translation" />
+      easeFunction="linear">
+      <FloatFieldInterpolator key="[0.0, 0.5, 1.0]"
+        keyValue="[ 1.0, 0.0, 1.0 ]"
+        fieldToInterp="loader.opacity" />
     </Animation>
   </children>
 </component>
