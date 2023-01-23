@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component name="SpecificGenreMovieContent" extends="ContentNode">
+<component name="SpecificGenreMovieContent"
+  extends="ContentNode">
   <interface>
-    <field id="posterUrl" type="string"/>
-    <field id="backdropUrl" type="string"/>
-    <field id="loadingBitmapUri" type="string"/>
-    <field id="overview" type="string"/>
-    <field id="voteAverage" type="float"/>
+    <field id="uri"
+      type="string"/>
+    <field id="backdropUrl"
+      type="string"/>
+    <field id="loadingBitmapUri"
+      type="string"/>
+    <field id="overview"
+      type="string"/>
+    <field id="voteAverage"
+      type="float"/>
+    <field id="loading"
+      type="boolean" />
   </interface>
 </component>

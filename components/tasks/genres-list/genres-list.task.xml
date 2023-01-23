@@ -6,5 +6,7 @@
   <interface>
     <field id="genresList"
       type="assocarray" />
+    <field id="genresRowsList"
+      type="array" />
   </interface>
 </component>

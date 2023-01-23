@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component name="MovieItemOfSpecificGenre"
-  extends="Poster">
+  extends="Group">
   <interface>
     <field id="itemContent"
       type="node"
@@ -8,5 +8,26 @@
   </interface>
   <script type="text/brightscript"
     uri="./movie-item-of-specific-genre.component.brs" />
+  <children>
+    <Rectangle color="0x696969FF"
+      width="220"
+      height="330"
+      id="skeleton"
+      translation="[0, 0]"/>
+
+    <Poster id="poster"
+      width="220"
+      height="330"
+      visible="false"
+      translation="[0, 0]"/>
+    <Animation id="floatAnimation"
+      duration="1"
+      repeat="true"
+      easeFunction="linear">
+      <FloatFieldInterpolator key="[ 0.0, 0.5, 1.0 ]"
+        keyValue="[ 1.0, 0.0, 1.0 ]"
+        fieldToInterp="skeleton.opacity" />
+    </Animation>
+  </children>
 </component>
  

@@ -2,7 +2,8 @@
 ' I may load list of a genre one by one concurrently, not waiting for previous to load to request the next. Or even load the first two and when focusing the row - loading the next one and so forth
 ' check every and debug function what it does and potentially maybe some values are useless.
 
-function init()
+sub init()
+
   m.homeScreen = m.top.findNode("homeScreen")
   m.movieListScreen = m.top.findNode("movieListScreen")
   m.searchForMoviesScreen = m.top.findNode("searchForMoviesScreen")
@@ -39,23 +40,24 @@ function init()
     baseUrl: "https://run.mocky.io/v3/d819f04a-9c35-438b-89ee-7d47357ea214"
   }
   makeRequest({ url: m.config.baseUrl })
-end function
 
-function observeResponseFromNewUriHandler(obj)
+end sub
+
+sub observeResponseFromNewUriHandler(obj)
   response = obj.getData()
   parseResponseTask = createObject("roSGNode", "parseResponseTask")
   parseResponseTask.observeField("error", "parseJsonErrorHandler")
   parseResponseTask.observeField("parsedResponse", "parsedResponseHandler")
   parseResponseTask.response = response
   parseResponseTask.control = "run"
-end function
+end sub
 
-function makeRequest(parameters as object)
+sub makeRequest(parameters as object)
   context = createObject("roSGNode", "Node")
   context.addFields({ parameters: parameters, response: {} })
   context.observeField("response", "observeResponseFromNewUriHandler")
   m.uriHandler.request = { context: context }
-end function
+end sub
 
 sub genreMoviesListParametersHandler(event)
   genreMoviesListParameters = event.getData()
@@ -84,9 +86,8 @@ function handleMovies(movies)
   m.movieListScreen.content = movies
 end function
 
-function saveEndpointsList(config)
+function handleConfig(config)
   movieDB = config.movieDB
-
   endpointsList = {}
 
   for each sectionName in movieDB.keys()
@@ -104,11 +105,6 @@ function saveEndpointsList(config)
     },
     dummyVideosList: config.dummyVideosList
   })
-end function
-
-function handleConfig(config)
-  saveEndpointsList(config)
-  movieDB = config.movieDB
   m.homeScreen.callFunc("setHeaderListContent", movieDB.categoriesList)
   m.detailsScreen.callFunc("setDetailsContent", movieDB.movieMedia)
   makeRequest({
@@ -117,6 +113,8 @@ function handleConfig(config)
 end function
 
 function handleGenresList(genresList)
+  ' instead of finding Node - just make passing the data between hierarchy components
+  ' in json transfer apiKey and baseUrl - into movieDB object
   genresMoviesList = m.homeScreen.findNode("genresMoviesList")
   genresMoviesList.genresList = genresList
 end function
