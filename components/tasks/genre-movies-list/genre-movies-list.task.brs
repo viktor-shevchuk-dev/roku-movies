@@ -1,6 +1,5 @@
 sub init() as void
   m.top.functionName = "render"
-
 end sub
 
 sub render() as void
@@ -39,6 +38,12 @@ sub render() as void
     end for
 
     parent.replaceChildren(list, 0)
+    rowList = parent.getParent().getParent()
+    rowItemFocused = rowList.rowItemFocused
+
+    if rowItemFocused.count()
+      rowList.jumpToRowItem = rowItemFocused
+    end if
   end if
 end sub
 

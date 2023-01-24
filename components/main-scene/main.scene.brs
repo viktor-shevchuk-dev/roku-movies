@@ -3,7 +3,7 @@
 ' check every and debug function what it does and potentially maybe some values are useless.
 
 sub init()
-
+  ' m.top.backgroundURI = "pkg:/images/Roku-Safe-Zones-FHD.png"
   m.homeScreen = m.top.findNode("homeScreen")
   m.movieListScreen = m.top.findNode("movieListScreen")
   m.searchForMoviesScreen = m.top.findNode("searchForMoviesScreen")
