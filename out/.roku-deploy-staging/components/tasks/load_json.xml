@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<component name="load_json" extends="task">
-  <script type="text/brightscript" uri="load_json.brs" />
-<interface>
-  <field id="url" type="string" />  
-  <field id="response" type="string" />
-  <field id="error" type="string" />
-</interface>
-</component>

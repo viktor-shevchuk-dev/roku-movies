@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component
+  name="VoteAverage"
+  extends="LayoutGroup"
+>
+  <script type="text/brightscript" uri="../utils/set-font-size.brs"/>
+  <script
+    type="text/brightscript"
+    uri="./vote-average.component.brs"
+  />
+  <interface>
+    <field
+      id="percentage"
+      type="integer"
+      onChange="onPercentageChange"
+    />
+    <field
+      id="height"
+      type="integer"
+    />
+  </interface>
+  <children>
+    <Rectangle
+      id="scoreContainer"
+      color="0x696969FF"
+      width="100"
+      opacity="0.9"
+    >
+      <Rectangle
+        id="scorePercentage"
+        color="0x3CB371FF"
+      >
+        <Label
+          id="scoreValue"
+          horizAlign="center"
+          width="100"
+          vertAlign="center"
+          opacity="1"
+        />
+      </Rectangle>
+    </Rectangle>
+    <Label
+      id="userScore"
+      text="User Score"
+      wrap="true"
+      vertAlign="center"
+      width="100"
+      font="font:MediumBoldSystemFont"
+      lineSpacing="2"
+    />
+  </children>
+</component>

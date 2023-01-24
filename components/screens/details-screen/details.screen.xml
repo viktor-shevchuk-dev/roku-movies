@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component name="DetailsScreen" extends="Group">
+  <interface>
+    <field
+      id="content"
+      type="assocarray"
+      alwaysnotify="true"
+      onChange="onContentChange"
+    />
+    <field
+      id="playButtonPressed"
+      type="int"
+      alwaysnotify="true"
+      alias="playButton.buttonSelected"
+    />
+    <field id="fetchMovieGenres" type="int"/>
+    <field id="setMovieTitle" type="string"/>
+    <field
+      id="additionalInformationSelected"
+      type="assocArray"
+      alias="additionalInformationList.rowItemSelected"
+    />
+    <function name="setDetailsContent"/>
+  </interface>
+  <script type="text/brightscript" uri="../../utils/adjust-scrollable-text.brs"/>
+  <script type="text/brightscript" uri="./details.screen.brs"/>
+  <children>
+    <Poster id="thumbnail" width="500" height="750" translation="[100, 100]"/>
+    <Button id="playButton" text="PLAY" translation="[100, 880]"/>
+    <Label
+      id="title"
+      font="font:LargeBoldSystemFont"
+      color="0xFFFFFF"
+      translation="[700, 101]"
+    />
+    <Group translation="[700, 166]">
+      <Rectangle id="textRectangle" width="1108" height="320" color="0x101010C0">
+        <ScrollableText
+          id="description"
+          translation="[ 20, 20 ]"
+          color="0x808080FF"
+        />
+        <Rectangle id="instructionbar" color="0x222222FF">
+          <Rectangle id="upDownnInstruct" color="0x10101000">
+            <Poster
+              translation="[ 0, 10 ]"
+              uri="pkg:/images/dpad_updn_hd.png"
+            />
+            <Label
+              width="300"
+              translation="[ 90, 10 ]"
+              text="Scroll Up/Down"
+              horizAlign="right"
+            />
+          </Rectangle>
+        </Rectangle>
+      </Rectangle>
+    </Group>
+    <Label
+      font="font:LargeBoldSystemFont"
+      color="0xFFFFFF"
+      width="200"
+      text="Genres"
+      translation="[700, 620]"
+    />
+    <LayoutGroup
+      id="genresList"
+      translation="[700, 690]"
+      itemSpacings="[20]"
+      layoutDirection="horiz"
+    />
+    <Label
+      font="font:LargeBoldSystemFont"
+      color="0xFFFFFF"
+      wrap="true"
+      width="800"
+      text="Additional Information"
+      translation="[700, 800]"
+    />
+    <RowList
+      id="additionalInformationList"
+      translation="[700, 890]"
+      itemComponentName="AdditionalInformationListItem"
+      rowItemSize="[[296, 90], [296, 90], [296, 90]]"
+      rowItemSpacing="[[20, 0]]"
+    />
+  </children>
+</component>

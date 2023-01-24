@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="HeaderListItem" extends="Group">
+<interface> 
+  <field id="itemContent" type="node" onChange="itemContentChanged" /> 
+</interface>
+<script type="text/brightscript" uri="./header-list-item.component.brs" />
+<children> 
+    <Label
+      id="itemText"
+      font="font:MediumSystemFont"
+      translation="[0, 0]"
+      horizAlign="center"
+      vertAlign="center"
+      width="320"
+      height="64"
+    />  
+ </children>
+</component>

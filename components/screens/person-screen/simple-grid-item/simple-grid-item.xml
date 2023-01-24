@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component name="SimpleGridItem" extends="Group">
+  <interface>
+    <field id="itemContent" type="node" onChange="itemContentChanged"/>
+  </interface>
+  <script type="text/brightscript" uri="../../../utils/set-font-size.brs"/>
+  <script type="text/brightscript" uri="./simple-grid-item.brs"/>
+  <children>
+    <Poster id="itemPoster" width="200" height="300" translation="[0, 0]"/>
+    <Label
+      id="itemTitle"
+      vertAlign="bottom"
+      horizAlign="center"
+      width="200"
+      wrap="true"
+      translation="[0, 302]"
+    />
+  </children>
+</component>

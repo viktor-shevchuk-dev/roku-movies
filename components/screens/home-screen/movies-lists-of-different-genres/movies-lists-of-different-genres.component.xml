@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="genresMoviesList"
+  extends="RowList">
+  <script type="text/brightscript"
+    uri="../../../utils/is-match.brs" />
+  <script type="text/brightscript"
+    uri="../../../utils/get-movie-db-url.brs" />
+  <script type="text/brightscript"
+    uri="./movies-lists-of-different-genres.component.brs" />
+  <interface>
+    <field id="genreMoviesListParameters"
+      type="assocarray" />
+    <field id="genresList"
+      type="array"
+      onChange="genresListHandler"/>
+    <field id="specificGenreMoviesList"
+      type="assocarray"
+      onChange="onSpecificGenreMoviesListChanged" />
+  </interface>
+</component>

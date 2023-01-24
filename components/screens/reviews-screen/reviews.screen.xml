@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="ReviewsScreen" extends="Group" initialFocus="homeGrid">
+	<script type="text/brightscript" uri="../../utils/set-font-size.brs" />
+	<script type="text/brightscript" uri="../../utils/center-horizontally.brs" />
+	<script type="text/brightscript" uri="./reviews.screen.brs" />
+	<interface>  
+		<field id="content" type="assocarray" onChange="onReviewsChanged" />
+	</interface>
+	<children>
+		<Label
+      id="heading"
+      text=""
+      translation="[0, 60]"
+      font="font:MediumBoldSystemFont"
+    />
+		<RowList
+      id="reviewsList"
+      translation="[ 100, 100 ]"
+      itemComponentName="ReviewsListItem"
+      itemSize="[ 1720, 860 ]"
+      rowItemSize="[ [1620, 860] ]"
+      itemSpacing="[ 0, 40 ]"
+      showRowLabel="[ true ]"
+      drawFocusFeedback="false"
+      vertFocusAnimationStyle="fixedFocusWrap"
+      rowFocusAnimationStyle="fixedFocusWrap"
+    />
+	</children>
+</component>
