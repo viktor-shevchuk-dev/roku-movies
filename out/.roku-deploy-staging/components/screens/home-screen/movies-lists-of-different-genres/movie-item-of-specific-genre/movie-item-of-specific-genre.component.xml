@@ -24,9 +24,9 @@
       height="330"
       visible="false" />
     <Animation id="animation"
-      duration="1.4"
+      duration="1.5"
       repeat="true"
-      easeFunction="linear">
+      easeFunction="inQuartic">
       <FloatFieldInterpolator key="[0.0, 0.5, 1.0]"
         keyValue="[ 1.0, 0.0, 1.0 ]"
         fieldToInterp="loader.opacity" />

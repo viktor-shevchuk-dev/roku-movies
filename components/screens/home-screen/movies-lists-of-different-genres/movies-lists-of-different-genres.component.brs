@@ -48,7 +48,7 @@ sub onSpecificGenreMoviesListChanged(obj)
   moviesList = specificGenreMoviesList.moviesList
   num = specificGenreMoviesList.num
   genreMoviesListTask = createObject("roSGNode", "GenreMoviesListTask")
-  genreMoviesListTask .genreMoviesList = {
+  genreMoviesListTask.genreMoviesList = {
     parent: m.top.content.getChild(num),
     moviesList: moviesList,
   }

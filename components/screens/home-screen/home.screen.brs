@@ -84,6 +84,7 @@ end sub
 
 sub movieFocusHandler(obj)
   focusedMovie = getItemFromRowList(m.genresMoviesList, "focus")
+  if focusedMovie.loading then return
 
   if m.currentBgImg.uri <> "" then m.previousBgImg.uri = m.currentBgImg.uri
 

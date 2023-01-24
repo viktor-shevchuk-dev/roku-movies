@@ -84,6 +84,7 @@ end sub
 
 sub movieFocusHandler(obj)
   focusedMovie = getItemFromRowList(m.genresMoviesList, "focus")
+  if focusedMovie.loading then return
 
   if m.currentBgImg.uri <> "" then m.previousBgImg.uri = m.currentBgImg.uri
 
@@ -93,5 +94,6 @@ sub movieFocusHandler(obj)
   setFontSize(m.title, 56)
   setFontSize(m.description, 38)
   scorePercentage = focusedMovie.voteAverage * 10
+STOP
   showScore(scorePercentage)
 end sub
