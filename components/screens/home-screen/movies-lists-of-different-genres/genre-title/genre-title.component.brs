@@ -1,6 +1,5 @@
 sub genreTitleHandler(event)
   genreTitle = event.getData()
-
   animation = m.top.findNode("animation")
 
   if genreTitle.loading
