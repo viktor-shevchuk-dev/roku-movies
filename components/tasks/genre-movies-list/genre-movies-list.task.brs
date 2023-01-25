@@ -6,20 +6,18 @@ sub render() as void
   event = m.top.genreMoviesList
   parent = event.parent
   moviesList = event.moviesList
+  list = []
 
   if type(moviesList) = "roAssociativeArray"
-    list = []
-
     for i = 0 to 19
       item = createObject("roSGNode", "SpecificGenreMovieContent")
       item.loading = moviesList.loading
+      item.id = i
       list.push(item)
     end for
 
     parent.appendChildren(list)
   else if type(moviesList) = "roArray"
-    list = []
-
     for i = 0 to moviesList.count() - 1
       movie = moviesList[i]
       item = createObject("roSGNode", "SpecificGenreMovieContent")
@@ -38,12 +36,6 @@ sub render() as void
     end for
 
     parent.replaceChildren(list, 0)
-    rowList = parent.getParent().getParent()
-    rowItemFocused = rowList.rowItemFocused
-
-    if rowItemFocused.count()
-      rowList.jumpToRowItem = rowItemFocused
-    end if
   end if
 end sub
 

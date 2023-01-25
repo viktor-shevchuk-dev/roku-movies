@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component name="SpecificGenreMovieContent"
-  extends="ContentNode">
+  extends="Skeleton">
   <interface>
     <field id="uri"
       type="string"/>
@@ -12,7 +12,5 @@
       type="string"/>
     <field id="voteAverage"
       type="float"/>
-    <field id="loading"
-      type="boolean" />
   </interface>
 </component>

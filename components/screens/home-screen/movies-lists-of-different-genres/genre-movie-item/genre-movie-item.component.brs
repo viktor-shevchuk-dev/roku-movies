@@ -1,4 +1,4 @@
-sub itemContentChanged()
+sub itemContentChangeHandler()
   animation = m.top.findNode("animation")
 
   if m.top.itemContent.loading
@@ -10,5 +10,10 @@ sub itemContentChanged()
     animation.control = "stop"
     skeleton.visible = false
     poster.visible = true
+
+    if m.top.itemHasFocus
+      rowList = m.top.getParent().getParent().getParent()
+      rowList.jumpToRowItem = rowList.rowItemFocused
+    end if
   end if
 end sub

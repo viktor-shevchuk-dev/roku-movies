@@ -65,8 +65,9 @@
                     height="0"
                     maxLines="3" />
                 <GenresMoviesList id="genresMoviesList"
+                    rowTitleComponentName="GenreTitle"
                     translation="[0, 518]"
-                    itemComponentName="MovieItemOfSpecificGenre"
+                    itemComponentName="GenreMovieItem"
                     itemSize="[1920, 330]"
                     itemSpacing="[0, 80]"
                     rowItemSize="[[220, 330]]"

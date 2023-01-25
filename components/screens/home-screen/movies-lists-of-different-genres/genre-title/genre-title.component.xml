@@ -1,28 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component name="MovieItemOfSpecificGenre"
+<component name="GenreTitle"
   extends="Group">
   <interface>
-    <field id="itemContent"
+    <field id="content"
       type="node"
-      onChange="itemContentChanged"/>
+      onChange="genreTitleHandler" />
   </interface>
   <script type="text/brightscript"
-    uri="./movie-item-of-specific-genre.component.brs" />
+    uri="./genre-title.component.brs" />
   <children>
     <Rectangle id="skeleton"
       width="220"
-      height="330"
+      height="28"
       color="0xFFFFFF">
       <Rectangle color="0x696969FF"
         width="220"
-        height="330"
+        height="28"
         id="loader"/>
     </Rectangle>
 
-    <Poster id="poster"
-      width="220"
-      height="330"
-      visible="false" />
     <Animation id="animation"
       duration="1.5"
       repeat="true"
@@ -31,6 +27,9 @@
         keyValue="[ 1.0, 0.0, 1.0 ]"
         fieldToInterp="loader.opacity" />
     </Animation>
+
+    <Label id="label"
+      visible="false"/>
   </children>
 </component>
  

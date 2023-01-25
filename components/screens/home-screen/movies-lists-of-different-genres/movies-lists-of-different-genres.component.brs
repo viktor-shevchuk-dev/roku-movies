@@ -4,7 +4,6 @@
 sub handleGenresRowsList(event)
   genresRowsList = event.getData()
 
-
   for each genreRow in genresRowsList
     genreMoviesListTask = createObject("roSGNode", "GenreMoviesListTask")
     genreMoviesListTask.genreMoviesList = {
@@ -19,9 +18,7 @@ sub genresListHandler(event)
   genresList = event.getData()
   numRows = genresList.count()
   m.top.numRows = numRows
-  m.top.content = createObject("roSGNode", "ContentNode")
   content = m.top.content
-  content.id = "genresMoviesListContent"
   genresListTask = createObject("roSGNode", "GenresListTask")
   genresListTask.observeField("genresRowsList", "handleGenresRowsList")
   genresListTask.genresList = {

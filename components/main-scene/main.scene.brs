@@ -86,6 +86,22 @@ function handleMovies(movies)
   m.movieListScreen.content = movies
 end function
 
+sub loadGenresList()
+  makeRequest({
+    url: getMovieDBUrl(m.global.movieDB.endpointsList.genresList.endpoint)
+  })
+  genresMoviesList = m.homeScreen.findNode("genresMoviesList")
+  genresMoviesList.numRows = 18
+  genresMoviesList.content = createObject("roSGNode", "ContentNode")
+  genresMoviesList.content.id = "genresMoviesListContent"
+  genresListTask = createObject("roSGNode", "GenresListTask")
+  genresListTask.genresList = {
+    genresList: { loading: true }
+    parent: genresMoviesList.content
+  }
+  genresListTask.control = "run"
+end sub
+
 function handleConfig(config)
   movieDB = config.movieDB
   endpointsList = {}
@@ -107,9 +123,7 @@ function handleConfig(config)
   })
   m.homeScreen.callFunc("setHeaderListContent", movieDB.categoriesList)
   m.detailsScreen.callFunc("setDetailsContent", movieDB.movieMedia)
-  makeRequest({
-    url: getMovieDBUrl(m.global.movieDB.endpointsList.genresList.endpoint)
-  })
+  loadGenresList()
 end function
 
 function handleGenresList(genresList)
