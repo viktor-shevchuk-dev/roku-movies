@@ -1,5 +1,6 @@
 sub init() as void
   m.top.functionName = "render"
+  ' made loading line on visual top of the screen
 end sub
 
 sub render() as void
@@ -25,6 +26,7 @@ sub render() as void
       row.loading = false
       list.push(row)
     end for
+
     parent.replaceChildren(list, 0)
     m.top.genresRowsList = parent.getChildren(-1, 0)
   end if

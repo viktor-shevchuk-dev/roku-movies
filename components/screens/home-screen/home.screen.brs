@@ -44,6 +44,7 @@ sub searchFocusHandler()
 end sub
 
 function handleHeaderListFocusChange(key) as boolean
+
   if key = "down"
     return m.genresMoviesList.setFocus(true)
   else if key = "right"
@@ -97,7 +98,7 @@ end sub
 sub movieFocusHandler(obj)
   focusedMovie = getItemFromRowList(m.genresMoviesList, "focus")
 
-  if focusedMovie.loading then return
-
+  if focusedMovie = invalid or focusedMovie.loading then return
+  ' fix bug - when loading a list of genres and going down - a bg does not appear when movie is ready
   setMovieBg(focusedMovie)
 end sub
